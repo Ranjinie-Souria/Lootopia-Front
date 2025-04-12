@@ -29,11 +29,16 @@
               {
                 "glob": "**/*",
                 "input": "public"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "assets"
               }
             ],
             "styles": [
-              "src/styles.scss",
-              "src/styles/variables.css"
+              "src/assets/styles/styles.scss",
+              "src/assets/styles/variables.css"
             ],
             "scripts": []
           },
@@ -92,8 +97,8 @@
               }
             ],
             "styles": [
-              "src/styles.scss",
-              "src/styles/variables.css"
+              "src/assets/styles/styles.scss",
+              "src/assets/styles/variables.css"
             ],
             "scripts": []
           }

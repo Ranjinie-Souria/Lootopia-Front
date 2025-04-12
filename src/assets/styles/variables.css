@@ -5,4 +5,5 @@
     --accent-color: #FFB301;
     --default-text-color: #000000;
     --default-background-gradient: linear-gradient(to bottom, #FFDBC1, #C39879);
+    --golden-background-gradient: linear-gradient(to bottom, #FFB301, #ffe3a1);
 }
