@@ -1,20 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
-
-$background-color: #FFDBC1;
-$primary-color: #4F3029;
-$secondary-color: #C39879;
-$accent-color: #FFB301;
-$default-text-color: #000000;
-$default-background-gradient: linear-gradient(to bottom, #FFDBC1, #C39879);
-
-html, body {
-  height: 100%;
-  background-color: $background-color;
-  font-family: 'Nunito', sans-serif;
-  color: $default-text-color;
+:host {
+  background-color: var(--background-color);
 }
-
 body {
+  height: 100%;
+  background-color: var(--background-color);
+  font-family: 'Nunito', sans-serif;
+  color: var(--default-text-color);
   margin: 0;
-  font-family: 'Nunito', Roboto, "Helvetica Neue", sans-serif;
 }
