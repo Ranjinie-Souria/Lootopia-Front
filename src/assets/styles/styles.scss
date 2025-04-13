@@ -1,12 +1,95 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;900&display=swap');
-
 :host {
   background-color: var(--background-color);
 }
-body {
+
+html, body {
   height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+
+body {
+  width: 100%;
   background-color: var(--background-color);
   font-family: 'Nunito', sans-serif;
   color: var(--default-text-color);
-  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow-x: hidden;
+}
+
+h1 {
+  font-size: 42px;
+  font-weight: 900;
+  color: var(--primary-color);
+  text-shadow: 2px 2px 0px white, 3px 3px 0px var(--secondary-color);
+}
+
+h2 {
+  font-size: 42px;
+  font-weight: 900;
+  color: var(--accent-color);
+  text-shadow: 2px 2px 0px var(--primary-color), 3px 3px 0px white;
+}
+
+h3 {
+  font-size: 36px;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+p {
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--default-text-color);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.starry-container {
+  background-image: url('/assets/images/starry-background.png');
+  background-repeat: repeat;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border-bottom: 2px white solid;
+  border-top: 2px white solid;
+}
+
+.card-container {
+  width: 90%;
+  border-radius: 25px;
+  border: 4px var(--secondary-color) solid;
+  background-color: var(--background-color);
+  padding: 10px;
+  margin: 3px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.card {
+  width: 70%;
+  border-radius: 25px;
+  border: 4px var(--secondary-color) solid;
+  background-color: var(--background-color);
+  padding: 15px;
+  margin: 3px;
 }

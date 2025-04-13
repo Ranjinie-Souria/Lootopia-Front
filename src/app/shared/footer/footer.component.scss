@@ -1,0 +1,19 @@
+:host {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'Nunito', sans-serif;
+    background-image: url('/assets/images/footer.png');
+    background-repeat: repeat-x;
+    background-color: #4F3029;
+    width: 100%;
+    padding: 30px;
+    box-sizing: border-box;
+  }
+  
+  p {
+    color: white;
+    font-weight: 900;
+  }
+  

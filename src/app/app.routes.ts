@@ -1,14 +1,9 @@
 import { Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-
-export const RoutePaths = {
-    HOME: 'home',
-    ABOUT: 'about',
-    CONTACT: 'contact'
-
-  };
-  
+import { HomeComponent } from './pages/home/home.component';  
+import { RoutePaths } from './shared/route-paths';
+import { LoginComponent } from './pages/login/login.component';
 
 export const routes: Routes = [
-    { path: '', component: AppComponent },
+    { path: RoutePaths.HOME, component: HomeComponent },
+    { path: RoutePaths.LOGIN, component: LoginComponent },
 ];
