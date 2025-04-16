@@ -20,6 +20,12 @@
     grid-template-rows: 1fr 1fr;
     align-items: center;
     justify-content: space-between;
+    justify-content: center;
+    flex-direction: row;
+    align-content: space-around;
+    flex-wrap: wrap;
+    gap: 1em;
+
 }
 
 .icon-container{
