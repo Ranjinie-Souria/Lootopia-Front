@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { RoutePaths } from '../../route-paths';
-import { BtnComponent } from '../btn/btn.component';
+import { RoutePaths } from '../route-paths';
+import { BtnComponent } from '../components/btn/btn.component';
 
 @Component({
   selector: 'nav-bar',

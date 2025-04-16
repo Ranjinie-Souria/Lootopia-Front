@@ -16,16 +16,11 @@
 
 .box-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    align-items: center;
-    justify-content: space-between;
+    grid-template-columns: repeat(2, auto);
     justify-content: center;
-    flex-direction: row;
-    align-content: space-around;
-    flex-wrap: wrap;
-    gap: 1em;
-
+    gap: 2rem;
+    margin: 0 auto;
+    flex-wrap: wrap;place-items: center;
 }
 
 .icon-container{
