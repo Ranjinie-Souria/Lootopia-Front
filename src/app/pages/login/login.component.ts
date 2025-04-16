@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BtnComponent } from "../../shared/components/btn/btn.component";
+import { RoutePaths } from '../../config/route-paths';
 
 @Component({
   selector: 'app-login',
@@ -9,4 +10,5 @@ import { BtnComponent } from "../../shared/components/btn/btn.component";
 })
 export class LoginComponent {
 
+  protected readonly RoutePaths = RoutePaths;
 }

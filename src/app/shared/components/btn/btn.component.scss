@@ -2,6 +2,13 @@ button {
     background-color: none;
 }
 
+a.disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+
 .default {
     font-family: 'Nunito', sans-serif;
     color: var(--default-text-color);

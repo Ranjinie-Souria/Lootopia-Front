@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RoutePaths } from '../../route-paths';
+import { RoutePaths } from '../../../config/route-paths';
 import { NgClass } from '@angular/common';
 
 @Component({
@@ -16,14 +16,15 @@ import { NgClass } from '@angular/common';
   })
 export class BtnComponent {
   @Input() class: string = 'default';
-  @Input() routerLinkPath: (typeof RoutePaths)[keyof typeof RoutePaths] = RoutePaths.HOME;
+  @Input() routerLinkPath?: (typeof RoutePaths)[keyof typeof RoutePaths];
+  @Input() disabled: boolean = false;
 
   protected getStyleClass() {
     return this.class;
   }
 
   protected getRoute() {
-    return this.routerLinkPath;
+    return ['/', this.routerLinkPath];
   }
 
 }

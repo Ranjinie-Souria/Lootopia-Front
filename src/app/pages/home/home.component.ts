@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RoutePaths } from '../../shared/route-paths';
+import { RoutePaths } from '../../config/route-paths';
 import { BtnComponent } from '../../shared/components/btn/btn.component';
 
 @Component({
@@ -10,6 +10,5 @@ import { BtnComponent } from '../../shared/components/btn/btn.component';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-  protected RoutePaths = RoutePaths;
-
+  protected readonly RoutePaths = RoutePaths;
 }
