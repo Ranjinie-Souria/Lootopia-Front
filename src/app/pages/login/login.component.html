@@ -1,1 +1,20 @@
-<p>login works!</p>
+<div class="starry-container">
+    <div class="card-container login-form">
+        <h1>Login</h1>
+        <p>Login now to continue your treasure hunting journey !</p>
+        <form>
+            <label for="email">Email : </label>
+            <input type="text" id="email" name="email" placeholder="Enter your email" required>
+            <label for="username">Password :</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password" required>
+            <lootopia-btn type="submit">Sign In</lootopia-btn>
+        </form>
+        <p>Don't have an account ?</p>
+        <div class="btn-container">
+            <lootopia-btn routerLink="/register">Register now</lootopia-btn>
+            <lootopia-btn routerLink="/forgot-password">Forgot your password ?</lootopia-btn>
+        </div>
+        <img class="lootie" src="assets/images/lootie.png" alt="Lootie having fun">
+        <img class="crown" src="assets/images/crown.png" alt="Crowns">
+    </div>
+</div>
