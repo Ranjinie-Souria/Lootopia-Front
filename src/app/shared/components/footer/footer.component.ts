@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BtnComponent } from "../../shared/btn/btn.component";
+import { BtnComponent } from '../btn/btn.component';
 
 @Component({
   selector: 'footer',

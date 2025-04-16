@@ -1,22 +1,22 @@
-import { NgClass } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { RoutePaths } from '../route-paths';
+import { RoutePaths } from '../../route-paths';
+import { NgClass } from '@angular/common';
 
 @Component({
-  selector: 'btn',
-  imports: [NgClass, RouterModule],
+  selector: 'lootopia-btn',
+  standalone: true,
+  imports: [RouterModule, NgClass],
   templateUrl: './btn.component.html',
-  styleUrl: './btn.component.scss'
-})
+  styleUrls: ['./btn.component.scss'],
+  host: {
+    '[class]': 'getStyleClass()',
+    '[attr.lootopia-btn]': 'true',
+    '[attr.routerLink]': 'getRoute()',}
+  })
 export class BtnComponent {
-  @Input() text: string = '';
   @Input() class: string = 'default';
   @Input() routerLinkPath: (typeof RoutePaths)[keyof typeof RoutePaths] = RoutePaths.HOME;
-
-  protected getText() {
-    return this.text;
-  }
 
   protected getStyleClass() {
     return this.class;

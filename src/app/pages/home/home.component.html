@@ -4,8 +4,10 @@
   <p>Discover hidden treasures, complete exciting quests, and collect valuable rewards in the world's most immersive treasure hunting experience.</p>
 
   <div class="btn-container">
-    <btn [routerLinkPath]="RoutePaths.LOGIN" [text]="'Coming back ?'"></btn>
-    <btn [routerLinkPath]="RoutePaths.REGISTER" [text]="'Joining the adventure ?'"></btn>
+    <lootopia-btn
+    [routerLinkPath]="RoutePaths.LOGIN">Coming back ?</lootopia-btn>
+    <lootopia-btn 
+    [routerLinkPath]="RoutePaths.REGISTER">Joining the adventure ?</lootopia-btn>
   </div>
 </div>
 

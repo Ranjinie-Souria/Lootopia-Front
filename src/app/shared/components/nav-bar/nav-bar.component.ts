@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { BtnComponent } from '../../shared/btn/btn.component';
-import { RoutePaths } from '../../shared/route-paths';
+import { RoutePaths } from '../../route-paths';
+import { BtnComponent } from '../btn/btn.component';
 
 @Component({
   selector: 'nav-bar',

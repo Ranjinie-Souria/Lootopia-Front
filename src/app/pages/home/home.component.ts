@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
-import { BtnComponent } from '../../shared/btn/btn.component';
 import { RoutePaths } from '../../shared/route-paths';
+import { BtnComponent } from '../../shared/components/btn/btn.component';
 
 @Component({
   selector: 'app-home',
+  standalone: true,
   imports: [BtnComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
