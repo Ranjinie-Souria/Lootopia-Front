@@ -1,5 +1,6 @@
 export const UrlMapping = {
     LOGIN : "/login",
+    LOGIN_AUTHENTICATE : "/authenticate/login",
     REGISTER : "/register",
     VALIDATE_EMAIL_FRONT_URL : "/validate-email",
     RESEND_VALIDATE_EMAIL : "/resend-validate-email",

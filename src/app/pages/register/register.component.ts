@@ -63,8 +63,8 @@ export class RegisterComponent {
 
   private handleRegistrationError(err: any): void {
     console.error(err);
-    this.form.markAllAsTouched();
-    this.registrationError = 'Error during registration. Please check the entered information. Your email address is probably already in use.';
+    this.form.markAllAsTouched(); 
+    this.registrationError = 'This email address is already in use.';
     if (err.status === 409) {
       this.registrationError = 'This username or email address is already in use.';
     } else if (err.status === 400) {

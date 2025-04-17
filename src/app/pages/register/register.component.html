@@ -5,29 +5,39 @@
         <img class="feather" src="assets/images/feather.png" alt="Ink feather quill">
         <form [formGroup]="form" (ngSubmit)="submit()">
 
-          <div *ngIf="registrationError" class="error">
-            {{ registrationError }}
-          </div>
-          
+          @if (registrationError) {
+            <div class="error">
+              {{ registrationError }}
+            </div>
+          }
+
             <label for="username">Username : </label>
             <input type="text" id="username" formControlName="username" placeholder="Enter your username" required>
             
-            <div *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="error">
+            @if (form.get('email')?.invalid && form.get('email')?.touched) {
+              <div class="error">
                 <div *ngIf="form.get('email')?.errors?.['required']">Email is required.</div>
                 <div *ngIf="form.get('email')?.errors?.['email']">Please enter a valid email address.</div>
               </div>
               <div *ngIf="form.errors?.['emailAlreadyExists'] && form.touched" class="error">
                 This email is already registered.
             </div>
+            }
+
             <label for="email">Email : </label>
             <input type="text" id="email" formControlName="email" placeholder="Enter your email" required>
           
-            <div *ngIf="form.errors?.['passwordsMismatch'] && form.touched" class="error">
+            @if (form.errors?.['passwordsMismatch'] && form.touched) {
+              <div class="error">
                 Please enter the same password in both fields.
-            </div>
-            <div *ngIf="form.get('password')?.hasError('pattern') && form.get('password')?.touched" class="error">
-              Your password must be 12+ chars with at least one uppercase, lowercase, number, and special character.
-            </div>            
+              </div>
+            }
+            @if (form.get('password')?.hasError('pattern') && form.get('password')?.touched) {
+              <div class="error">
+                Your password must be 12+ chars with at least one uppercase, lowercase, number, and special character.
+              </div>    
+            }
+        
             <label for="password">Password :</label>
             <input type="password" id="password" formControlName="password" placeholder="Enter your password" required>         
             <label for="confirm-password">Confirm Password :</label>

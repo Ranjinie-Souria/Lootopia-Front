@@ -30,3 +30,10 @@
 .nav {
     margin: 3px;
 }
+
+.profile-picture {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}

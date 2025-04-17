@@ -3,13 +3,29 @@
       Lootopia
     </lootopia-btn>
   </div>
-  
+
   <div class="nav">
+
+  @if (!isLoggedIn) {
     <lootopia-btn [routerLinkPath]="RoutePaths.LOGIN" class="nav-btn">
       Log In
     </lootopia-btn>
     <lootopia-btn [routerLinkPath]="RoutePaths.REGISTER" class="nav-btn">
       Register
     </lootopia-btn>
+  }
+  @else {
+    <lootopia-btn [routerLinkPath]="RoutePaths.HOME" class="nav-btn">
+      Home
+    </lootopia-btn>
+    <lootopia-btn [routerLinkPath]="RoutePaths.PROFILE" class="nav-btn">
+      My Profile
+      <img src="assets/images/lootie.png" alt="Profile Picture" class="profile-picture" />
+    </lootopia-btn>
+    <lootopia-btn (click)="logout()" class="nav-btn">
+      Log Out
+    </lootopia-btn>
+  }
+
   </div>
   
