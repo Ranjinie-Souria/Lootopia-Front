@@ -15,13 +15,23 @@
   }
   @else {
     <lootopia-btn [routerLinkPath]="RoutePaths.HOME" class="nav-btn">
-      Home
+      <i class="fas fa-plus"></i> Create
     </lootopia-btn>
+    <lootopia-btn [routerLinkPath]="RoutePaths.HOME" class="nav-btn">
+      <i class="fas fa-search"></i> Search
+    </lootopia-btn>
+    <lootopia-btn [routerLinkPath]="RoutePaths.HOME" class="nav-btn">
+      <i class="fas fa-shop"></i> Marketplace
+    </lootopia-btn>
+    <lootopia-btn [routerLinkPath]="RoutePaths.HOME" class="nav-btn">
+      <i class="fas fa-toolbox"></i> Inventory
+    </lootopia-btn>
+    <lootopia-btn class="currency"> 0 <img class="currency-pic" alt="Currency" src="assets/images/crown.png"/></lootopia-btn>
     <lootopia-btn [routerLinkPath]="RoutePaths.PROFILE" class="nav-btn">
       <img src="assets/images/lootie.png" alt="Profile Picture" class="profile-picture" />
     </lootopia-btn>
     <lootopia-btn (click)="logout()" class="nav-btn">
-      Log Out
+      <i class="fas fa-sign-out-alt"></i>
     </lootopia-btn>
   }
   </div>

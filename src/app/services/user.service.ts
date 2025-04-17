@@ -20,7 +20,6 @@ export class UserService {
     public getUser(): any | null {
       return this.userSubject.value;
     }
-    
 
     // Get all users
     getUsers(): Observable<any> {
