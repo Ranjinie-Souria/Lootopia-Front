@@ -7,6 +7,7 @@ import { RegisterSuccessComponent } from './pages/register/register-success/regi
 import { ValidateEmailComponent } from './pages/register/validate-email/validate-email.component';
 
 export const routes: Routes = [
+    { path: '', component: HomeComponent },
     { path: RoutePaths.HOME, component: HomeComponent },
     { path: RoutePaths.LOGIN, component: LoginComponent },
     { path: RoutePaths.REGISTER, component: RegisterComponent },
