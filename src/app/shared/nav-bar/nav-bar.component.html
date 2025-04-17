@@ -5,7 +5,6 @@
   </div>
 
   <div class="nav">
-
   @if (!isLoggedIn) {
     <lootopia-btn [routerLinkPath]="RoutePaths.LOGIN" class="nav-btn">
       Log In
@@ -19,13 +18,11 @@
       Home
     </lootopia-btn>
     <lootopia-btn [routerLinkPath]="RoutePaths.PROFILE" class="nav-btn">
-      My Profile
       <img src="assets/images/lootie.png" alt="Profile Picture" class="profile-picture" />
     </lootopia-btn>
     <lootopia-btn (click)="logout()" class="nav-btn">
       Log Out
     </lootopia-btn>
   }
-
   </div>
   

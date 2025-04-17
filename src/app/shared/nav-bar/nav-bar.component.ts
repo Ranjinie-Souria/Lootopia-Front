@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { RoutePaths } from '../../config/route-paths';
 import { BtnComponent } from '../components/btn/btn.component';
-import { AuthService } from '../../services/auth.service';
+import { AuthService, DecodedToken } from '../../services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -16,6 +16,8 @@ export class NavBarComponent implements OnInit {
   protected isLoggedIn = false;
   private authService = inject(AuthService)
   private readonly router = inject(Router);
+  @Input() user: DecodedToken | null = null;
+
 
   ngOnInit() {
     this.authService.isLoggedIn$.subscribe(status => {

@@ -8,7 +8,7 @@ import { AuthService } from '../../services/auth.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [BtnComponent, HomeConnectedComponent, HomeDisconnectedComponent],
+  imports: [HomeConnectedComponent, HomeDisconnectedComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })
