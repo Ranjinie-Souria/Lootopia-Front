@@ -17,7 +17,7 @@ export class RegisterSuccessComponent {
     const fromRegister = nav?.extras.state?.['fromRegister'];
 
     if (!fromRegister) {
-      this.router.navigate([RoutePaths.HOME]);
+      this.router.navigate([RoutePaths.DEFAULT]);
     }
   }
   

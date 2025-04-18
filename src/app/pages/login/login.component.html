@@ -2,12 +2,20 @@
     <div class="card-container login-form">
         <h1>Login</h1>
         <p>Login now to continue your treasure hunting journey !</p>
-        <form>
+        
+        @if(loginError) {
+            <div class="error">
+                {{ loginError }}
+            </div>
+        }
+        <form [formGroup]="form" (ngSubmit)="login()">
             <label for="email">Email : </label>
-            <input type="text" id="email" name="email" placeholder="Enter your email" required>
+            <input type="text" id="email" name="email" formControlName="email" placeholder="Enter your email" required>
             <label for="username">Password :</label>
-            <input type="password" id="password" name="password" placeholder="Enter your password" required>
-            <div class="btn-container"><lootopia-btn type="submit">Sign In</lootopia-btn></div>
+            <input type="password" id="password" name="password" formControlName="password"  placeholder="Enter your password" required>
+            <div class="btn-container">
+                <lootopia-btn [disabled]="form.invalid" (click)="login()">Sign In</lootopia-btn>
+            </div>
         </form>
         <p>Don't have an account ?</p>
         <div class="btn-container">
