@@ -21,9 +21,15 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authService.updateCurrentUser();
-    this.user = this.modelMapper.mapTokenToUserModel(this.authService.getDecodedUserToken());
-    this.userService.setUser(this.user);
+  
+    this.authService.currentUser$.subscribe((token) => {
+      if (token) {
+        this.user = this.modelMapper.mapTokenToUserModel(token);
+        this.userService.setUser(this.user);
+      }
+    });
   }
+  
 
   subscribeToUser(userId: any): void {
     this.userService.getUserById(userId).subscribe({

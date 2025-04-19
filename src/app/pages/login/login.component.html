@@ -10,9 +10,9 @@
         }
         <form [formGroup]="form" (ngSubmit)="login()">
             <label for="email">Email : </label>
-            <input type="text" id="email" name="email" formControlName="email" placeholder="Enter your email" required>
-            <label for="username">Password :</label>
-            <input type="password" id="password" name="password" formControlName="password"  placeholder="Enter your password" required>
+            <input type="text" id="email" name="email" formControlName="email" autocomplete="email" placeholder="Enter your email" required>
+            <label for="password">Password :</label>
+            <input type="password" id="password" name="password" formControlName="password" autocomplete="current-password"  placeholder="Enter your password" required>
             <div class="btn-container">
                 <lootopia-btn [disabled]="form.invalid" (click)="login()">Sign In</lootopia-btn>
             </div>
