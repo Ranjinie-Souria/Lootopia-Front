@@ -1,12 +1,12 @@
 import { Component, inject } from '@angular/core';
 import { RoutePaths } from '../../../config/route-paths';
-import { AuthService } from '../../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { UserService } from '../../../services/user.service';
+import { SponsoredCarouselComponent } from "./sponsored-carousel/sponsored-carousel.component";
 
 @Component({
   selector: 'home-connected',
-  imports: [CommonModule],
+  imports: [CommonModule, SponsoredCarouselComponent, SponsoredCarouselComponent],
   templateUrl: './home-connected.component.html',
   styleUrls: ['../home.component.scss'],
 })

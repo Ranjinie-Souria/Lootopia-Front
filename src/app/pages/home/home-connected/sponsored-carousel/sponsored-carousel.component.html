@@ -1,0 +1,33 @@
+<div class="carousel-wrapper" *ngIf="slides.length > 0">
+  
+    <div class="text-header">
+      <h4>{{ slides[currentIndex].title }}</h4>
+      {{ slides[currentIndex].description }}
+    </div>
+  
+    <div class="carousel">
+      <div class="slides" [style.transform]="'translateX(-' + currentIndex * 100 + '%)'">
+        <div class="slide" *ngFor="let slide of slides">
+          <a *ngIf="slide.linkUrl" [href]="slide.linkUrl" target="_blank">
+            <img [src]="slide.image" [alt]="slide.title" />
+          </a>
+          <ng-container *ngIf="!slide.linkUrl">
+            <img [src]="slide.image" [alt]="slide.title" />
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  
+    <div class="controls">
+      <button (click)="prevSlide()"><i class="fa-solid fa-left-long"></i></button>
+      <button (click)="nextSlide()"><i class="fa-solid fa-right-long"></i></button>
+    </div>
+  
+    <div class="dots">
+      <span *ngFor="let slide of slides; let idx = index"
+            [class.active]="idx === currentIndex"
+            (click)="goToSlide(idx)"></span>
+    </div>
+  
+  </div>
+  
