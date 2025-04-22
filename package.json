@@ -10,7 +10,6 @@
     "test": "ng test",
     "start:prod": "ng serve --configuration=production",
     "format": "prettier --write \"src/**/*.{ts,html,scss}\"",
-    "host:pm2": "pm2 start ng --name lootopia-front -- serve --host 0.0.0.0 --port 4200",
     "build:prod": "ng build --configuration=production",
     "serve:prod": "http-server dist/lootopia_front",
     "preview:prod": "npm run build:prod && npm run serve:prod"
