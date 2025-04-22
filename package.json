@@ -4,11 +4,12 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "host": "ng serve --host",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "format": "prettier --write \"src/**/*.{ts,html,scss}\"",
-    "start:pm2": "pm2 start ng --name angular-app -- serve"
+    "host:pm2": "pm2 start ng --name angular-app -- serve --host"
   },
   "private": true,
   "dependencies": {

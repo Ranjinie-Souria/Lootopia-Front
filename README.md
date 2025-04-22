@@ -140,5 +140,5 @@ npm install pm2 -g
 Pour build le projet sur le serveur de production, utilisez la commande suivante :
 
 ```bash
-npm run start:pm2
+npm run host:pm2
 ```
