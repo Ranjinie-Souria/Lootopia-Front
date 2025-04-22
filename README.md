@@ -19,6 +19,7 @@
     - [Cloner le repository](#cloner-le-repository)
     - [Lancer le projet](#lancer-le-projet)
     - [Build le projet](#build-le-projet)
+    - [Build et serve le projet sur le serveur de production](#build-et-serve-le-projet-sur-le-serveur-de-production)
 
 ## Description
 
@@ -127,3 +128,17 @@ ng build
 ```
 
 Cette commande compilera le projet et il sera accessible dans `dist/`.
+
+### Build et serve le projet sur le serveur de production
+
+Assurez vous d'avoir installé PM2 sur votre serveur de production. Vous pouvez l'installer avec la commande suivante :
+
+```bash
+npm install pm2 -g
+```
+
+Pour build le projet sur le serveur de production, utilisez la commande suivante :
+
+```bash
+npm run start:pm2
+```
