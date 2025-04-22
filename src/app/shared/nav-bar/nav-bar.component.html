@@ -1,10 +1,10 @@
 <div class="logo">
-    <lootopia-btn [routerLinkPath]="RoutePaths.HOME" class="nav-btn">
-      Lootopia
-    </lootopia-btn>
-  </div>
+  <lootopia-btn [routerLinkPath]="RoutePaths.HOME" class="nav-btn">
+    Lootopia
+  </lootopia-btn>
+</div>
 
-  <div class="nav">
+<div class="nav">
   @if (!isLoggedIn) {
     <lootopia-btn [routerLinkPath]="RoutePaths.LOGIN" class="nav-btn">
       Log In
@@ -12,8 +12,7 @@
     <lootopia-btn [routerLinkPath]="RoutePaths.REGISTER" class="nav-btn">
       Register
     </lootopia-btn>
-  }
-  @else {
+  } @else {
     <lootopia-btn [routerLinkPath]="RoutePaths.HOME" class="nav-btn">
       <i class="fas fa-plus"></i> Create
     </lootopia-btn>
@@ -26,13 +25,18 @@
     <lootopia-btn [routerLinkPath]="RoutePaths.HOME" class="nav-btn">
       <i class="fas fa-toolbox"></i> Inventory
     </lootopia-btn>
-    <lootopia-btn class="currency"> 0 <img class="currency-pic" alt="Currency" src="assets/images/crown.png"/></lootopia-btn>
+    <lootopia-btn class="currency">
+      0 <img class="currency-pic" alt="Currency" src="assets/images/crown.png"
+    /></lootopia-btn>
     <lootopia-btn [routerLinkPath]="RoutePaths.PROFILE" class="nav-btn">
-      <img src="assets/images/lootie.png" alt="Profile Picture" class="profile-picture" />
+      <img
+        src="assets/images/lootie.png"
+        alt="Profile Picture"
+        class="profile-picture"
+      />
     </lootopia-btn>
     <lootopia-btn (click)="logout()" class="nav-btn">
       <i class="fas fa-sign-out-alt"></i>
     </lootopia-btn>
   }
-  </div>
-  
+</div>

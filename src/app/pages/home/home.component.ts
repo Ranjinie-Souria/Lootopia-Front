@@ -10,17 +10,16 @@ import { AuthService } from '../../services/auth.service';
   standalone: true,
   imports: [HomeConnectedComponent, HomeDisconnectedComponent],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.scss'
+  styleUrl: './home.component.scss',
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
   protected isLoggedIn = false;
   protected readonly RoutePaths = RoutePaths;
   private readonly authService = inject(AuthService);
 
   ngOnInit() {
-    this.authService.isLoggedIn$.subscribe(status => {
+    this.authService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
     });
   }
-
 }

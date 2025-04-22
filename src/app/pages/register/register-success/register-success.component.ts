@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
   selector: 'app-register-success',
   imports: [BtnComponent],
   templateUrl: './register-success.component.html',
-  styleUrl: './register-success.component.scss'
+  styleUrl: './register-success.component.scss',
 })
 export class RegisterSuccessComponent {
   protected readonly RoutePaths = RoutePaths;
@@ -20,5 +20,4 @@ export class RegisterSuccessComponent {
       this.router.navigate([RoutePaths.DEFAULT]);
     }
   }
-  
 }

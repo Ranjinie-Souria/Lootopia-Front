@@ -1,28 +1,54 @@
 <div class="starry-container">
-    <div class="card-container login-form">
-        <h1>Login</h1>
-        <p>Login now to continue your treasure hunting journey !</p>
-        
-        @if(loginError) {
-            <div class="error">
-                {{ loginError }}
-            </div>
-        }
-        <form [formGroup]="form" (ngSubmit)="login()">
-            <label for="email">Email : </label>
-            <input type="text" id="email" name="email" formControlName="email" autocomplete="email" placeholder="Enter your email" required>
-            <label for="password">Password :</label>
-            <input type="password" id="password" name="password" formControlName="password" autocomplete="current-password"  placeholder="Enter your password" required>
-            <div class="btn-container">
-                <lootopia-btn [disabled]="form.invalid" (click)="login()">Sign In</lootopia-btn>
-            </div>
-        </form>
-        <p>Don't have an account ?</p>
-        <div class="btn-container">
-            <lootopia-btn [routerLinkPath]="RoutePaths.REGISTER">Register now</lootopia-btn>
-            <lootopia-btn [routerLinkPath]="RoutePaths.FORGOT_PASS">Forgot your password ?</lootopia-btn>
-        </div>
-        <img class="lootie" src="assets/images/lootie.png" alt="Lootie having fun">
-        <img class="crown" src="assets/images/crown.png" alt="Crowns">
+  <div class="card-container login-form">
+    <h1>Login</h1>
+    <p>Login now to continue your treasure hunting journey !</p>
+
+    @if (loginError) {
+      <div class="error">
+        {{ loginError }}
+      </div>
+    }
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <label for="email">Email : </label>
+      <input
+        type="text"
+        id="email"
+        name="email"
+        formControlName="email"
+        autocomplete="email"
+        placeholder="Enter your email"
+        required
+      />
+      <label for="password">Password :</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        formControlName="password"
+        autocomplete="current-password"
+        placeholder="Enter your password"
+        required
+      />
+      <div class="btn-container">
+        <lootopia-btn [disabled]="form.invalid" (click)="login()"
+          >Sign In</lootopia-btn
+        >
+      </div>
+    </form>
+    <p>Don't have an account ?</p>
+    <div class="btn-container">
+      <lootopia-btn [routerLinkPath]="RoutePaths.REGISTER"
+        >Register now</lootopia-btn
+      >
+      <lootopia-btn [routerLinkPath]="RoutePaths.FORGOT_PASS"
+        >Forgot your password ?</lootopia-btn
+      >
     </div>
+    <img
+      class="lootie"
+      src="assets/images/lootie.png"
+      alt="Lootie having fun"
+    />
+    <img class="crown" src="assets/images/crown.png" alt="Crowns" />
+  </div>
 </div>

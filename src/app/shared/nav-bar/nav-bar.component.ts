@@ -9,32 +9,29 @@ import { UserService } from '../../services/user.service';
   selector: 'nav-bar',
   imports: [BtnComponent],
   templateUrl: './nav-bar.component.html',
-  styleUrl: './nav-bar.component.scss'
+  styleUrl: './nav-bar.component.scss',
 })
 export class NavBarComponent implements OnInit {
-
   protected readonly RoutePaths = RoutePaths;
   protected isLoggedIn = false;
   protected currentuser: any;
-  private readonly authService = inject(AuthService)
-  private readonly userService = inject(UserService)
+  private readonly authService = inject(AuthService);
+  private readonly userService = inject(UserService);
   private readonly router = inject(Router);
   @Input() user: DecodedToken | null = null;
 
-
   ngOnInit() {
-    this.authService.isLoggedIn$.subscribe(status => {
+    this.authService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
     });
-    this.userService.user$.subscribe(user => {
+    this.userService.user$.subscribe((user) => {
       this.currentuser = user;
     });
   }
 
-  protected logout() : void {
+  protected logout(): void {
     this.authService.logout();
     this.isLoggedIn = false;
     this.router.navigate([RoutePaths.DEFAULT]);
   }
-
 }

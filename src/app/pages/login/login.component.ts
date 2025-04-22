@@ -10,10 +10,9 @@ import { NgIf } from '@angular/common';
   selector: 'app-login',
   imports: [ReactiveFormsModule, BtnComponent],
   templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private authService = inject(AuthService);
@@ -22,7 +21,7 @@ export class LoginComponent {
 
   protected form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required]
+    password: ['', Validators.required],
   });
 
   protected login() {
@@ -33,7 +32,7 @@ export class LoginComponent {
 
     const loginRequest: LoginRequest = {
       email: this.form.value.email || '',
-      password: this.form.value.password || ''
+      password: this.form.value.password || '',
     };
     this.authService.login(loginRequest).subscribe({
       next: (res) => {
@@ -41,8 +40,8 @@ export class LoginComponent {
         this.router.navigate([RoutePaths.HOME]);
       },
       error: (err) => {
-       this.handleLoginError(err);
-      }
+        this.handleLoginError(err);
+      },
     });
   }
 
@@ -51,13 +50,14 @@ export class LoginComponent {
     this.form.markAllAsTouched();
     this.loginError = 'Error, the email or password you entered are incorrect.';
     if (err.status === 409) {
-      this.loginError = 'Error, the email or password you entered are incorrect.';
+      this.loginError =
+        'Error, the email or password you entered are incorrect.';
     } else if (err.status === 400) {
-      this.loginError = 'Error during login. Please check the entered information.';
+      this.loginError =
+        'Error during login. Please check the entered information.';
     } else if (err.status === 500) {
       this.loginError = 'Internal server error. Please try again later.';
     }
     return;
   }
-
 }

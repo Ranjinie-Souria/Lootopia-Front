@@ -12,8 +12,9 @@ import { NgClass } from '@angular/common';
   host: {
     '[class]': 'getStyleClass()',
     '[attr.lootopia-btn]': 'true',
-    '[attr.routerLink]': 'getRoute()',}
-  })
+    '[attr.routerLink]': 'getRoute()',
+  },
+})
 export class BtnComponent {
   @Input() class: string = 'default';
   @Input() routerLinkPath?: (typeof RoutePaths)[keyof typeof RoutePaths];
@@ -26,5 +27,4 @@ export class BtnComponent {
   protected getRoute() {
     return ['/', this.routerLinkPath];
   }
-
 }

@@ -2,6 +2,7 @@
   [routerLink]="routerLinkPath ? getRoute() : null"
   [ngClass]="[getStyleClass(), disabled ? 'disabled' : '']"
   (click)="disabled ? $event.preventDefault() : null"
-  [attr.aria-disabled]="disabled">
+  [attr.aria-disabled]="disabled"
+>
   <ng-content></ng-content>
 </a>

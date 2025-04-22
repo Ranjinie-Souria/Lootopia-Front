@@ -7,9 +7,8 @@ import { Router } from '@angular/router';
   selector: 'app-validate-email',
   imports: [BtnComponent],
   templateUrl: './validate-email.component.html',
-  styleUrl: './validate-email.component.scss'
+  styleUrl: './validate-email.component.scss',
 })
 export class ValidateEmailComponent {
   protected readonly RoutePaths = RoutePaths;
-  
 }

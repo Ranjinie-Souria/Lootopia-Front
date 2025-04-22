@@ -14,10 +14,20 @@ export class SponsoredCarouselComponent implements OnInit {
 
   ngOnInit(): void {
     this.slides = [
-      new CarouselSlide(1, "Chacode", "Chacode, the team behind Lootopia", "chacode.png"),
-      new CarouselSlide(2, "Release", "Lootopia is finally here", "lootopia.png"),
+      new CarouselSlide(
+        1,
+        'Chacode',
+        'Chacode, the team behind Lootopia',
+        'chacode.png',
+      ),
+      new CarouselSlide(
+        2,
+        'Release',
+        'Lootopia is finally here',
+        'lootopia.png',
+      ),
     ];
-  
+
     setInterval(() => {
       this.nextSlide();
     }, 5000);

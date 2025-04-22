@@ -1,31 +1,31 @@
 .lootie {
-    width: 10%;
-    position: absolute;
-    bottom: 0;
-    right: 10%;
-    rotate: 10deg;
-    z-index: 1;
-    animation: float 3s ease-in-out infinite;
+  width: 10%;
+  position: absolute;
+  bottom: 0;
+  right: 10%;
+  rotate: 10deg;
+  z-index: 1;
+  animation: float 3s ease-in-out infinite;
 }
 
 .crown {
-    width: 5%;
-    position: absolute;
-    top: 20%;
-    left: 13%;
-    rotate: -10deg;
-    z-index: 1;
-    animation: float 3s ease-in-out infinite;
+  width: 5%;
+  position: absolute;
+  top: 20%;
+  left: 13%;
+  rotate: -10deg;
+  z-index: 1;
+  animation: float 3s ease-in-out infinite;
 }
 
 input.ng-invalid.ng-touched {
-    border: 2px solid #f44336;
-    background-color: #ffe6e6;
-    margin: 10px;
-  }
-  
-  .error {
-    color: #f44336;
-    font-size: 0.9em;
-    margin: 15px;
-  }
+  border: 2px solid #f44336;
+  background-color: #ffe6e6;
+  margin: 10px;
+}
+
+.error {
+  color: #f44336;
+  font-size: 0.9em;
+  margin: 15px;
+}

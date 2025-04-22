@@ -10,7 +10,7 @@ import { ModelMapperService } from './services/model-mapper.service';
   selector: 'app-root',
   imports: [RouterOutlet, NavBarComponent, FooterComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
   public title = 'Lootopia';
@@ -21,7 +21,7 @@ export class AppComponent implements OnInit {
 
   ngOnInit() {
     this.authService.updateCurrentUser();
-  
+
     this.authService.currentUser$.subscribe((token) => {
       if (token) {
         this.user = this.modelMapper.mapTokenToUserModel(token);
@@ -29,13 +29,12 @@ export class AppComponent implements OnInit {
       }
     });
   }
-  
 
   subscribeToUser(userId: any): void {
     this.userService.getUserById(userId).subscribe({
-        next: (user) => {
-          this.user = user;
-        }
-      });
-    }
+      next: (user) => {
+        this.user = user;
+      },
+    });
+  }
 }

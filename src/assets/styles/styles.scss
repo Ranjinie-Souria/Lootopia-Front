@@ -3,13 +3,13 @@
   background-color: var(--background-color);
 }
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   margin: 0;
   padding: 0;
 }
-
 
 body {
   width: 100%;
@@ -28,14 +28,18 @@ h1 {
   font-size: 42px;
   font-weight: 900;
   color: var(--primary-color);
-  text-shadow: 2px 2px 0px white, 3px 3px 0px var(--secondary-color);
+  text-shadow:
+    2px 2px 0px white,
+    3px 3px 0px var(--secondary-color);
 }
 
 h2 {
   font-size: 42px;
   font-weight: 900;
   color: var(--accent-color);
-  text-shadow: 2px 2px 0px var(--primary-color), 3px 3px 0px white;
+  text-shadow:
+    2px 2px 0px var(--primary-color),
+    3px 3px 0px white;
 }
 
 h3 {
@@ -140,28 +144,28 @@ input {
   margin: 2%;
 }
 
-
 @keyframes pop-out {
   0% {
-      transform: translateX(-50%) scale(0);
-      opacity: 0;
+    transform: translateX(-50%) scale(0);
+    opacity: 0;
   }
   50% {
-      transform: translateX(-50%) scale(1.2);
-      opacity: 1;
+    transform: translateX(-50%) scale(1.2);
+    opacity: 1;
   }
   100% {
-      transform: translateX(-50%) scale(1);
-      opacity: 1;
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
   }
 }
 
 @keyframes float {
-  0%, 100% {
-      transform: translateY(0);
+  0%,
+  100% {
+    transform: translateY(0);
   }
   50% {
-      transform: translateY(-10px);
+    transform: translateY(-10px);
   }
 }
 

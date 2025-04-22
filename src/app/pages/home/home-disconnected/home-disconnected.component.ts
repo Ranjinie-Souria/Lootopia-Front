@@ -7,7 +7,7 @@ import { RoutePaths } from '../../../config/route-paths';
   standalone: true,
   imports: [BtnComponent],
   templateUrl: './home-disconnected.component.html',
-  styleUrl: '../home.component.scss'
+  styleUrl: '../home.component.scss',
 })
 export class HomeDisconnectedComponent {
   protected readonly RoutePaths = RoutePaths;

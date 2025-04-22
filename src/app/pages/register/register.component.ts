@@ -1,46 +1,56 @@
 import { Component, inject } from '@angular/core';
-import { BtnComponent } from "../../shared/components/btn/btn.component";
+import { BtnComponent } from '../../shared/components/btn/btn.component';
 import { RoutePaths } from '../../config/route-paths';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AuthService, RegisterRequest } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-register',
-  imports: [BtnComponent,ReactiveFormsModule, NgIf],
+  imports: [BtnComponent, ReactiveFormsModule, NgIf],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.scss'
+  styleUrl: './register.component.scss',
 })
 export class RegisterComponent {
-  
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
 
   protected readonly RoutePaths = RoutePaths;
-  protected form = this.fb.group({
-    username: ['', Validators.required],
-    email: ['', [Validators.required, Validators.email]],
-    password: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,100}$/)
-      ]
-    ],
-    confirmPassword: [
-      '',
-      [
-        Validators.required,
-        Validators.pattern(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,100}$/)
-      ]
-    ]
-  }, {
-    validators: this.passwordsMatchValidator
-  });
+  protected form = this.fb.group(
+    {
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,100}$/,
+          ),
+        ],
+      ],
+      confirmPassword: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,100}$/,
+          ),
+        ],
+      ],
+    },
+    {
+      validators: this.passwordsMatchValidator,
+    },
+  );
   protected registrationError: string = '';
-
 
   protected submit() {
     if (this.form.invalid) {
@@ -51,24 +61,25 @@ export class RegisterComponent {
     const payload: RegisterRequest = {
       username: this.form.value.username ?? '',
       email: this.form.value.email ?? '',
-      password: this.form.value.password ?? ''
+      password: this.form.value.password ?? '',
     };
-      
+
     this.authService.register(payload).subscribe({
       next: () => this.handleRegistrationSuccess(),
-      error: err => this.handleRegistrationError(err)
+      error: (err) => this.handleRegistrationError(err),
     });
-
   }
 
   private handleRegistrationError(err: any): void {
     console.error(err);
-    this.form.markAllAsTouched(); 
+    this.form.markAllAsTouched();
     this.registrationError = 'This email address is already in use.';
     if (err.status === 409) {
-      this.registrationError = 'This username or email address is already in use.';
+      this.registrationError =
+        'This username or email address is already in use.';
     } else if (err.status === 400) {
-      this.registrationError = 'Error during registration. Please check the entered information.';
+      this.registrationError =
+        'Error during registration. Please check the entered information.';
     } else if (err.status === 500) {
       this.registrationError = 'Internal server error. Please try again later.';
     }
@@ -77,17 +88,14 @@ export class RegisterComponent {
 
   private handleRegistrationSuccess(): void {
     this.router.navigate([RoutePaths.REGISTER_SUCCESS], {
-      state: { fromRegister: true }
+      state: { fromRegister: true },
     });
   }
-  
 
   private passwordsMatchValidator(group: FormGroup) {
     const password = group.get('password')?.value;
     const confirm = group.get('confirmPassword')?.value;
-  
+
     return password === confirm ? null : { passwordsMismatch: true };
   }
-  
-
 }

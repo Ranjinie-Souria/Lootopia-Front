@@ -5,8 +5,6 @@ import { BtnComponent } from '../btn/btn.component';
   selector: 'footer',
   imports: [BtnComponent],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrl: './footer.component.scss',
 })
-export class FooterComponent {
-
-}
+export class FooterComponent {}
