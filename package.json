@@ -11,7 +11,7 @@
     "start:prod": "ng serve --configuration=production",
     "format": "prettier --write \"src/**/*.{ts,html,scss}\"",
     "build:prod": "ng build --configuration=production",
-    "serve:prod": "http-server dist/lootopia_front -p 9090",
+    "serve:prod": "http-server dist/lootopia_front/browser -p 9090",
     "preview:prod": "npm run build:prod && npm run serve:prod"
   },
   "private": true,
