@@ -114,10 +114,16 @@ npm i
 Pour lancer le serveur de développement, veuillez utiliser la commande suivante :
 
 ```bash
-ng serve
+npm run start
 ```
 
-Le serveur seras disponible sur l'adresse `http://localhost:4200/`.
+Le serveur sera disponible sur l'adresse `http://localhost:4200/`.
+
+Pour utiliser les fichiers de prod, utiliser la commande suivante :
+
+```bash
+npm run start:prod
+```
 
 ### Build le projet
 
