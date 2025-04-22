@@ -9,7 +9,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "format": "prettier --write \"src/**/*.{ts,html,scss}\"",
-    "host:pm2": "pm2 start ng --name angular-app -- serve --host"
+    "host:pm2": "pm2 start ng --name lootopia-front -- serve --host"
   },
   "private": true,
   "dependencies": {
