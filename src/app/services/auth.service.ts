@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
-import { ApiConfig, UrlMapping } from '../config/api.config';
+import { UrlMapping } from '../config/api.config';
 import { Router } from '@angular/router';
 import { RoutePaths } from '../config/route-paths';
 import { jwtDecode } from 'jwt-decode';
