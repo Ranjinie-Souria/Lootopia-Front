@@ -2,12 +2,18 @@
 
 Ce projet a été généré avec [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
 
-### Dépendances
+## Dépendances
 
 Après récupération du repository, installer les dépendances :
 
 ```bash
 npm i
+```
+
+Assurez vous ensuite d'avoir installé globalement angular CLI :
+
+```bash
+npm install -g @angular/cli
 ```
 
 ## Lancer le projet
