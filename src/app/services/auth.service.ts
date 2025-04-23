@@ -14,12 +14,6 @@ export interface DecodedToken {
   user: { email: string; id: string; username: string };
 }
 
-export interface RegisterRequest {
-  username: string;
-  email: string;
-  password: string;
-}
-
 export interface LoginRequest {
   email: string;
   password: string;
@@ -56,10 +50,6 @@ export class AuthService {
       console.error('Invalid token:', e);
       return null;
     }
-  }
-
-  public register(data: RegisterRequest): Observable<any> {
-    return this.http.post(`${this.apiUrl}` + UrlMapping.REGISTER, data);
   }
 
   public login(request: LoginRequest): Observable<LoginResponse> {
@@ -103,22 +93,5 @@ export class AuthService {
     const isAuth = !!localStorage.getItem('auth_token');
     this.loggedIn.next(isAuth);
   }
-  public validateEmail(token: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}${UrlMapping.REGISTER}${UrlMapping.VALIDATE_EMAIL}/${token}`, {});
-  }
-  
 
-  public resendValidateEmail(data: any): Observable<any> {
-    return this.http.post(
-      `${this.apiUrl}` + UrlMapping.RESEND_VALIDATE_EMAIL,
-      data,
-    );
-  }
-
-  public validateEmailFront(data: any): Observable<any> {
-    return this.http.post(
-      `${this.apiUrl}` + UrlMapping.VALIDATE_EMAIL_FRONT_URL,
-      data,
-    );
-  }
 }

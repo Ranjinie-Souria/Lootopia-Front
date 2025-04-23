@@ -6,4 +6,6 @@ export const UrlMapping = {
   RESEND_VALIDATE_EMAIL: '/resend-validate-email',
   VALIDATE_EMAIL: '/email-validate',
   USERS: '/users',
+  PASSWORD: '/password',
+  PASSWORD_EMAIL: '/password-email',
 };

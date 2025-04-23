@@ -7,9 +7,9 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { AuthService, RegisterRequest } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { RegisterRequest, RegisterService } from '../../services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -19,7 +19,7 @@ import { NgIf } from '@angular/common';
 })
 export class RegisterComponent {
   private fb = inject(FormBuilder);
-  private authService = inject(AuthService);
+  private registerService = inject(RegisterService);
   private router = inject(Router);
 
   protected readonly RoutePaths = RoutePaths;
@@ -64,7 +64,7 @@ export class RegisterComponent {
       password: this.form.value.password ?? '',
     };
 
-    this.authService.register(payload).subscribe({
+    this.registerService.register(payload).subscribe({
       next: () => this.handleRegistrationSuccess(),
       error: (err) => this.handleRegistrationError(err),
     });
