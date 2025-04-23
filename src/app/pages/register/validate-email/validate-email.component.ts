@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { BtnComponent } from '../../../shared/components/btn/btn.component';
 import { RoutePaths } from '../../../config/route-paths';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,7 +11,7 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./validate-email.component.scss', '../register.component.scss'],
 })
 
-export class ValidateEmailComponent {
+export class ValidateEmailComponent implements OnInit  {
   protected readonly RoutePaths = RoutePaths;
   protected router = inject(Router);
   protected route = inject(ActivatedRoute);
@@ -20,37 +20,29 @@ export class ValidateEmailComponent {
   protected error = "";
   private durationBeforeRedirection = 1000 * 5 // Seconds;
   
-  ngOnInit(){
+  ngOnInit() {
     this.route.queryParams.subscribe(params => {
       const token = params['token'];
-      if(!!token){
-        if(this.checkToken(token)){
-          this.isTokenValid = true;
-          //this.redirect(durationBeforeRedirection)
-        }
-        else {
-          this.error = "Error while trying to validate the email.";
-        }  
-      }
-      else {
-        this.redirect(0)
+      if (token) {
+        this.authService.validateEmail(token).subscribe({
+          next: () => {
+              this.isTokenValid = true;
+              this.redirect(this.durationBeforeRedirection);
+          },
+          error: (error) => {
+            this.error = error.error?.message || "An unknown error occurred.";
+          }
+        });
+      } else {
+        this.redirect(0);
       }
     });
   }
-
-  protected checkToken(token : string) : boolean {
-    try {
-      this.authService.validateEmail(token);
-    }
-    catch {
-      return false
-    }
-    return true
-  }
+  
 
   private redirect(durationBeforeRedirection: number) : void {
     setTimeout(() => {
-      this.router.navigate(['/home']);
+      this.router.navigate(['/login']);
     }, durationBeforeRedirection);
   }
 }

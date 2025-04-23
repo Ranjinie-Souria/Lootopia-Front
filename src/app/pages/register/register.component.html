@@ -24,7 +24,7 @@
       />
 
       @if (form.get('username')?.invalid && form.get('username')?.touched) {
-        <div class="error">Please enter a username.</div>
+        <div class="error"><p>Please enter a username.</p></div>
       }
 
       <label for="email">Email : </label>
@@ -39,17 +39,17 @@
       @if (form.get('email')?.invalid && form.get('email')?.touched) {
         <div class="error">
           <div *ngIf="form.get('email')?.errors?.['required']">
-            Email is required.
+            <p>Email is required.</p>
           </div>
           <div *ngIf="form.get('email')?.errors?.['email']">
-            Please enter a valid email address.
+            <p>Please enter a valid email address.</p>
           </div>
         </div>
         <div
           *ngIf="form.errors?.['emailAlreadyExists'] && form.touched"
           class="error"
         >
-          This email is already registered.
+        <p>This email is already registered.</p>
         </div>
       }
 
@@ -75,15 +75,17 @@
           @if (form.errors?.['passwordsMismatch']) {
             <p>Please enter the same password in both fields.</p>
           }
+          @if (form.get('password')?.hasError('required')) {
+            <p>Please enter a password.</p>
+          }
           @if (form.get('password')?.hasError('pattern')) {
             <p>
               Your password must be 12+ chars with at least one uppercase,
               lowercase, number, and special character.
             </p>
           }
-          <p>Please enter a password.</p>
         </div>
-      }
+      }     
 
       <div class="submit-btn btn-container">
         <lootopia-btn [disabled]="form.invalid" (click)="submit()"
