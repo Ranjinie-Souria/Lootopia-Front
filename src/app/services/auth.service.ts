@@ -104,8 +104,9 @@ export class AuthService {
     this.loggedIn.next(isAuth);
   }
 
-  public validateEmail(data: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}` + UrlMapping.REGISTER, data);
+  public validateEmail(data: string): Observable<any> {
+    console.debug("token sent : ", this.apiUrl)
+    return this.http.post(`${this.apiUrl}` + UrlMapping.VALIDATE_EMAIL + '/', data);
   }
 
   public resendValidateEmail(data: any): Observable<any> {

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://lootopiaback.mmorgat.com/',
+  apiUrl: 'http://localhost:8080/api',
 };

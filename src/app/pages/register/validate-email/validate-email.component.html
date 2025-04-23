@@ -1,5 +1,6 @@
 <div class="starry-container">
   <div class="card-container">
+    @if (isTokenValid && this.route.snapshot.queryParamMap.get('token')) {
     <img class="crown" src="assets/images/crown.png" alt="Crowns popping out" />
     <h1>Email validated</h1>
     <p>Welcome to our community !</p>
@@ -17,5 +18,13 @@
         alt="Lootie having fun"
       />
     </div>
+    }
+    @else {
+      <div
+      class="error"
+    >
+      {{ error }}
+    </div>
+    }
   </div>
 </div>
