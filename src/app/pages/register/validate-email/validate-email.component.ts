@@ -8,7 +8,7 @@ import { AuthService } from '../../../services/auth.service';
   selector: 'app-validate-email',
   imports: [BtnComponent],
   templateUrl: './validate-email.component.html',
-  styleUrls: ['./validate-email.component.scss', '../register.component.scss'],
+  styleUrls: ['./validate-email.component.scss'],
 })
 
 export class ValidateEmailComponent implements OnInit  {
