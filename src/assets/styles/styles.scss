@@ -117,9 +117,15 @@ a {
 }
 
 form {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
   width: 100%;
   max-width: 400px;
   padding: 20px;
+  gap: 0rem;
+  padding: 0.1rem;
+  max-width: 400px;
 }
 
 label {
@@ -130,7 +136,8 @@ label {
 input {
   width: 100%;
   padding: 10px;
-  margin: 10px;
+  margin: 3px;
+  box-sizing: border-box;
   margin-bottom: 5%;
   border-radius: 8px;
   border: var(--secondary-color) 1px solid;
@@ -162,10 +169,10 @@ input.ng-invalid.ng-touched {
 }
 
 .btn-container {
+  flex-direction: column;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin: 2%;
 }
 
 @keyframes pop-out {

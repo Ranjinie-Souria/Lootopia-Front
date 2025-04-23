@@ -1,8 +1,4 @@
 :host {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
   font-family: 'Nunito', sans-serif;
   background-image: url('/assets/images/footer.png');
   background-repeat: repeat-x;
@@ -10,6 +6,21 @@
   width: 100%;
   padding: 30px;
   box-sizing: border-box;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
 }
 
 p {

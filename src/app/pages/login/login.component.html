@@ -35,14 +35,16 @@
         >
       </div>
     </form>
-    <p>Don't have an account ?</p>
+
     <div class="btn-container">
+      <p>Don't have an account yet ?</p>
       <lootopia-btn [routerLinkPath]="RoutePaths.REGISTER"
         >Register now</lootopia-btn
       >
       <lootopia-btn [routerLinkPath]="RoutePaths.FORGOT_PASS"
         >Forgot your password ?</lootopia-btn
       >
+      <p>If you had an issue during your registration, you can resend the <lootopia-btn class="link" [routerLinkPath]="RoutePaths.RESEND_EMAIL">verification email</lootopia-btn></p>
     </div>
     <img
       class="lootie"

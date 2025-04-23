@@ -4,27 +4,27 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BtnComponent } from '../../../shared/components/btn/btn.component';
-import { PasswordService } from '../../../services/password.service';
+import { RegisterService } from '../../../services/register.service';
 
 @Component({
   selector: 'app-password-reset',
   imports: [ReactiveFormsModule, BtnComponent],
-  templateUrl: './password-reset.component.html',
+  templateUrl: './resend-email.component.html',
   styleUrl: '../login.component.scss'
 })
-export class PasswordResetComponent {
+export class ResendEmailComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private passService = inject(PasswordService);
+  private registerService = inject(RegisterService);
   protected readonly RoutePaths = RoutePaths;
-  protected resetPassError: string = '';
+  protected error: string = '';
   protected success: boolean = false;
 
   protected form = this.fb.group({
     email: ['', [Validators.required, Validators.email]]
   });
 
-  protected resetPass() {
+  protected resendEmail() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -32,7 +32,7 @@ export class PasswordResetComponent {
 
     const email: string = this.form.value.email || '';
 
-    this.passService.resetPassword(email).subscribe({
+    this.registerService.resendValidateEmail(email).subscribe({
       next: () => {
         this.success = true;
         setTimeout(() => {
@@ -40,23 +40,22 @@ export class PasswordResetComponent {
         }, 8000);
       },
       error: (err) => {
-        this.handlePassError(err);
+        this.handleError(err);
       },
     });
   }
 
-  private handlePassError(err: any): void {
+  private handleError(err: any): void {
     console.error(err);
     this.form.markAllAsTouched();
-    this.resetPassError = 'Error, the email you entered is incorrect.';
+    this.error = 'Error, the email you entered was not found. It is possible that you have not registered yet or that your account is already verified.';
     if (err.status === 409) {
-      this.resetPassError =
-        'Error, the email you entered is incorrect.';
+      this.error = 'Error, the email you entered was not found. It is possible that you have not registered yet or that your account is already verified.';
     } else if (err.status === 400) {
-      this.resetPassError =
+      this.error =
         'Error during the sending process to the email. Please check the entered information.';
     } else if (err.status === 500) {
-      this.resetPassError = 'Internal server error. Please try again later.';
+      this.error = 'Internal server error. Please try again later.';
     }
     return;
   }

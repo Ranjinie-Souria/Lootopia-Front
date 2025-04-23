@@ -24,11 +24,11 @@ export class RegisterService {
     return this.http.post(`${this.apiUrl}${UrlMapping.VALIDATE_EMAIL}/${token}`, {});
   }
   
-  public resendValidateEmail(data: any): Observable<any> {
-    return this.http.post(
-      `${this.apiUrl}` + UrlMapping.RESEND_VALIDATE_EMAIL,
-      data,
-    );
+  public resendValidateEmail(email: any): Observable<any> {
+    const body = { email };
+    return this.http.post(`${this.apiUrl}${UrlMapping.RESEND_VALIDATE_EMAIL}`, body, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
 }

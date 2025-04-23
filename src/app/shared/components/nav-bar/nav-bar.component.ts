@@ -1,9 +1,9 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { RoutePaths } from '../../config/route-paths';
-import { BtnComponent } from '../components/btn/btn.component';
-import { AuthService, DecodedToken } from '../../services/auth.service';
+import { RoutePaths } from '../../../config/route-paths';
+import { BtnComponent } from '../../../shared/components/btn/btn.component';
+import { AuthService, DecodedToken } from '../../../services/auth.service';
 import { Router } from '@angular/router';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../services/user.service';
 
 @Component({
   selector: 'nav-bar',
