@@ -1,0 +1,50 @@
+
+@if(success){
+    <h1>Verification mail sent</h1>
+    <p>Check your inbox for your new verification email</p>
+    <p>You will be soon redirected to the login page...</p>
+    <div class="btn-container">
+      <lootopia-btn [routerLinkPath]="RoutePaths.LOGIN">Log in now</lootopia-btn>
+      <img class="lootie" src="assets/images/lootie.png" alt="Lootie having fun" />
+    </div>
+  }
+  @else {
+
+  <div class="login-form">
+    <h1>Did not receive your verification email ?</h1>
+    <p>Enter your email, if it is valid, we will send you a new verification link.</p>
+  
+    @if (error) {
+      <div class="error">
+        {{ error }}
+      </div>
+    }
+
+  <form [formGroup]="form" (ngSubmit)="resendEmail()">
+    <label for="email">Email : </label>
+    <input
+      type="text"
+      id="email"
+      name="email"
+      formControlName="email"
+      autocomplete="email"
+      placeholder="Enter your email"
+      required
+    />        
+    <div class="btn-container">
+      <lootopia-btn [disabled]="form.invalid" (click)="resendEmail()"
+        >Resend email</lootopia-btn
+      >
+    </div>
+  </form>
+  <div class="btn-container">
+    <p>Did not mean to be here ?</p>
+    <lootopia-btn [routerLinkPath]="RoutePaths.REGISTER"
+      >Register now</lootopia-btn
+    >
+    <lootopia-btn [routerLinkPath]="RoutePaths.LOGIN"
+      >Log in</lootopia-btn
+    >
+  </div>
+  </div>
+  }
