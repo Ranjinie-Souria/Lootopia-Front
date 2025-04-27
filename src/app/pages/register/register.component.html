@@ -23,7 +23,7 @@
         required
       />
 
-      @if (form.get('username')?.invalid && form.get('username')?.touched) {
+      @if (form.get('username')?.invalid && form.get('username')?.dirty) {
         <div class="error"><p>Please enter a username.</p></div>
       }
 
@@ -36,7 +36,7 @@
         required
       />
 
-      @if (form.get('email')?.invalid && form.get('email')?.touched) {
+      @if (form.get('email')?.invalid && form.get('email')?.dirty) {
         <div class="error">
           <div *ngIf="form.get('email')?.errors?.['required']">
             <p>Email is required.</p>
@@ -46,7 +46,7 @@
           </div>
         </div>
         <div
-          *ngIf="form.errors?.['emailAlreadyExists'] && form.touched"
+          *ngIf="form.errors?.['emailAlreadyExists'] && form.dirty"
           class="error"
         >
         <p>This email is already registered.</p>
@@ -70,15 +70,15 @@
         required
       />
 
-      @if (form.get('password')?.invalid && form.get('password')?.touched) {
+      @if (form.get('password')?.invalid && form.get('password')?.dirty || form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.dirty) {
         <div class="error">
-          @if (form.errors?.['passwordsMismatch']) {
+          @if (form.errors?.['passwordsMismatch'] || form.get('confirmPassword') !== form.get('password')) {
             <p>Please enter the same password in both fields.</p>
           }
-          @if (form.get('password')?.hasError('required')) {
+          @if (form.get('password')?.hasError('required') || form.get('confirmPassword')?.hasError('required')) { 
             <p>Please enter a password.</p>
           }
-          @if (form.get('password')?.hasError('pattern')) {
+          @if (form.get('password')?.hasError('pattern') || form.get('confirmPassword')?.hasError('pattern')) {
             <p>
               Your password must be 12+ chars with at least one uppercase,
               lowercase, number, and special character.

@@ -23,6 +23,11 @@ input.ng-invalid.ng-touched {
   background-color: #ffe6e6;
   margin: 10px;
 }
+input.ng-invalid.ng-dirty {
+  border: 2px solid #f44336;
+  background-color: #ffe6e6;
+  margin: 10px;
+}
 
 .error {
   color: #f44336;

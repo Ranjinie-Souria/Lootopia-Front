@@ -27,6 +27,7 @@ export class LoginComponent {
   protected login() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.form.markAsDirty();
       return;
     }
 
@@ -48,6 +49,7 @@ export class LoginComponent {
   private handleLoginError(err: any): void {
     console.error(err);
     this.form.markAllAsTouched();
+    this.form.markAsDirty();
     this.loginError = 'Error, the email or password you entered are incorrect.';
     if (err.status === 409) {
       this.loginError =

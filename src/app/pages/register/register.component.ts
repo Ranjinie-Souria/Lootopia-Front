@@ -55,6 +55,7 @@ export class RegisterComponent {
   protected submit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.form.markAsDirty();
       return;
     }
 
@@ -73,6 +74,7 @@ export class RegisterComponent {
   private handleRegistrationError(err: any): void {
     console.error(err);
     this.form.markAllAsTouched();
+    this.form.markAsDirty();
     this.registrationError = 'This email address is already in use.';
     if (err.status === 409) {
       this.registrationError =
