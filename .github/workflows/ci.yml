@@ -75,7 +75,7 @@ jobs:
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: /var/www/html/lootopia_front
+          TARGET: /var/www/lootopia_front
           SCRIPT_BEFORE: |
             echo "Deploying to Main server..."
             echo "Before script"
@@ -86,7 +86,7 @@ jobs:
             ls -al
             echo "---------------------"
             echo "Cleaning directory"
-            sudo rm -rf /var/www/html/lootopia_front/*
+            sudo rm -rf /var/www/lootopia_front/*
             echo "---------------------"
           SCRIPT_AFTER: |
             echo "After script"
@@ -110,7 +110,7 @@ jobs:
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: /var/www/html/lootopia_front_staging
+          TARGET: /var/www/lootopia_front_staging
           SCRIPT_BEFORE: |
             echo "Deploying to Main server..."
             echo "Before script"
@@ -121,7 +121,7 @@ jobs:
             ls -al
             echo "---------------------"
             echo "Cleaning directory"
-            sudo rm -rf /var/www/html/lootopia_front_staging/*
+            sudo rm -rf /var/www/lootopia_front_staging/*
             echo "---------------------"
           SCRIPT_AFTER: |
             echo "After script"
@@ -145,7 +145,7 @@ jobs:
           REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: /var/www/html/lootopia_front_staging
+          TARGET: /var/www/lootopia_front_staging
           SCRIPT_BEFORE: |
             echo "Deploying to Main server..."
             echo "Before script"
@@ -156,7 +156,7 @@ jobs:
             ls -al
             echo "---------------------"
             echo "Cleaning directory"
-            sudo rm -rf /var/www/html/lootopia_front_staging/*
+            sudo rm -rf /var/www/lootopia_front_staging/*
             echo "---------------------"
           SCRIPT_AFTER: |
             echo "After script"
