@@ -38,7 +38,7 @@ jobs:
       #- name: Test project
       #  run: |
       #    echo "Running tests..."
-      #    mvn test
+      #    npm test
       #- name: Verify tests success
       #  if: success()
       #  run: |&
