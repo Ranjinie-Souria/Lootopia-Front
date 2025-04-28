@@ -68,6 +68,21 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "staging": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"
@@ -80,6 +95,9 @@
             },
             "development": {
               "buildTarget": "lootopia_front:build:development"
+            },
+            "staging": {
+              "buildTarget": "lootopia_front:build:staging"
             }
           },
           "defaultConfiguration": "development"

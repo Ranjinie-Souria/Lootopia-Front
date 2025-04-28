@@ -19,7 +19,6 @@
     - [Cloner le repository](#cloner-le-repository)
     - [Lancer le projet](#lancer-le-projet)
     - [Build le projet](#build-le-projet)
-    - [Build et serve le projet sur le serveur de production](#build-et-serve-le-projet-sur-le-serveur-de-production)
 
 ## Description
 
@@ -39,12 +38,13 @@ Le projet est divisé en cinq parties :
 - Backoffice : Angular
 - Backend : Spring Boot
 - Base de données : PostgreSQL
-- Application mobile : VueJS Capacitor et Unity
+- Application mobile : Angulat Capacitor et AR.js
 
 ### Accès au projet
 
 Le projet est hébergé sur un serveur dédié et est accessible en ligne.
-Vous pourrez accéder au projet en production à l'adresse suivante : `https://frontlootopia.mmorgat.com/`.
+Vous pourrez accéder au frontend en production à l'adresse suivante : `https://lootopia.mmorgat.com/`.
+Vous pourrez accéder au frontend en staging à l'adresse suivante : `https://staging-lootopia.mmorgat.com/`.
 Vous pourrez également accéder à l'API Swagger à l'adresse suivante : `https://backlootopia.mmorgat.com/swagger-ui/index.html`.
 
 ### Equipe
@@ -67,7 +67,7 @@ Le Jira du projet est disponible ici : [Lien Jira](https://lootopiaa.atlassian.n
 
 - [Lootopia Backend](https://github.com/DenisMarine/lootopia)
 - [Lootopia Frontend](https://github.com/Ranjinie-Souria/Lootopia-Front)
-- Lootopia Backoffice (Pas encore disponible)
+- [Lootopia Backoffice](https://github.com/Ranjinie-Souria/Lootopia-Backoffice)
 - Lootopia Mobile (Pas encore disponible)
 - Lootopia Unity (Pas encore disponible)
 
@@ -119,12 +119,6 @@ npm run start
 
 Le serveur sera disponible sur l'adresse `http://localhost:4200/`.
 
-Pour utiliser les fichiers de prod, utiliser la commande suivante :
-
-```bash
-npm run start:prod
-```
-
 ### Build le projet
 
 Pour build le project, utiliser :
@@ -134,17 +128,3 @@ ng build
 ```
 
 Cette commande compilera le projet et il sera accessible dans `dist/`.
-
-### Build et serve le projet sur le serveur de production
-
-Assurez vous d'avoir installé PM2 sur votre serveur de production. Vous pouvez l'installer avec la commande suivante :
-
-```bash
-npm install pm2 -g
-```
-
-Pour build le projet sur le serveur de production, utilisez la commande suivante :
-
-```bash
-npm run host:pm2
-```
