@@ -24,10 +24,16 @@ jobs:
           echo "Installing dependencies..."
           npm install
 
-      - name: Build frontend
+      - name: Build Production frontend
         run: |
           echo "Building frontend..."
-          npm run build
+          npm run build:prod
+
+      - name: Build Staging frontend
+        run: |
+          echo "Building frontend..."
+          npm run build:staging
+
       - name: Verify build success
         if: failure()
         run: |
