@@ -25,11 +25,13 @@ jobs:
           npm install
 
       - name: Build Production frontend
+        if: github.ref == 'refs/heads/main'
         run: |
           echo "Building frontend..."
           npm run build:prod
 
       - name: Build Staging frontend
+        if: github.ref == 'refs/heads/develop'
         run: |
           echo "Building frontend..."
           npm run build:staging
