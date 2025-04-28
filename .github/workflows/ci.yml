@@ -5,7 +5,6 @@ on:
     branches:
       - master
       - develop
-      - cicd
 
 jobs:
   build:
@@ -103,40 +102,6 @@ jobs:
 
       - name: Deploy to Staging Server
         if: github.ref == 'refs/heads/develop'
-        uses: easingthemes/ssh-deploy@main
-        with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          REMOTE_PORT: ${{ secrets.REMOTE_PORT }}
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          TARGET: /var/www/lootopia_front_staging
-          SCRIPT_BEFORE: |
-            echo "Deploying to Main server..."
-            echo "Before script"
-            echo "---------------------"
-            echo "Current directory:"
-            pwd
-            echo "Contents of current directory:"
-            ls -al
-            echo "---------------------"
-            echo "Cleaning directory"
-            sudo rm -rf /var/www/lootopia_front_staging/*
-            echo "---------------------"
-          SCRIPT_AFTER: |
-            echo "After script"
-            echo "---------------------"
-            echo "Current directory:"
-            pwd
-            echo "Contents of current directory:"
-            ls -al
-            echo "---------------------"
-            echo "Cleaning up temporary files..."
-            rm -f ./local_ssh_script-before-*.sh
-            echo "Deployment to Staging server completed."
-            echo "---------------------"
-
-      - name: Deploy to Staging For CICD test
-        if: github.ref == 'refs/heads/cicd'
         uses: easingthemes/ssh-deploy@main
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
