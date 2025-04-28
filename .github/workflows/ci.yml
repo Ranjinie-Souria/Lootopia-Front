@@ -54,7 +54,7 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: bundle
-          path: ./dist
+          path: ./dist/lootopia_front/browser
 
   deploy:
     runs-on: ubuntu-latest
@@ -65,7 +65,7 @@ jobs:
         uses: actions/download-artifact@master
         with:
           name: bundle
-          path: ./dist
+          path: ./
 
       - name: Deploy to Production Server
         if: github.ref == 'refs/heads/main'
@@ -101,7 +101,6 @@ jobs:
             echo "Deployment to Production server completed."
             echo "---------------------"
 
-
       - name: Deploy to Staging Server
         if: github.ref == 'refs/heads/develop'
         uses: easingthemes/ssh-deploy@main
@@ -135,7 +134,6 @@ jobs:
             rm -f ./local_ssh_script-before-*.sh
             echo "Deployment to Staging server completed."
             echo "---------------------"
-
 
       - name: Deploy to Staging For CICD test
         if: github.ref == 'refs/heads/cicd'
