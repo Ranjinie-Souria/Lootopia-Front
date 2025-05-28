@@ -1,44 +1,80 @@
 import { Component, inject } from '@angular/core';
 import { RoutePaths } from '../../../config/route-paths';
-import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-import { BtnComponent } from '../../../shared/components/btn/btn.component';
-import { RegisterService } from '../../../services/register.service';
+import { ResendEmailFormComponent } from "./resend-email-form.component";
+import { PasswordService } from '../../../services/password.service';
+import { BtnComponent } from "../../../shared/components/btn/btn.component";
 
 @Component({
   selector: 'app-password-reset',
-  imports: [ReactiveFormsModule, BtnComponent],
+  imports: [ReactiveFormsModule, ResendEmailFormComponent, BtnComponent],
   templateUrl: './resend-email.component.html',
   styleUrl: '../login.component.scss'
 })
 export class ResendEmailComponent {
   private fb = inject(FormBuilder);
   private router = inject(Router);
-  private registerService = inject(RegisterService);
+  private passService = inject(PasswordService);
+  protected route = inject(ActivatedRoute);
   protected readonly RoutePaths = RoutePaths;
+  protected isTokenRoute: boolean = false;
+  protected isTokenValid: boolean = false;
+  protected durationBeforeRedirection = 1000 * 5; // Seconds
   protected error: string = '';
   protected success: boolean = false;
+  protected token: string = '';
 
-  protected form = this.fb.group({
-    email: ['', [Validators.required, Validators.email]]
-  });
+  protected form = this.fb.group(
+    {
+      password: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,100}$/,
+          ),
+        ],
+      ],
+      confirmPassword: [
+        '',
+        [
+          Validators.required,
+          Validators.pattern(
+            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{12,100}$/,
+          ),
+        ],
+      ],
+    },
+    {
+      validators: this.passwordsMatchValidator,
+    },
+  );
 
-  protected resendEmail() {
+  ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      const token = params['token'];
+      if (token) {
+        this.isTokenRoute = true;
+        this.token = token;
+      }
+    });
+  }
+
+  protected submitNewPassword() {
     if (this.form.invalid) {
       this.form.markAsDirty();
       this.form.markAllAsTouched();
       return;
     }
 
-    const email: string = this.form.value.email || '';
+    const password = this.form.value.password;
 
-    this.registerService.resendValidateEmail(email).subscribe({
+    this.passService.editPassword(password, this.token).subscribe({
       next: () => {
         this.success = true;
-        setTimeout(() => {
-          this.router.navigate([this.RoutePaths.LOGIN]);
-        }, 8000);
+        this.redirect(this.durationBeforeRedirection);
       },
       error: (err) => {
         this.handleError(err);
@@ -60,5 +96,18 @@ export class ResendEmailComponent {
       this.error = 'Internal server error. Please try again later.';
     }
     return;
+  }
+
+  private redirect(durationBeforeRedirection: number) : void {
+    setTimeout(() => {
+      this.router.navigate(['/login']);
+    }, durationBeforeRedirection);
+  }
+
+  private passwordsMatchValidator(group: FormGroup) {
+    const password = group.get('password')?.value;
+    const confirm = group.get('confirmPassword')?.value;
+
+    return password === confirm ? null : { passwordsMismatch: true };
   }
 }

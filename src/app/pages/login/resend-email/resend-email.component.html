@@ -1,59 +1,74 @@
 <div class="starry-container">
-    <div class="card-container login-form">
+  <div class="card-container login-form">
 
-      @if(success){
-        <h1>Verification mail sent</h1>
-        <p>Check your inbox for your new verification email</p>
-        <p>You will be soon redirected to the login page...</p>
-        <div class="btn-container">
-          <lootopia-btn [routerLinkPath]="RoutePaths.LOGIN">Log in now</lootopia-btn>
-          <img class="lootie" src="assets/images/lootie.png" alt="Lootie having fun" />
-        </div>
-      }
-      @else {
-        
-      <h1>Did not receive your verification email ?</h1>
-      <p>Enter your email, if it is valid, we will send you a new verification link.</p>
-  
+    @if (!isTokenRoute) {
+      <app-email-reset></app-email-reset>
+    } @else if (success) {
+      <h2>Success!</h2>
+      <p>Your password has been reset successfully.</p>
+      <p>You can now log in with your new password.</p>
+      <p>You will be redirected to the login page in a few seconds...</p>
+      <lootopia-btn routerLink="/login">Back to login</lootopia-btn>
+    }@else {
+      <h2>Reset your password</h2>
+
       @if (error) {
         <div class="error">
-          {{ error }}
+          <p>{{ error }}</p>
         </div>
       }
-      <form [formGroup]="form" (ngSubmit)="resendEmail()">
-        <label for="email">Email : </label>
+      
+      <form [formGroup]="form" (ngSubmit)="submitNewPassword()">
+
+        <label for="password">Password :</label>
         <input
-          type="text"
-          id="email"
-          name="email"
-          formControlName="email"
-          autocomplete="email"
-          placeholder="Enter your email"
+          type="password"
+          id="password"
+           autocomplete="new-password"
+          formControlName="password"
+          placeholder="Enter your password"
           required
-        />        
+        />
+
+        <label for="confirm-password">Confirm Password :</label>
+        <input
+          type="password"
+          id="confirm-password"
+          autocomplete="new-password"
+          formControlName="confirmPassword"
+          placeholder="Confirm your password"
+          required
+        />
+
+        @if (form.get('password')?.invalid && form.get('password')?.touched) {
+          <div class="error">
+            @if (form.get('password')?.hasError('required')) {
+              <p>Please enter a password.</p>
+            }
+            @if (form.get('password')?.hasError('pattern')) {
+              <p>
+                Your password must be 12+ chars with at least one uppercase,
+                lowercase, number, and special character.
+              </p>
+            }
+          </div>
+        }
+        @if (form.hasError('passwordsMismatch')) {
+          <div class="error">
+            <p>Please enter the same password in both fields.</p>
+          </div>
+        }
+
         <div class="btn-container">
-          <lootopia-btn [disabled]="form.invalid" (click)="resendEmail()"
-            >Resend email</lootopia-btn
+          <lootopia-btn [disabled]="form.invalid" (click)="submitNewPassword()"
+            >Edit password</lootopia-btn
           >
         </div>
-      </form>
-      <p>Did not mean to be here ?</p>
-      <div class="btn-container">
-        <lootopia-btn [routerLinkPath]="RoutePaths.REGISTER"
-          >Register now</lootopia-btn
-        >
-        <lootopia-btn [routerLinkPath]="RoutePaths.LOGIN"
-          >Log in</lootopia-btn
-        >
-      </div>
-      }
 
-      <img
-        class="lootie"
-        src="assets/images/lootie.png"
-        alt="Lootie having fun"
-      />
-      <img class="crown" src="assets/images/crown.png" alt="Crowns" />
-    </div>
+      </form>
+    }
+
+    <img class="lootie" src="assets/images/lootie.png" alt="Lootie having fun" />
+    <img class="crown" src="assets/images/crown.png" alt="Crown" />
   </div>
-  
+</div>
