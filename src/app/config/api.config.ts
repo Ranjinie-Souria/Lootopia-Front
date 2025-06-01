@@ -8,4 +8,5 @@ export const UrlMapping = {
   USERS: '/users',
   PASSWORD: '/password',
   PASSWORD_EMAIL: '/password-email',
+  CONTACT: '/contact',
 };

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { BtnComponent } from '../btn/btn.component';
+import { RoutePaths } from '../../../config/route-paths';
 
 @Component({
   selector: 'footer',
@@ -7,4 +8,6 @@ import { BtnComponent } from '../btn/btn.component';
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.scss',
 })
-export class FooterComponent {}
+export class FooterComponent {
+  protected readonly RoutePaths = RoutePaths;
+}
