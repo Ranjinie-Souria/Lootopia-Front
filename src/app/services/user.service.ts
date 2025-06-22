@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { UrlMapping } from '../config/api.config';
 import { environment } from '../environment/environment';
+import { AuthService } from './auth.service';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ import { environment } from '../environment/environment';
 export class UserService {
   private readonly apiUrl = environment.apiUrl + UrlMapping.USERS;
   private readonly http = inject(HttpClient);
-
+  private readonly authService = inject(AuthService);
   private userSubject = new BehaviorSubject<any | null>(null);
   public user$ = this.userSubject.asObservable();
 
@@ -46,5 +47,18 @@ export class UserService {
   // Delete a user
   deleteUser(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  public loadCurrentUserFromToken(): void {
+    const userId = this.authService.getUserId();
+    if (!userId) {
+      this.setUser(null);
+      return;
+    }
+
+    this.getUserById(userId).subscribe({
+      next: (user) => this.setUser(user),
+      error: () => this.setUser(null),
+    });
   }
 }
