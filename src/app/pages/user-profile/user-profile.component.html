@@ -1,0 +1,36 @@
+<div class="container">
+  <div class="card-container no-border">
+    <h2>User Profile</h2>
+    <div class="profile-card">
+      <img
+        src="assets/images/lootie.png"
+        alt="Profile Picture"
+        class="profile-icon"
+      />
+      <div class="user-info">
+        <h3>{{ (user$ | async)?.username }}</h3>
+        <p class="label">
+          <span class="label-name">Email:</span> {{ (user$ | async)?.email }}
+        </p>
+        <p class="label">
+          <span class="label-name">Balance:</span> {{ (user$ | async)?.money }}
+          <img
+            class="currency-pic"
+            alt="Currency"
+            src="assets/images/crown.png"
+          />
+        </p>
+        <p class="label">
+          <span class="label-name">Language:</span>
+          {{ (user$ | async)?.language }}
+        </p>
+        <p class="label">
+          <span class="label-name">Type:</span> {{ (user$ | async)?.type }}
+        </p>
+        <div class="btn-container">
+          <lootopia-btn class="settings-btn">Change Settings</lootopia-btn>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

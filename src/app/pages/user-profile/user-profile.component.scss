@@ -1,0 +1,44 @@
+.profile-icon {
+  width: 200px;
+  height: 200px;
+  border-radius: 100%;
+  border: 3px solid var(--primary-color);
+  background-color: var(--background-color);
+  object-fit: cover;
+}
+
+.profile-card {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  background-color: var(--secondary-color);
+  border: 2px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  justify-content: space-evenly;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+}
+
+.label-name {
+  font-weight: bold;
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.settings-button {
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}

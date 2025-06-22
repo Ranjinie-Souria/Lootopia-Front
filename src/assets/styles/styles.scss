@@ -199,6 +199,16 @@ input.ng-invalid.ng-dirty {
   align-items: center;
 }
 
+.no-border {
+  border: none !important;
+}
+
+.currency-pic {
+  margin-left: 5px;
+  width: 20px;
+  object-fit: contain;
+}
+
 @keyframes pop-out {
   0% {
     transform: translateX(-50%) scale(0);

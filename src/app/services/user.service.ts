@@ -1,9 +1,11 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 import { UrlMapping } from '../config/api.config';
 import { environment } from '../environment/environment';
 import { AuthService } from './auth.service';
+import { User } from '../model/user';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -49,16 +51,22 @@ export class UserService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
-  public loadCurrentUserFromToken(): void {
+  public loadCurrentUserFromToken(): Observable<User | null> {
     const userId = this.authService.getUserId();
-    if (!userId) {
+    if (userId) {
+      return this.getUserById(userId).pipe(
+        tap({
+          next: (user) => this.setUser(user),
+          error: () => this.setUser(null),
+        }),
+        catchError(() => {
+          this.setUser(null);
+          return of(null);
+        }),
+      );
+    } else {
       this.setUser(null);
-      return;
+      return of(null);
     }
-
-    this.getUserById(userId).subscribe({
-      next: (user) => this.setUser(user),
-      error: () => this.setUser(null),
-    });
   }
 }
