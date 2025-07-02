@@ -1,0 +1,30 @@
+<div class="container">
+  <h1>My Hunts</h1>
+
+  <div class="btn-container">
+    <button class="card" (click)="goToCreateHunt()">Create a Hunt</button>
+  </div>
+
+  <div *ngIf="loading" class="card-container">
+    <p>Loading hunts...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+
+  <div *ngIf="!loading && hunts.length === 0" class="card-container">
+    <p>No hunts found. Create your first hunt above!</p>
+  </div>
+
+  <div class="card-container" *ngIf="!loading && hunts.length > 0">
+    <div *ngFor="let hunt of hunts" class="card">
+      <h2>{{ hunt.title }}</h2>
+      <p>{{ hunt.description }}</p>
+      <p><strong>Start:</strong> {{ hunt.startDate | date: 'short' }}</p>
+      <p><strong>End:</strong> {{ hunt.endDate | date: 'short' }}</p>
+      <p><strong>Max Participants:</strong> {{ hunt.maxParticipants }}</p>
+      <p><strong>Private:</strong> {{ hunt.isPrivate ? 'Yes' : 'No' }}</p>
+    </div>
+  </div>
+</div>

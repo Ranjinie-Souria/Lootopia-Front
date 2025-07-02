@@ -10,7 +10,7 @@ import { ResendEmailComponent } from './pages/login/resend-email/resend-email.co
 import { ContactComponent } from './pages/contact/contact.component';
 import { authGuard } from './guards/auth.guard';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
-import { HuntsComponent } from './pages/hunts/hunts.component';
+import { HuntsViewComponent } from './pages/hunt/hunts-view.component';
 
 export const routes: Routes = [
   { path: RoutePaths.DEFAULT, component: HomeComponent },
@@ -28,8 +28,8 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: RoutePaths.HUNTS,
-    component: HuntsComponent,
+    path: RoutePaths.HUNT,
+    component: HuntsViewComponent,
     canActivate: [authGuard],
   },
 ];

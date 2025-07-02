@@ -10,6 +10,6 @@ export const RoutePaths = {
   PROFILE: 'profile',
   ABOUT: 'about',
   CONTACT: 'contact',
-  HUNTS: 'hunts',
   HUNT: 'hunt',
+  HUNT_CREATE: 'hunt/create',
 };

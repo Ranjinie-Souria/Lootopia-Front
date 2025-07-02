@@ -28,7 +28,30 @@
           <span class="label-name">Type:</span> {{ (user$ | async)?.type }}
         </p>
         <div class="btn-container">
-          <lootopia-btn class="settings-btn">Change Settings</lootopia-btn>
+          <button (click)="toggleEdit()" class="edit-button">
+            Edit Profile
+          </button>
+          <form
+            *ngIf="isEditing"
+            [formGroup]="editForm"
+            (ngSubmit)="onSubmit()"
+          >
+            <label>
+              Username:
+              <input formControlName="username" />
+            </label>
+            <label>
+              Email:
+              <input formControlName="email" type="email" />
+            </label>
+            <label>
+              Language:
+              <input formControlName="language" />
+            </label>
+
+            <button type="submit">Save</button>
+            <button type="button" (click)="cancelEdit()">Cancel</button>
+          </form>
         </div>
       </div>
     </div>
