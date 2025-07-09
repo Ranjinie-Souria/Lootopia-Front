@@ -5,6 +5,8 @@ import { environment } from '../environment/environment';
 import { UrlMapping } from '../config/api.config';
 import { HuntInformationViewDTO } from '../model/hunt-information-view.dto';
 import { HuntUpdateDTO } from '../model/hunt-update.dto';
+import { PageDTO } from '../model/page.dto';
+import { HuntDto } from '../model/hunt.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -13,16 +15,16 @@ export class HuntsService {
   private readonly http = inject(HttpClient);
   private readonly baseUrl = environment.apiUrl + UrlMapping.HUNT;
 
-  getHunts(): Observable<HuntInformationViewDTO[]> {
-    return this.http.get<HuntInformationViewDTO[]>(this.baseUrl);
+  getHunts(): Observable<PageDTO<HuntInformationViewDTO[]>> {
+    return this.http.get<PageDTO<HuntInformationViewDTO[]>>(this.baseUrl);
   }
 
   getHuntById(huntId: string): Observable<HuntInformationViewDTO> {
     return this.http.get<HuntInformationViewDTO>(`${this.baseUrl}/${huntId}`);
   }
 
-  createHunt(payload: HuntUpdateDTO): Observable<HuntInformationViewDTO> {
-    return this.http.post<HuntInformationViewDTO>(this.baseUrl, payload);
+  createHunt(payload: HuntDto): Observable<HuntDto> {
+    return this.http.post<HuntDto>(this.baseUrl, payload);
   }
 
   updateHunt(huntId: string, payload: HuntUpdateDTO): Observable<void> {
@@ -50,7 +52,7 @@ export class HuntsService {
     );
   }
 
-  getMyHunts(): Observable<HuntInformationViewDTO[]> {
-    return this.http.get<HuntInformationViewDTO[]>(`${this.baseUrl}/me`);
+  getMyHunts(): Observable<PageDTO<HuntInformationViewDTO[]>> {
+    return this.http.get<PageDTO<HuntInformationViewDTO[]>>(`${this.baseUrl}/me`);
   }
 }

@@ -4,6 +4,7 @@ import { RoutePaths } from '../../config/route-paths';
 import { HuntInformationViewDTO } from '../../model/hunt-information-view.dto';
 import { HuntsService } from '../../services/hunt.service';
 import { CommonModule } from '@angular/common';
+import { PageDTO } from '../../model/page.dto';
 
 @Component({
   selector: 'app-hunts-view',
@@ -12,7 +13,8 @@ import { CommonModule } from '@angular/common';
   imports: [CommonModule],
 })
 export class HuntsViewComponent implements OnInit {
-  hunts: HuntInformationViewDTO[] = [];
+  hunts!: PageDTO<HuntInformationViewDTO[]>;
+  page = 0;
   loading = true;
   error = '';
 
@@ -25,6 +27,7 @@ export class HuntsViewComponent implements OnInit {
     this.huntsService.getMyHunts().subscribe({
       next: (data) => {
         this.hunts = data;
+        console.debug('Hunts loaded:', this.hunts);
         this.loading = false;
       },
       error: () => {

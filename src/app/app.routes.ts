@@ -11,6 +11,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 import { authGuard } from './guards/auth.guard';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { HuntsViewComponent } from './pages/hunt/hunts-view.component';
+import { HuntCreateComponent } from './pages/hunt/hunt-create/hunt-create.component';
 
 export const routes: Routes = [
   { path: RoutePaths.DEFAULT, component: HomeComponent },
@@ -30,6 +31,11 @@ export const routes: Routes = [
   {
     path: RoutePaths.HUNT,
     component: HuntsViewComponent,
+    canActivate: [authGuard],
+  },
+    {
+    path: RoutePaths.HUNT_CREATE,
+    component: HuntCreateComponent,
     canActivate: [authGuard],
   },
 ];
