@@ -36,22 +36,20 @@ export class HuntCreateComponent{
     this.minEndDate = minEnd.toISOString().slice(0,16);
   }
 
+  protected form = this.fb.group({
+    title: ['', Validators.required],
+    description: ['', Validators.required],
+    chatEnabled: [''],
+    worldType: ['CARTOGRAPHIC', Validators.required],
+    isPrivate: [false],
+    maxParticipants: [1, [Validators.required, Validators.min(1), Validators.max(100)]],
+    price: [0, [Validators.required, Validators.min(0)]],
+    excavationDelay: [1, [Validators.required, Validators.min(1)]],
+    excavationCost: [0, [Validators.required, Validators.min(0)]],
+    startDate: ['', [Validators.required, this.startDateValidator()]],
+    endDate: ['', [Validators.required, this.endDateValidator()]],
+  });
 
-  protected form = this.fb.group(
-    {
-      title: ['', Validators.required],
-      description: ['', [Validators.required]],
-      chatEnabled: [''],
-      worldType: ['CARTOGRAPHIC', Validators.required],
-      isPrivate: [false],
-      maxParticipants: [1, [Validators.required, Validators.min(1), Validators.max(100)]],
-      price: [0, [Validators.required, Validators.min(0)]],
-      excavationDelay: [1, [Validators.required, Validators.min(1)]],
-      excavationCost: [0, [Validators.required, Validators.min(0)]],
-      endDate: ['', Validators.required, this.endDateValidator()],
-      startDate: ['', [Validators.required, this.startDateValidator()]],
-    },
-  );
   protected error: string = '';
 
   protected submit() {
@@ -88,14 +86,10 @@ export class HuntCreateComponent{
     console.error(err);
     this.form.markAllAsTouched();
     this.form.markAsDirty();
-    this.error = 'This email address is already in use.';
-    if (err.status === 409) {
-      this.error =
-        'This username or email address is already in use.';
-    } else if (err.status === 400) {
-      this.error =
-        'Error during registration. Please check the entered information.';
-    } else if (err.status === 500) {
+    this.error = 'Unknown error, please contact an administrator.';
+    if (err.message) {
+      this.error = 'Error : ' + err.error.message;
+    }  else if (err.status === 500) {
       this.error = 'Internal server error. Please try again later.';
     }
     return;
