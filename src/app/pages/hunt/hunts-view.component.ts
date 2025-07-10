@@ -13,7 +13,8 @@ import { PageDTO } from '../../model/page.dto';
   imports: [CommonModule],
 })
 export class HuntsViewComponent implements OnInit {
-  hunts!: PageDTO<HuntInformationViewDTO[]>;
+
+  hunts!: PageDTO<HuntInformationViewDTO>;
   page = 0;
   loading = true;
   error = '';
@@ -40,4 +41,9 @@ export class HuntsViewComponent implements OnInit {
   goToCreateHunt(): void {
     this.router.navigate([RoutePaths.HUNT_CREATE]);
   }
+
+  goToHuntDetails(idHunt: string) {
+    throw new Error('Method not implemented.');
+  }
+
 }

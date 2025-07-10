@@ -9,22 +9,22 @@ import { User } from '../../model/user';
 
 @Component({
   selector: 'app-user-profile',
-  imports: [ReactiveFormsModule, CommonModule, BtnComponent],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './user-profile.component.html',
   styleUrl: './user-profile.component.scss',
 })
 export class UserProfileComponent implements OnInit {
   editForm!: FormGroup<any>;
-isEditing: any;
-cancelEdit() {
-throw new Error('Method not implemented.');
-}
-onSubmit() {
-throw new Error('Method not implemented.');
-}
-toggleEdit() {
-throw new Error('Method not implemented.');
-}
+  isEditing: any;
+  cancelEdit() {
+    throw new Error('Method not implemented.');
+  }
+  onSubmit() {
+    throw new Error('Method not implemented.');
+  }
+  toggleEdit() {
+    throw new Error('Method not implemented.');
+  }
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private userService = inject(UserService);

@@ -52,7 +52,7 @@ export class HuntsService {
     );
   }
 
-  getMyHunts(): Observable<PageDTO<HuntInformationViewDTO[]>> {
-    return this.http.get<PageDTO<HuntInformationViewDTO[]>>(`${this.baseUrl}/me`);
+  getMyHunts(): Observable<PageDTO<HuntInformationViewDTO>> {
+    return this.http.get<PageDTO<HuntInformationViewDTO>>(`${this.baseUrl}/me`);
   }
 }
