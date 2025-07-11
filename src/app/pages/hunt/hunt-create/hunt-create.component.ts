@@ -21,6 +21,7 @@ export class HuntCreateComponent{
 
   minStartDate: string = '';
   minEndDate: string = '';
+  createdSuccess: boolean = false;
 
   constructor() {
     this.setMinDates();
@@ -77,7 +78,7 @@ export class HuntCreateComponent{
     };
 
     this.huntService.createHunt(payload).subscribe({
-      next: () => this.handleRegistrationSuccess(),
+      next: () => this.createdSuccess = true,
       error: (err) => this.handleerror(err),
     });
   }
