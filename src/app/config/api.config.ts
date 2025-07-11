@@ -9,4 +9,6 @@ export const UrlMapping = {
   PASSWORD: '/password',
   PASSWORD_EMAIL: '/password-email',
   CONTACT: '/contact',
+  HUNT: '/hunt',
+  HUNT_BY_ID: '/hunt/:id',
 };

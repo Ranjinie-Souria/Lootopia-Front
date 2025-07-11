@@ -1,0 +1,158 @@
+<div class="starry-container">
+  <div class="card-container login-form">
+          <lootopia-btn [routerLinkPath]="RoutePaths.HUNT"
+        >Return to see your created hunts</lootopia-btn
+      >
+    <h1>Create a hunt</h1>
+    <h4>It is time for you to create your own hunt... Fill these informations !</h4>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      @if (error) {
+        <div class="error">
+          {{ error }}
+        </div>
+      }
+
+      <label for="title">Title : </label>
+      <p>Title of your hunt.</p>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        placeholder="Enter the hunt's title"
+        required
+      />
+
+      @if (form.get('title')?.invalid && form.get('title')?.dirty) {
+        <div class="error"><p>Please enter a title.</p></div>
+      }
+        <label for="description">Description : </label>
+        <p>The hunt's description.</p>
+        <textarea
+          id="description"
+          formControlName="description"
+          placeholder="Enter the hunt's description"
+          required
+        ></textarea>
+        @if (form.get('description')?.invalid && form.get('description')?.dirty) {
+          <div class="error"><p>Please enter a description.</p></div>
+        }
+        
+<div class="checkbox-group">
+  <label for="chatEnabled">Chat enabled for this hunt ? <p>Enables a chat for the participants of the hunt.</p></label>
+  
+  <input
+    type="checkbox"
+    id="chatEnabled"
+    formControlName="chatEnabled"
+    [checked]="form.get('chatEnabled')?.value"
+  />
+</div>
+
+        <label for="worldType">World type : </label>
+        <p>Will the hunt take place on a cartographic map or in the AR world ?</p>
+        <select id="worldType" formControlName="worldType" required>
+          <option value="CARTOGRAPHIC">Cartographic 🗺️</option>
+          <option value="REAL_WORLD">Real World 🌍</option>
+        </select>
+        @if (form.get('worldType')?.invalid && form.get('worldType')?.dirty) {
+          <div class="error"><p>Please select a world type.</p></div>
+        }
+
+        <label for="excavationDelay">Excavation delay (in seconds) : </label>
+        <p>The time between each excavation attempt.</p>
+        <input
+          type="number"
+          id="excavationDelay"
+          formControlName="excavationDelay"
+          placeholder="Enter the excavation delay in seconds"
+          required
+        />
+        @if (form.get('excavationDelay')?.invalid && form.get('excavationDelay')?.dirty) {
+          <div class="error"><p>Please enter a valid excavation delay.</p></div>
+        }
+
+        <label for="excavationCost">Excavation cost (in Crowns) : </label>
+        <p>The cost to retry excavating without waiting.</p>
+        <input  
+          type="number"
+          id="excavationCost"
+          formControlName="excavationCost"
+          placeholder="Enter the excavation cost in Crowns"
+          required
+        />
+        @if (form.get('excavationCost')?.invalid && form.get('excavationCost')?.dirty) {
+          <div class="error"><p>Please enter a valid excavation cost.</p></div>
+        }
+
+<div class="checkbox-group">
+  <label for="isPrivate">Is your hunt private ? <p>You will have to send manually invites on your hunt's page.</p></label>
+  <input
+    type="checkbox"
+    id="isPrivate"
+    formControlName="isPrivate"
+    [checked]="form.get('isPrivate')?.value"
+  />
+</div>
+
+
+
+        <label for="maxParticipants">Max participants : </label>
+        <p>The maximum numbers of participants allowed to join the hunt.</p>
+        <input
+          type="number"
+          id="maxParticipants"
+          formControlName="maxParticipants"
+          placeholder="Enter the maximum number of participants"
+          required
+        />
+        @if (form.get('maxParticipants')?.invalid && form.get('maxParticipants')?.dirty) {
+          <div class="error"><p>Please enter a valid number of participants.</p></div>
+        }
+
+        <label for="startDate">Start date : </label>
+        <p>When does the hunt starts ?</p>
+        <input
+          type="datetime-local"
+          id="startDate"
+          formControlName="startDate"
+          [min]="minStartDate"
+          required
+        />
+        @if (form.get('startDate')?.invalid && form.get('startDate')?.dirty) {
+          <div class="error"><p>Please enter a valid start date.</p></div>
+        }
+        @if (form.get('startDate')?.errors?.['startDateTooSoon'] && form.get('startDate')?.dirty) {
+          <div class="error"><p>The hunt must start at least 30 minutes from now.</p></div>
+        }
+
+        <label for="endDate">End date : </label>
+        <p>When does the hunt ends ?</p>
+        <input
+          type="datetime-local"
+          id="endDate"
+          formControlName="endDate"
+          [min]="minEndDate"
+          required
+        />
+        @if (form.get('endDate')?.invalid && form.get('endDate')?.dirty) {
+          <div class="error"><p>Please enter a valid end date.</p></div>
+        }
+        @if (form.get('endDate')?.errors?.['endDateTooSoon'] && form.get('endDate')?.dirty) {
+          <div class="error"><p>The hunt must end at least 1 hour from now.</p></div>
+        }
+
+        
+      <div class="btn-container">
+        <lootopia-btn [disabled]="form.invalid" (click)="submit()"
+          >Create Hunt</lootopia-btn
+        >
+      </div>
+    </form>
+
+    <div class="btn-container">
+      <lootopia-btn [routerLinkPath]="RoutePaths.HUNT"
+        >Return to see your created hunts</lootopia-btn
+      >
+    </div>
+  </div>
+</div>

@@ -8,14 +8,14 @@ import { ValidateEmailComponent } from './pages/register/validate-email/validate
 import { PasswordResetComponent } from './pages/login/password-reset/password-reset.component';
 import { ResendEmailComponent } from './pages/login/resend-email/resend-email.component';
 import { ContactComponent } from './pages/contact/contact.component';
-
-/**
- * , canActivate: [authGuard]
- */
+import { authGuard } from './guards/auth.guard';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { HuntsViewComponent } from './pages/hunt/hunts-view.component';
+import { HuntCreateComponent } from './pages/hunt/hunt-create/hunt-create.component';
 
 export const routes: Routes = [
   { path: RoutePaths.DEFAULT, component: HomeComponent },
-  { path: RoutePaths.HOME, component: HomeComponent },
+  { path: RoutePaths.HOME, component: HomeComponent, canActivate: [authGuard] },
   { path: RoutePaths.LOGIN, component: LoginComponent },
   { path: RoutePaths.RESEND_EMAIL, component: ResendEmailComponent },
   { path: RoutePaths.FORGOT_PASS, component: PasswordResetComponent },
@@ -23,4 +23,19 @@ export const routes: Routes = [
   { path: RoutePaths.REGISTER_SUCCESS, component: RegisterSuccessComponent },
   { path: RoutePaths.VALIDATE_EMAIL, component: ValidateEmailComponent },
   { path: RoutePaths.CONTACT, component: ContactComponent },
+  {
+    path: RoutePaths.PROFILE,
+    component: UserProfileComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.HUNT,
+    component: HuntsViewComponent,
+    canActivate: [authGuard],
+  },
+    {
+    path: RoutePaths.HUNT_CREATE,
+    component: HuntCreateComponent,
+    canActivate: [authGuard],
+  },
 ];

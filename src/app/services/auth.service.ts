@@ -52,6 +52,11 @@ export class AuthService {
     }
   }
 
+  public getUserId(): string | null {
+    const decoded = this.getDecodedUserToken();
+    return decoded?.user.id || null;
+  }
+
   public login(request: LoginRequest): Observable<LoginResponse> {
     return this.http
       .post<LoginResponse>(
@@ -93,5 +98,4 @@ export class AuthService {
     const isAuth = !!localStorage.getItem('auth_token');
     this.loggedIn.next(isAuth);
   }
-
 }

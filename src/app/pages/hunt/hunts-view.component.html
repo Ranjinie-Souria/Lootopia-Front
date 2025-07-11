@@ -1,0 +1,29 @@
+<div class="container">
+  <h1>My Hunts</h1>
+
+  <div class="btn-container">
+    <button (click)="goToCreateHunt()">Create a Hunt</button>
+  </div>
+
+  <div *ngIf="loading" class="card-container">
+    <p>Loading hunts...</p>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+
+  @if(hunts && hunts.content && hunts.content.length > 0) {
+    <div class="card-container">
+      <div *ngFor="let hunt of hunts.content" class="card">
+        <h2>{{ hunt.title }}</h2>
+        <p>{{ hunt.description }}</p>
+        <button (click)="goToHuntDetails(hunt.id)">View Details</button>
+      </div>
+    </div>
+  }
+  <div *ngIf="!loading && hunts.content.length === 0" class="card-container">
+    <p>No hunts found. Create your first hunt above!</p>
+  </div>
+
+</div>
