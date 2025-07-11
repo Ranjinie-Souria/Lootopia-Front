@@ -8,6 +8,7 @@ import { ValidateEmailComponent } from './pages/register/validate-email/validate
 import { PasswordResetComponent } from './pages/login/password-reset/password-reset.component';
 import { ResendEmailComponent } from './pages/login/resend-email/resend-email.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { MapComponent } from './pages/map/map.component';
 
 /**
  * , canActivate: [authGuard]
@@ -16,6 +17,7 @@ import { ContactComponent } from './pages/contact/contact.component';
 export const routes: Routes = [
   { path: RoutePaths.DEFAULT, component: HomeComponent },
   { path: RoutePaths.HOME, component: HomeComponent },
+  { path: RoutePaths.MAP, component: MapComponent },
   { path: RoutePaths.LOGIN, component: LoginComponent },
   { path: RoutePaths.RESEND_EMAIL, component: ResendEmailComponent },
   { path: RoutePaths.FORGOT_PASS, component: PasswordResetComponent },

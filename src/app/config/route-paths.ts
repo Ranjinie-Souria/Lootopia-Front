@@ -7,6 +7,7 @@ export const RoutePaths = {
   RESEND_EMAIL: 'resend-email',
   REGISTER_SUCCESS: 'register-success',
   VALIDATE_EMAIL: 'validate-email',
+  MAP: 'map',
   PROFILE: 'profile',
   ABOUT: 'about',
   CONTACT: 'contact',

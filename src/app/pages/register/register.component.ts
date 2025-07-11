@@ -9,7 +9,10 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { RegisterRequest, RegisterService } from '../../services/register.service';
+import {
+  RegisterRequest,
+  RegisterService,
+} from '../../services/register.service';
 
 @Component({
   selector: 'app-register',
@@ -21,6 +24,7 @@ export class RegisterComponent {
   private fb = inject(FormBuilder);
   private registerService = inject(RegisterService);
   private router = inject(Router);
+  protected showPassword: boolean = false;
 
   protected readonly RoutePaths = RoutePaths;
   protected form = this.fb.group(
@@ -86,6 +90,10 @@ export class RegisterComponent {
       this.registrationError = 'Internal server error. Please try again later.';
     }
     return;
+  }
+
+  protected togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   private handleRegistrationSuccess(): void {

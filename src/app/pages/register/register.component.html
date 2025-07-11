@@ -49,18 +49,28 @@
           *ngIf="form.errors?.['emailAlreadyExists'] && form.dirty"
           class="error"
         >
-        <p>This email is already registered.</p>
+          <p>This email is already registered.</p>
         </div>
       }
 
       <label for="password">Password :</label>
-      <input
-        type="password"
-        id="password"
-        formControlName="password"
-        placeholder="Enter your password"
-        required
-      />
+      <div class="password-field">
+        <input
+          [type]="showPassword ? 'text' : 'password'"
+          id="password"
+          formControlName="password"
+          placeholder="Enter your password"
+          required
+        />
+        <button
+          type="button"
+          class="material-symbols-outlined eye"
+          (click)="togglePasswordVisibility()"
+        >
+          {{ showPassword ? 'visibility_off' : 'visibility' }}
+        </button>
+      </div>
+
       <label for="confirm-password">Confirm Password :</label>
       <input
         type="password"
@@ -70,22 +80,35 @@
         required
       />
 
-      @if (form.get('password')?.invalid && form.get('password')?.dirty || form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.dirty) {
+      @if (
+        (form.get('password')?.invalid && form.get('password')?.dirty) ||
+        (form.get('confirmPassword')?.invalid &&
+          form.get('confirmPassword')?.dirty)
+      ) {
         <div class="error">
-          @if (form.errors?.['passwordsMismatch'] || form.get('confirmPassword') !== form.get('password')) {
+          @if (
+            form.errors?.['passwordsMismatch'] ||
+            form.get('confirmPassword') !== form.get('password')
+          ) {
             <p>Please enter the same password in both fields.</p>
           }
-          @if (form.get('password')?.hasError('required') || form.get('confirmPassword')?.hasError('required')) { 
+          @if (
+            form.get('password')?.hasError('required') ||
+            form.get('confirmPassword')?.hasError('required')
+          ) {
             <p>Please enter a password.</p>
           }
-          @if (form.get('password')?.hasError('pattern') || form.get('confirmPassword')?.hasError('pattern')) {
+          @if (
+            form.get('password')?.hasError('pattern') ||
+            form.get('confirmPassword')?.hasError('pattern')
+          ) {
             <p>
               Your password must be 12+ chars with at least one uppercase,
               lowercase, number, and special character.
             </p>
           }
         </div>
-      }     
+      }
 
       <div class="btn-container">
         <lootopia-btn [disabled]="form.invalid" (click)="submit()"
