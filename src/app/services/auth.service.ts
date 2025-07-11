@@ -38,8 +38,35 @@ export class AuthService {
 
   constructor() {
     const token = localStorage.getItem('auth_token');
-    this.loggedIn.next(!!token);
+    this.loggedIn.next(!!token && !this.isTokenExpired(token));
+    this.startTokenExpirationCheck();
   }
+
+  private startTokenExpirationCheck(): void {
+  setInterval(() => {
+    const token = localStorage.getItem('auth_token');
+    if (!token || this.isTokenExpired(token)) {
+      this.forceLogoutSilent();
+    }
+  }, 5000);
+}
+
+public forceLogoutSilent(): void {
+  localStorage.removeItem('auth_token');
+  this.loggedIn.next(false);
+  this.currentUserSubject.next(null);
+}
+
+private isTokenExpired(token: string): boolean {
+  try {
+    const decoded = jwtDecode<DecodedToken>(token);
+    const now = Math.floor(Date.now() / 1000);
+    return decoded.exp < now;
+  } catch {
+    return true;
+  }
+}
+
 
   public getDecodedUserToken(): DecodedToken | null {
     const token = localStorage.getItem('auth_token');
