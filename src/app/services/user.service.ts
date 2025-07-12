@@ -41,6 +41,10 @@ export class UserService {
     return this.http.post(`${this.apiUrl}`, user);
   }
 
+  updateSelf(user: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/update/me`, user);
+  }
+
   // Update an existing user
   updateUser(id: string, user: any): Observable<any> {
     return this.http.put(`${this.apiUrl}/${id}`, user);

@@ -133,7 +133,7 @@ label {
   font-weight: bold;
 }
 
-textarea{
+textarea {
   padding: 10px;
   border-radius: 5px;
   border: var(--secondary-color) 1px solid;
@@ -161,6 +161,12 @@ input {
   border: var(--secondary-color) 1px solid;
   background-color: #fff;
   box-shadow: 0 2px 2px var(--secondary-color);
+
+  &:disabled {
+    background-color: #f0f0f0;
+    color: #999;
+    cursor: not-allowed;
+  }
 }
 
 input.ng-invalid.ng-touched {
@@ -253,7 +259,7 @@ a.disabled {
 }
 
 button {
-  margin:5px;
+  margin: 5px;
   overflow: visible;
   display: flex;
   justify-content: center;
@@ -273,11 +279,18 @@ button {
     background-color 0.3s ease,
     color 0.3s ease,
     transform 0.3s ease;
+
+  &:disabled {
+    background: var(--disabled-color);
+    border: 1px solid #999;
+    color: #999;
+    cursor: not-allowed;
+  }
 }
 
-button:hover {
+button:hover:not(:disabled) {
   background: var(--accent-color);
-  border: 1px solid var(--secondary-color);
+  border: 1px solid var(--disabled-color);
   transform: scale(1.05);
   color: #ffffff;
 }
@@ -290,7 +303,7 @@ button:hover {
   font-weight: 500;
 }
 
-input[type="checkbox"] {
+input[type='checkbox'] {
   appearance: none;
   width: 22px;
   height: 22px;
@@ -304,12 +317,12 @@ input[type="checkbox"] {
   margin: 3px;
 }
 
-input[type="checkbox"]:checked {
+input[type='checkbox']:checked {
   background-color: var(--accent-color);
   border-color: var(--accent-color);
 }
 
-input[type="checkbox"]::after {
+input[type='checkbox']::after {
   content: '✔';
   color: white;
   font-size: 14px;
@@ -320,7 +333,6 @@ input[type="checkbox"]::after {
   margin: 0 auto;
 }
 
-input[type="checkbox"]:checked::after {
+input[type='checkbox']:checked::after {
   display: block;
 }
-
