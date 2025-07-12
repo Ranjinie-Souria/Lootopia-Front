@@ -1,10 +1,12 @@
-export type TreasureType = 'CROWN';
+export enum TreasureType {
+  CROWN = 'CROWN',
+}
 
 export interface TreasureDTO {
   id?: string;
   huntId?: string;
   quantity: number;
-  treasureType: TreasureType;
+  type: TreasureType;
   longitude: number;
   latitude: number;
 }

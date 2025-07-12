@@ -245,6 +245,12 @@
       >
         <p>The hunt must end at least 1 hour from now.</p>
       </div>
+      <div
+        *ngIf="form.errors?.['startAfterEnd'] && (form.dirty || form.touched)"
+        class="error"
+      >
+        Start date must be inferior to end date.
+      </div>
 
       <!-- Invited Participants -->
       <label>Invited Participants (Emails):</label>
@@ -294,8 +300,8 @@
           <p>Please enter a valid quantity.</p>
         </div>
 
-        <label for="treasureType">Treasure Type :</label>
-        <select id="treasureType" formControlName="treasureType" required>
+        <label for="type">Treasure Type :</label>
+        <select id="type" formControlName="type" required>
           <option value="CROWN">Crown</option>
         </select>
       </fieldset>

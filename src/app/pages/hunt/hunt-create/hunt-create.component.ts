@@ -15,7 +15,7 @@ import { BtnComponent } from '../../../shared/components/btn/btn.component';
 import { HuntsService } from '../../../services/hunt.service';
 import { RoutePaths } from '../../../config/route-paths';
 import { HuntDto } from '../../../model/hunt.dto';
-import { TreasureDTO } from '../../../model/treasure.dto';
+import { TreasureDTO, TreasureType } from '../../../model/treasure.dto';
 
 @Component({
   selector: 'app-hunt-create',
@@ -47,29 +47,34 @@ export class HuntCreateComponent {
       .slice(0, 16);
   }
 
-  protected form: FormGroup = this.fb.group({
-    title: ['', Validators.required],
-    description: ['', Validators.required],
-    chatEnabled: [false],
-    worldType: ['CARTOGRAPHIC', Validators.required],
-    isPrivate: [false],
-    maxParticipants: [
-      1,
-      [Validators.required, Validators.min(1), Validators.max(100)],
-    ],
-    price: [0, [Validators.required, Validators.min(0)]],
-    excavationDelay: [1, [Validators.required, Validators.min(1)]],
-    excavationCost: [0, [Validators.required, Validators.min(0)]],
-    startDate: ['', [Validators.required, this.startDateValidator()]],
-    endDate: ['', [Validators.required, this.endDateValidator()]],
-    invitedPlayers: this.fb.array([]),
-    treasure: this.fb.group({
-      quantity: [1, [Validators.required, Validators.min(1)]],
-      treasureType: ['CROWN', Validators.required],
-      longitude: [0, [Validators.min(-180), Validators.max(180)]],
-      latitude: [0, [Validators.min(-90), Validators.max(90)]],
-    }),
-  });
+  protected form: FormGroup = this.fb.group(
+    {
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      chatEnabled: [false],
+      worldType: ['CARTOGRAPHIC', Validators.required],
+      isPrivate: [false],
+      maxParticipants: [
+        1,
+        [Validators.required, Validators.min(1), Validators.max(100)],
+      ],
+      price: [0, [Validators.required, Validators.min(0)]],
+      excavationDelay: [1, [Validators.required, Validators.min(1)]],
+      excavationCost: [0, [Validators.required, Validators.min(0)]],
+      startDate: ['', [Validators.required, this.startDateValidator()]],
+      endDate: ['', [Validators.required, this.endDateValidator()]],
+      invitedPlayers: this.fb.array([]),
+      treasure: this.fb.group({
+        quantity: [1, [Validators.required, Validators.min(1)]],
+        type: ['CROWN', Validators.required],
+        longitude: [0, [Validators.min(-180), Validators.max(180)]],
+        latitude: [0, [Validators.min(-90), Validators.max(90)]],
+      }),
+    },
+    {
+      validators: this.startBeforeEndValidator(),
+    },
+  );
 
   get invitedPlayersArray(): FormArray {
     return this.form.get('invitedPlayers') as FormArray;
@@ -100,9 +105,10 @@ export class HuntCreateComponent {
     }
 
     const treasureValue = this.form.get('treasure')?.value;
+
     const treasure: TreasureDTO = {
       quantity: treasureValue.quantity ?? 1,
-      treasureType: treasureValue.treasureType ?? 'CROWN',
+      type: treasureValue.type ?? 'CROWN',
       longitude: treasureValue.longitude ?? 0,
       latitude: treasureValue.latitude ?? 0,
     };
@@ -159,6 +165,19 @@ export class HuntCreateComponent {
       const now = new Date();
       const minEndDate = new Date(now.getTime() + 60 * 60 * 1000);
       return inputDate >= minEndDate ? null : { endDateTooSoon: true };
+    };
+  }
+
+  private startBeforeEndValidator(): ValidatorFn {
+    return (group: AbstractControl): ValidationErrors | null => {
+      const start = new Date(group.get('startDate')?.value);
+      const end = new Date(group.get('endDate')?.value);
+
+      if (!start || !end || isNaN(start.getTime()) || isNaN(end.getTime())) {
+        return null;
+      }
+
+      return start < end ? null : { startAfterEnd: true };
     };
   }
 }

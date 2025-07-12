@@ -2,7 +2,7 @@ import { TreasureType } from './treasure.dto';
 
 export interface TreasureDTO {
   quantity: number;
-  treasureType: TreasureType;
+  type: TreasureType;
   longitude: number;
   latitude: number;
 }
