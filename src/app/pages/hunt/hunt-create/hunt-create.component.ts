@@ -66,14 +66,8 @@ export class HuntCreateComponent {
     treasure: this.fb.group({
       quantity: [1, [Validators.required, Validators.min(1)]],
       treasureType: ['CROWN', Validators.required],
-      longitude: [
-        0,
-        [Validators.required, Validators.min(-180), Validators.max(180)],
-      ],
-      latitude: [
-        0,
-        [Validators.required, Validators.min(-90), Validators.max(90)],
-      ],
+      longitude: [0, [Validators.min(-180), Validators.max(180)]],
+      latitude: [0, [Validators.min(-90), Validators.max(90)]],
     }),
   });
 
@@ -138,7 +132,6 @@ export class HuntCreateComponent {
   }
 
   private handleError(err: any): void {
-    console.error(err);
     this.form.markAllAsTouched();
     this.form.markAsDirty();
     this.error = 'Unknown error, please contact an administrator.';

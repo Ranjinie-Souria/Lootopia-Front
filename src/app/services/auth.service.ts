@@ -74,7 +74,6 @@ private isTokenExpired(token: string): boolean {
     try {
       return jwtDecode<DecodedToken>(token);
     } catch (e) {
-      console.error('Invalid token:', e);
       return null;
     }
   }
@@ -113,7 +112,6 @@ private isTokenExpired(token: string): boolean {
         const decoded = jwtDecode<DecodedToken>(token);
         this.currentUserSubject.next(decoded);
       } catch (e) {
-        console.error('Invalid token:', e);
         this.currentUserSubject.next(null);
       }
     } else {

@@ -298,44 +298,6 @@
         <select id="treasureType" formControlName="treasureType" required>
           <option value="CROWN">Crown</option>
         </select>
-
-        <label for="longitude">Longitude :</label>
-        <input
-          type="number"
-          id="longitude"
-          formControlName="longitude"
-          min="-180"
-          max="180"
-          required
-        />
-        <div
-          *ngIf="
-            form.get('treasure.longitude')?.invalid &&
-            form.get('treasure.longitude')?.dirty
-          "
-          class="error"
-        >
-          <p>Please enter a valid longitude (-180 to 180).</p>
-        </div>
-
-        <label for="latitude">Latitude :</label>
-        <input
-          type="number"
-          id="latitude"
-          formControlName="latitude"
-          min="-90"
-          max="90"
-          required
-        />
-        <div
-          *ngIf="
-            form.get('treasure.latitude')?.invalid &&
-            form.get('treasure.latitude')?.dirty
-          "
-          class="error"
-        >
-          <p>Please enter a valid latitude (-90 to 90).</p>
-        </div>
       </fieldset>
 
       <!-- Submit Button -->

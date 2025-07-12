@@ -17,16 +17,13 @@ export const authGuard: CanActivateFn = () => {
     const now = Math.floor(Date.now() / 1000);
 
     if (decoded.exp && decoded.exp > now) {
-      console.log('Token is valid, proceeding to route');
       return true;
     } else {
-      console.log('Token is expired, redirecting to login');
       localStorage.removeItem('auth_token');
       router.navigate([RoutePaths.LOGIN]);
       return false;
     }
   } catch (e) {
-    console.error('Invalid token, redirecting to login', e);
     localStorage.removeItem('auth_token');
     router.navigate([RoutePaths.LOGIN]);
     return false;
