@@ -1,125 +1,171 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
+import {
+  AbstractControl,
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
+  Validators,
+} from '@angular/forms';
 import { BtnComponent } from '../../../shared/components/btn/btn.component';
-import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { HuntsService } from '../../../services/hunt.service';
-import { Router } from '@angular/router';
 import { RoutePaths } from '../../../config/route-paths';
 import { HuntDto } from '../../../model/hunt.dto';
+import { TreasureDTO } from '../../../model/treasure.dto';
 
 @Component({
   selector: 'app-hunt-create',
   imports: [CommonModule, BtnComponent, ReactiveFormsModule],
   templateUrl: './hunt-create.component.html',
-  styleUrl: './hunt-create.component.scss'
+  styleUrl: './hunt-create.component.scss',
 })
-export class HuntCreateComponent{
+export class HuntCreateComponent {
   private fb = inject(FormBuilder);
   private huntService = inject(HuntsService);
-  private router = inject(Router);
   protected readonly RoutePaths = RoutePaths;
 
   minStartDate: string = '';
   minEndDate: string = '';
   createdSuccess: boolean = false;
+  protected error: string = '';
 
   constructor() {
     this.setMinDates();
   }
 
-  protected setMinDates() {
+  protected setMinDates(): void {
     const now = new Date();
-
-    const minStart = new Date(now.getTime() + 30 * 60 * 1000);
-    this.minStartDate = minStart.toISOString().slice(0,16);
-
-    const minEnd = new Date(now.getTime() + 60 * 60 * 1000);
-    this.minEndDate = minEnd.toISOString().slice(0,16);
+    this.minStartDate = new Date(now.getTime() + 30 * 60 * 1000)
+      .toISOString()
+      .slice(0, 16);
+    this.minEndDate = new Date(now.getTime() + 60 * 60 * 1000)
+      .toISOString()
+      .slice(0, 16);
   }
 
-  protected form = this.fb.group({
+  protected form: FormGroup = this.fb.group({
     title: ['', Validators.required],
     description: ['', Validators.required],
-    chatEnabled: [''],
+    chatEnabled: [false],
     worldType: ['CARTOGRAPHIC', Validators.required],
     isPrivate: [false],
-    maxParticipants: [1, [Validators.required, Validators.min(1), Validators.max(100)]],
+    maxParticipants: [
+      1,
+      [Validators.required, Validators.min(1), Validators.max(100)],
+    ],
     price: [0, [Validators.required, Validators.min(0)]],
     excavationDelay: [1, [Validators.required, Validators.min(1)]],
     excavationCost: [0, [Validators.required, Validators.min(0)]],
     startDate: ['', [Validators.required, this.startDateValidator()]],
     endDate: ['', [Validators.required, this.endDateValidator()]],
+    invitedPlayers: this.fb.array([]),
+    treasure: this.fb.group({
+      quantity: [1, [Validators.required, Validators.min(1)]],
+      treasureType: ['CROWN', Validators.required],
+      longitude: [
+        0,
+        [Validators.required, Validators.min(-180), Validators.max(180)],
+      ],
+      latitude: [
+        0,
+        [Validators.required, Validators.min(-90), Validators.max(90)],
+      ],
+    }),
   });
 
-  protected error: string = '';
+  get invitedPlayersArray(): FormArray {
+    return this.form.get('invitedPlayers') as FormArray;
+  }
 
-  protected submit() {
+  get invitedPlayers(): FormControl[] {
+    return (this.form.get('invitedPlayers') as FormArray)
+      .controls as FormControl[];
+  }
+
+  addPlayer(): void {
+    this.invitedPlayersArray.push(
+      this.fb.control('', [Validators.required, Validators.email]),
+    );
+  }
+
+  removePlayer(index: number): void {
+    if (this.invitedPlayersArray.length > 1) {
+      this.invitedPlayersArray.removeAt(index);
+    }
+  }
+
+  protected submit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.form.markAsDirty();
       return;
     }
 
+    const treasureValue = this.form.get('treasure')?.value;
+    const treasure: TreasureDTO = {
+      quantity: treasureValue.quantity ?? 1,
+      treasureType: treasureValue.treasureType ?? 'CROWN',
+      longitude: treasureValue.longitude ?? 0,
+      latitude: treasureValue.latitude ?? 0,
+    };
+
     const payload: HuntDto = {
       creatorId: localStorage.getItem('userId') ?? '',
       title: this.form.get('title')?.value ?? '',
       description: this.form.get('description')?.value ?? '',
       chatEnabled: !!this.form.get('chatEnabled')?.value,
-      worldType: (this.form.get('worldType')?.value as 'CARTOGRAPHIC' | 'REAL_WORLD') ?? 'CARTOGRAPHIC',
+      worldType: this.form.get('worldType')?.value ?? 'CARTOGRAPHIC',
       isPrivate: !!this.form.get('isPrivate')?.value,
       maxParticipants: Number(this.form.get('maxParticipants')?.value ?? 1),
       price: Number(this.form.get('price')?.value ?? 0),
       excavationDelay: Number(this.form.get('excavationDelay')?.value ?? 0),
       excavationCost: Number(this.form.get('excavationCost')?.value ?? 0),
-      endDate: this.form.get('endDate')?.value ?? '',
       startDate: this.form.get('startDate')?.value ?? '',
+      endDate: this.form.get('endDate')?.value ?? '',
       creationDate: new Date().toISOString(),
-      invitedPlayers: [],
+      invitedPlayers: this.invitedPlayersArray.value,
+      treasure: treasure,
     };
 
     this.huntService.createHunt(payload).subscribe({
-      next: () => this.createdSuccess = true,
-      error: (err) => this.handleerror(err),
+      next: () => (this.createdSuccess = true),
+      error: (err) => this.handleError(err),
     });
   }
 
-  private handleerror(err: any): void {
+  private handleError(err: any): void {
     console.error(err);
     this.form.markAllAsTouched();
     this.form.markAsDirty();
     this.error = 'Unknown error, please contact an administrator.';
     if (err.message) {
       this.error = 'Error : ' + err.error.message;
-    }  else if (err.status === 500) {
+    } else if (err.status === 500) {
       this.error = 'Internal server error. Please try again later.';
     }
-    return;
   }
 
-  private handleRegistrationSuccess(): void {
-    this.router.navigate([RoutePaths.REGISTER_SUCCESS], {
-      state: { fromRegister: true },
-    });
+  protected startDateValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const inputDate = new Date(control.value);
+      const now = new Date();
+      const thirtyMinutesFromNow = new Date(now.getTime() + 30 * 60 * 1000);
+      return inputDate >= thirtyMinutesFromNow
+        ? null
+        : { startDateTooSoon: true };
+    };
   }
 
-protected startDateValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const inputDate = new Date(control.value);
-    const now = new Date();
-    const thirtyMinutesFromNow = new Date(now.getTime() + 30 * 60 * 1000);
-
-    return inputDate >= thirtyMinutesFromNow ? null : { startDateTooSoon: true };
-  };
-}
-
-
-protected endDateValidator(): ValidatorFn {
-  return (control: AbstractControl): ValidationErrors | null => {
-    const inputDate = new Date(control.value);
-    const now = new Date();
-    const minEndDate = new Date(now.getTime() + 60 * 60 * 1000);
-    return inputDate >= minEndDate ? null : { endDateTooSoon: true };
-  };
-}
-
+  protected endDateValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      const inputDate = new Date(control.value);
+      const now = new Date();
+      const minEndDate = new Date(now.getTime() + 60 * 60 * 1000);
+      return inputDate >= minEndDate ? null : { endDateTooSoon: true };
+    };
+  }
 }

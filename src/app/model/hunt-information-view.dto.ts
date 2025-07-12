@@ -1,4 +1,4 @@
-import { HuntMap } from './map.dto';
+import { Map } from './map.dto';
 import { TreasureDTO } from './treasure.dto';
 
 export interface HuntInformationViewDTO {
@@ -20,6 +20,6 @@ export interface HuntInformationViewDTO {
   deletedDate: string;
   creationDate: string;
   isPrivate: boolean;
-  maps: HuntMap[];
+  maps: Map[];
   treasure: TreasureDTO;
 }

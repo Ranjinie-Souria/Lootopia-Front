@@ -1,185 +1,355 @@
 <div class="starry-container">
+  <!-- Affiche "Loading..." si le formulaire n'est pas encore initialisé -->
+  <div *ngIf="!form" class="loading-container">
+    <p>Loading...</p>
+  </div>
 
-  @if (!form) {
-    <div class="loading-container">
-      <p>Loading...</p>
+  <!-- Affiche le message de succès si la chasse a été créée -->
+  <div *ngIf="createdSuccess && form" class="card-container">
+    <img class="crown" src="assets/images/crown.png" alt="Crowns popping out" />
+    <h1>Hunt Created Successfully!</h1>
+    <span>
+      Your hunt has been created successfully. You can now view it in on your
+      hunts list! Feel free to invite participants to join your hunt.
+    </span>
+    <div class="btn-container">
+      <lootopia-btn [routerLinkPath]="RoutePaths.HUNT"
+        >View Your Hunts</lootopia-btn
+      >
     </div>
-  }
-  @else if (createdSuccess) {
-    <div class="card-container">
-      <img class="crown" src="assets/images/crown.png" alt="Crowns popping out" />
-      <h1>Hunt Created Successfully!</h1>
-      <span>Your hunt has been created successfully. You can now view it in on your hunts list ! 
-      Feel free to invite participants to join your hunt.</span>
-      <div class="btn-container">
-        <lootopia-btn [routerLinkPath]="RoutePaths.HUNT">View Your Hunts</lootopia-btn>
+    <img
+      class="lootie"
+      src="assets/images/lootie.png"
+      alt="Lootie having fun"
+    />
+  </div>
+
+  <!-- Affiche le formulaire quand il est chargé et la chasse n'a pas encore été créée -->
+  <div *ngIf="form && !createdSuccess" class="card-container login-form">
+    <lootopia-btn [routerLinkPath]="RoutePaths.HUNT"
+      >Return to see your created hunts</lootopia-btn
+    >
+
+    <h1>Create a hunt</h1>
+    <h4>
+      It is time for you to create your own hunt... Fill these informations!
+    </h4>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <!-- Erreur globale -->
+      <div *ngIf="error" class="error">{{ error }}</div>
+
+      <!-- Title -->
+      <label for="title">Title :</label>
+      <p>Title of your hunt.</p>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        placeholder="Enter the hunt's title"
+        required
+      />
+      <div
+        *ngIf="form.get('title')?.invalid && form.get('title')?.dirty"
+        class="error"
+      >
+        <p>Please enter a title.</p>
       </div>
-      <img class="lootie" src="assets/images/lootie.png" alt="Lootie having fun" />
-    </div>
-  }
-  @else {
-    <div class="card-container login-form">
-      <lootopia-btn [routerLinkPath]="RoutePaths.HUNT">Return to see your created hunts</lootopia-btn>
 
-      <h1>Create a hunt</h1>
-      <h4>It is time for you to create your own hunt... Fill these informations !</h4>
+      <!-- Description -->
+      <label for="description">Description :</label>
+      <p>The hunt's description.</p>
+      <textarea
+        id="description"
+        formControlName="description"
+        placeholder="Enter the hunt's description"
+        required
+      ></textarea>
+      <div
+        *ngIf="
+          form.get('description')?.invalid && form.get('description')?.dirty
+        "
+        class="error"
+      >
+        <p>Please enter a description.</p>
+      </div>
 
-      <form [formGroup]="form" (ngSubmit)="submit()">
-        @if (error) {
-          <div class="error">{{ error }}</div>
-        }
-
-        <!-- Title -->
-        <label for="title">Title :</label>
-        <p>Title of your hunt.</p>
+      <!-- Chat Enabled -->
+      <div class="checkbox-group">
+        <label for="chatEnabled">
+          Chat enabled for this hunt ?
+          <p>Enables a chat for the participants of the hunt.</p>
+        </label>
         <input
-          type="text"
-          id="title"
-          formControlName="title"
-          placeholder="Enter the hunt's title"
+          type="checkbox"
+          id="chatEnabled"
+          formControlName="chatEnabled"
+          [checked]="form.get('chatEnabled')?.value"
+        />
+      </div>
+
+      <!-- World Type -->
+      <label for="worldType">World type :</label>
+      <p>Will the hunt take place on a cartographic map or in the AR world?</p>
+      <select id="worldType" formControlName="worldType" required>
+        <option value="CARTOGRAPHIC">Cartographic 🗺️</option>
+        <option value="REAL_WORLD">Real World 🌍</option>
+      </select>
+      <div
+        *ngIf="form.get('worldType')?.invalid && form.get('worldType')?.dirty"
+        class="error"
+      >
+        <p>Please select a world type.</p>
+      </div>
+
+      <!-- Excavation Delay -->
+      <label for="excavationDelay">Excavation delay (in seconds) :</label>
+      <p>The time between each excavation attempt.</p>
+      <input
+        type="number"
+        id="excavationDelay"
+        formControlName="excavationDelay"
+        placeholder="Enter the excavation delay in seconds"
+        required
+      />
+      <div
+        *ngIf="
+          form.get('excavationDelay')?.invalid &&
+          form.get('excavationDelay')?.dirty
+        "
+        class="error"
+      >
+        <p>Please enter a valid excavation delay.</p>
+      </div>
+
+      <!-- Excavation Cost -->
+      <label for="excavationCost">Excavation cost (in Crowns) :</label>
+      <p>The cost to retry excavating without waiting.</p>
+      <input
+        type="number"
+        id="excavationCost"
+        formControlName="excavationCost"
+        placeholder="Enter the excavation cost in Crowns"
+        required
+      />
+      <div
+        *ngIf="
+          form.get('excavationCost')?.invalid &&
+          form.get('excavationCost')?.dirty
+        "
+        class="error"
+      >
+        <p>Please enter a valid excavation cost.</p>
+      </div>
+
+      <!-- Private Hunt -->
+      <div class="checkbox-group">
+        <label for="isPrivate">
+          Is your hunt private ?
+          <p>You will have to send manually invites on your hunt's page.</p>
+        </label>
+        <input
+          type="checkbox"
+          id="isPrivate"
+          formControlName="isPrivate"
+          [checked]="form.get('isPrivate')?.value"
+        />
+      </div>
+
+      <!-- Max Participants -->
+      <label for="maxParticipants">Max participants :</label>
+      <p>The maximum number of participants allowed to join the hunt.</p>
+      <input
+        type="number"
+        id="maxParticipants"
+        formControlName="maxParticipants"
+        placeholder="Enter the maximum number of participants"
+        required
+      />
+      <div
+        *ngIf="
+          form.get('maxParticipants')?.invalid &&
+          form.get('maxParticipants')?.dirty
+        "
+        class="error"
+      >
+        <p>Please enter a valid number of participants.</p>
+      </div>
+
+      <!-- Price -->
+      <label for="price">Price to join (in Crowns) :</label>
+      <p>Minimum 0 Crowns to join the hunt.</p>
+      <input
+        type="number"
+        id="price"
+        formControlName="price"
+        placeholder="Enter the price to join"
+        min="0"
+        required
+      />
+      <div
+        *ngIf="form.get('price')?.invalid && form.get('price')?.dirty"
+        class="error"
+      >
+        <p>Please enter a valid price (0 or more).</p>
+      </div>
+
+      <!-- Start Date -->
+      <label for="startDate">Start date :</label>
+      <p>When does the hunt start?</p>
+      <input
+        type="datetime-local"
+        id="startDate"
+        formControlName="startDate"
+        [min]="minStartDate"
+        required
+      />
+      <div
+        *ngIf="form.get('startDate')?.invalid && form.get('startDate')?.dirty"
+        class="error"
+      >
+        <p>Please enter a valid start date.</p>
+      </div>
+      <div
+        *ngIf="
+          form.get('startDate')?.errors?.['startDateTooSoon'] &&
+          form.get('startDate')?.dirty
+        "
+        class="error"
+      >
+        <p>The hunt must start at least 30 minutes from now.</p>
+      </div>
+
+      <!-- End Date -->
+      <label for="endDate">End date :</label>
+      <p>When does the hunt end?</p>
+      <input
+        type="datetime-local"
+        id="endDate"
+        formControlName="endDate"
+        [min]="minEndDate"
+        required
+      />
+      <div
+        *ngIf="form.get('endDate')?.invalid && form.get('endDate')?.dirty"
+        class="error"
+      >
+        <p>Please enter a valid end date.</p>
+      </div>
+      <div
+        *ngIf="
+          form.get('endDate')?.errors?.['endDateTooSoon'] &&
+          form.get('endDate')?.dirty
+        "
+        class="error"
+      >
+        <p>The hunt must end at least 1 hour from now.</p>
+      </div>
+
+      <!-- Invited Participants -->
+      <label>Invited Participants (Emails):</label>
+      <p>Add emails of players you want to invite.</p>
+      <div formArrayName="invitedPlayers">
+        <div
+          *ngFor="let playerCtrl of invitedPlayers; let i = index"
+          [formGroupName]="i"
+          class="player-email"
+        >
+          <input
+            type="email"
+            [formControl]="playerCtrl"
+            placeholder="Enter participant email"
+            required
+          />
+          <button
+            type="button"
+            (click)="removePlayer(i)"
+            *ngIf="invitedPlayers.length > 1"
+          >
+            Remove
+          </button>
+        </div>
+        <button type="button" (click)="addPlayer()">Add Participant</button>
+      </div>
+
+      <!-- Treasure -->
+      <fieldset formGroupName="treasure" class="treasure-group">
+        <legend>Treasure details:</legend>
+
+        <label for="quantity">Quantity :</label>
+        <input
+          type="number"
+          id="quantity"
+          formControlName="quantity"
+          min="1"
           required
         />
-        @if (form.get('title')?.invalid && form.get('title')?.dirty) {
-          <div class="error"><p>Please enter a title.</p></div>
-        }
-
-        <!-- Description -->
-        <label for="description">Description :</label>
-        <p>The hunt's description.</p>
-        <textarea
-          id="description"
-          formControlName="description"
-          placeholder="Enter the hunt's description"
-          required
-        ></textarea>
-        @if (form.get('description')?.invalid && form.get('description')?.dirty) {
-          <div class="error"><p>Please enter a description.</p></div>
-        }
-
-        <!-- Chat Enabled -->
-        <div class="checkbox-group">
-          <label for="chatEnabled">
-            Chat enabled for this hunt ?
-            <p>Enables a chat for the participants of the hunt.</p>
-          </label>
-          <input
-            type="checkbox"
-            id="chatEnabled"
-            formControlName="chatEnabled"
-            [checked]="form.get('chatEnabled')?.value"
-          />
+        <div
+          *ngIf="
+            form.get('treasure.quantity')?.invalid &&
+            form.get('treasure.quantity')?.dirty
+          "
+          class="error"
+        >
+          <p>Please enter a valid quantity.</p>
         </div>
 
-        <!-- World Type -->
-        <label for="worldType">World type :</label>
-        <p>Will the hunt take place on a cartographic map or in the AR world ?</p>
-        <select id="worldType" formControlName="worldType" required>
-          <option value="CARTOGRAPHIC">Cartographic 🗺️</option>
-          <option value="REAL_WORLD">Real World 🌍</option>
+        <label for="treasureType">Treasure Type :</label>
+        <select id="treasureType" formControlName="treasureType" required>
+          <option value="CROWN">Crown</option>
         </select>
-        @if (form.get('worldType')?.invalid && form.get('worldType')?.dirty) {
-          <div class="error"><p>Please select a world type.</p></div>
-        }
 
-        <!-- Excavation Delay -->
-        <label for="excavationDelay">Excavation delay (in seconds) :</label>
-        <p>The time between each excavation attempt.</p>
+        <label for="longitude">Longitude :</label>
         <input
           type="number"
-          id="excavationDelay"
-          formControlName="excavationDelay"
-          placeholder="Enter the excavation delay in seconds"
+          id="longitude"
+          formControlName="longitude"
+          min="-180"
+          max="180"
           required
         />
-        @if (form.get('excavationDelay')?.invalid && form.get('excavationDelay')?.dirty) {
-          <div class="error"><p>Please enter a valid excavation delay.</p></div>
-        }
-
-        <!-- Excavation Cost -->
-        <label for="excavationCost">Excavation cost (in Crowns) :</label>
-        <p>The cost to retry excavating without waiting.</p>
-        <input
-          type="number"
-          id="excavationCost"
-          formControlName="excavationCost"
-          placeholder="Enter the excavation cost in Crowns"
-          required
-        />
-        @if (form.get('excavationCost')?.invalid && form.get('excavationCost')?.dirty) {
-          <div class="error"><p>Please enter a valid excavation cost.</p></div>
-        }
-
-        <!-- Private Hunt -->
-        <div class="checkbox-group">
-          <label for="isPrivate">
-            Is your hunt private ?
-            <p>You will have to send manually invites on your hunt's page.</p>
-          </label>
-          <input
-            type="checkbox"
-            id="isPrivate"
-            formControlName="isPrivate"
-            [checked]="form.get('isPrivate')?.value"
-          />
+        <div
+          *ngIf="
+            form.get('treasure.longitude')?.invalid &&
+            form.get('treasure.longitude')?.dirty
+          "
+          class="error"
+        >
+          <p>Please enter a valid longitude (-180 to 180).</p>
         </div>
 
-        <!-- Max Participants -->
-        <label for="maxParticipants">Max participants :</label>
-        <p>The maximum numbers of participants allowed to join the hunt.</p>
+        <label for="latitude">Latitude :</label>
         <input
           type="number"
-          id="maxParticipants"
-          formControlName="maxParticipants"
-          placeholder="Enter the maximum number of participants"
+          id="latitude"
+          formControlName="latitude"
+          min="-90"
+          max="90"
           required
         />
-        @if (form.get('maxParticipants')?.invalid && form.get('maxParticipants')?.dirty) {
-          <div class="error"><p>Please enter a valid number of participants.</p></div>
-        }
-
-        <!-- Start Date -->
-        <label for="startDate">Start date :</label>
-        <p>When does the hunt starts ?</p>
-        <input
-          type="datetime-local"
-          id="startDate"
-          formControlName="startDate"
-          [min]="minStartDate"
-          required
-        />
-        @if (form.get('startDate')?.invalid && form.get('startDate')?.dirty) {
-          <div class="error"><p>Please enter a valid start date.</p></div>
-        }
-        @if (form.get('startDate')?.errors?.['startDateTooSoon'] && form.get('startDate')?.dirty) {
-          <div class="error"><p>The hunt must start at least 30 minutes from now.</p></div>
-        }
-
-        <!-- End Date -->
-        <label for="endDate">End date :</label>
-        <p>When does the hunt ends ?</p>
-        <input
-          type="datetime-local"
-          id="endDate"
-          formControlName="endDate"
-          [min]="minEndDate"
-          required
-        />
-        @if (form.get('endDate')?.invalid && form.get('endDate')?.dirty) {
-          <div class="error"><p>Please enter a valid end date.</p></div>
-        }
-        @if (form.get('endDate')?.errors?.['endDateTooSoon'] && form.get('endDate')?.dirty) {
-          <div class="error"><p>The hunt must end at least 1 hour from now.</p></div>
-        }
-
-        <!-- Submit Button -->
-        <div class="btn-container">
-          <lootopia-btn [disabled]="form.invalid" (click)="submit()">Create Hunt</lootopia-btn>
+        <div
+          *ngIf="
+            form.get('treasure.latitude')?.invalid &&
+            form.get('treasure.latitude')?.dirty
+          "
+          class="error"
+        >
+          <p>Please enter a valid latitude (-90 to 90).</p>
         </div>
-      </form>
+      </fieldset>
 
+      <!-- Submit Button -->
       <div class="btn-container">
-        <lootopia-btn [routerLinkPath]="RoutePaths.HUNT">Return to see your created hunts</lootopia-btn>
+        <lootopia-btn [disabled]="form.invalid" (click)="submit()"
+          >Create Hunt</lootopia-btn
+        >
       </div>
+    </form>
+
+    <div class="btn-container">
+      <lootopia-btn [routerLinkPath]="RoutePaths.HUNT"
+        >Return to see your created hunts</lootopia-btn
+      >
     </div>
-  }
+  </div>
 </div>
