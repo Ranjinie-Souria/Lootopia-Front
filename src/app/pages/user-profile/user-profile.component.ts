@@ -30,9 +30,7 @@ export class UserProfileComponent implements OnInit {
           id,
           username,
           language,
-          /* , profilePicture */ //Notimplemented in backend
-          email: this.userService.getUser()?.email, //SHOULD NOT be changed
-          /* , email */ //SHOULD NOT be changed
+          email: this.userService.getUser()?.email,
         })
         .subscribe({
           next: () => {
@@ -54,13 +52,8 @@ export class UserProfileComponent implements OnInit {
           username: [user.username],
           email: [{ value: user.email, disabled: true }],
           language: [user.language],
-          profilePicture: [user.profilePicture || this.defaultImage], // Not implemented in backend yet
+          profilePicture: [user.profilePicture || this.defaultImage],
         });
-
-        /* const emailControl = this.editForm.get('email');
-        if (emailControl) {
-          emailControl.disable();
-        } */
       }
     });
   }
@@ -103,13 +96,8 @@ export class UserProfileComponent implements OnInit {
           username: [user.username],
           email: [{ value: user.email, disabled: true }],
           language: [user.language],
-          profilePicture: [user.profilePicture || this.defaultImage], // Not implemented in backend yet
+          profilePicture: [user.profilePicture || this.defaultImage],
         });
-
-        /* const emailControl = this.editForm.get('email');
-        if (emailControl) {
-          emailControl.disable();
-        } */
       }
     });
   }
