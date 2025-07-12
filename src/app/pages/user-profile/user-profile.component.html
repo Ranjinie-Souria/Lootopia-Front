@@ -2,58 +2,81 @@
   <div class="card-container no-border">
     <h2>User Profile</h2>
     <div class="profile-card">
-      <img
-        src="assets/images/lootie.png"
-        alt="Profile Picture"
-        class="profile-icon"
-      />
-      <div class="user-info">
-        <h3>{{ (user$ | async)?.username }}</h3>
-        <p class="label">
-          <span class="label-name">Email:</span> {{ (user$ | async)?.email }}
-        </p>
-        <p class="label">
-          <span class="label-name">Balance:</span> {{ (user$ | async)?.money }}
-          <img
-            class="currency-pic"
-            alt="Currency"
-            src="assets/images/crown.png"
-          />
-        </p>
-        <p class="label">
-          <span class="label-name">Language:</span>
-          {{ (user$ | async)?.language }}
-        </p>
-        <p class="label">
-          <span class="label-name">Type:</span> {{ (user$ | async)?.type }}
-        </p>
-        <div class="btn-container">
-          <button (click)="toggleEdit()" class="edit-button">
-            Edit Profile
-          </button>
-          <form
-            *ngIf="isEditing"
-            [formGroup]="editForm"
-            (ngSubmit)="onSubmit()"
+      <div class="profile-picture-container">
+        <img
+          id="profilePictureImg"
+          [src]="
+            tempImage ||
+            (user$ | async)?.profilePicture ||
+            'assets/images/lootie.png'
+          "
+          alt="Profile Picture"
+          class="profile-icon"
+        />
+        @if (isEditing) {
+          <button
+            (click)="selectImage($event)"
+            class="edit-button disabled"
+            disabled
           >
-            <label>
-              Username:
-              <input formControlName="username" />
-            </label>
-            <label>
-              Email:
-              <input formControlName="email" type="email" />
-            </label>
-            <label>
-              Language:
-              <input formControlName="language" />
-            </label>
-
-            <button type="submit">Save</button>
-            <button type="button" (click)="cancelEdit()">Cancel</button>
-          </form>
-        </div>
+            <input
+              id="fileInput"
+              type="file"
+              accept="image/*"
+              (change)="onFileSelected($event)"
+              style="display: none"
+            />
+            Upload an Image
+          </button>
+        }
       </div>
+
+      @if (!isEditing) {
+        <div class="user-info">
+          <h3>{{ (user$ | async)?.username }}</h3>
+          <p class="label">
+            <span class="label-name">Email:</span> {{ (user$ | async)?.email }}
+          </p>
+          <p class="label">
+            <span class="label-name">Balance:</span>
+            {{ (user$ | async)?.money }}
+            <img
+              class="currency-pic"
+              alt="Currency"
+              src="assets/images/crown.png"
+            />
+          </p>
+          <p class="label">
+            <span class="label-name">Language:</span>
+            {{ (user$ | async)?.language }}
+          </p>
+          <p class="label">
+            <span class="label-name">Type:</span> {{ (user$ | async)?.type }}
+          </p>
+          <div class="btn-container">
+            <button (click)="enableEdit()" class="edit-button">
+              Edit Profile
+            </button>
+          </div>
+        </div>
+      } @else {
+        <form class="user-info" [formGroup]="editForm" (ngSubmit)="onSubmit()">
+          <label>
+            Username:
+            <input formControlName="username" />
+          </label>
+          <label>
+            Email:
+            <input formControlName="email" type="email" />
+          </label>
+          <label>
+            Language:
+            <input formControlName="language" />
+          </label>
+          <button type="submit">Save</button>
+          <button type="button" (click)="cancelEdit()">Cancel</button>
+        </form>
+      }
     </div>
   </div>
 </div>
