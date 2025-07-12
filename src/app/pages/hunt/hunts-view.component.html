@@ -6,7 +6,7 @@
   </div>
 
   <div *ngIf="loading" class="card-container-hunt">
-    <p>Loading hunts...</p>
+    <loader></loader>
   </div>
 
   <div *ngIf="error" class="error">
@@ -36,7 +36,6 @@
             </button>
           </div>
 
-          <!-- Détails affichés uniquement si showDetail[i] true -->
           <div *ngIf="showDetail[i]" class="hunt-details">
             <h4>
               <strong>Creator:</strong> {{ hunt.creatorLogin }} ({{

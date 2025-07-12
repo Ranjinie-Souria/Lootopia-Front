@@ -1,0 +1,172 @@
+<div class="starry-container">
+  <div *ngIf="loading"><loader></loader></div>
+
+  <div *ngIf="!loading && form" class="card-container login-form">
+    <lootopia-btn [routerLinkPath]="RoutePaths.HUNT">
+      Return to hunts list
+    </lootopia-btn>
+
+    <h1>Edit Hunt</h1>
+    <h4>Update your hunt information below.</h4>
+
+    <form [formGroup]="form" (ngSubmit)="update()">
+      <div *ngIf="error" class="error">{{ error }}</div>
+
+      <label for="title">Title :</label>
+      <p>Title of your hunt.</p>
+      <input
+        type="text"
+        id="title"
+        formControlName="title"
+        placeholder="Enter the hunt's title"
+        required
+      />
+
+      <label for="description">Description :</label>
+      <p>The hunt's description.</p>
+      <textarea
+        id="description"
+        formControlName="description"
+        placeholder="Enter the hunt's description"
+        required
+      ></textarea>
+
+      <div class="checkbox-group">
+        <label for="chatEnabled">
+          Chat enabled?
+          <p>Allows participants to chat during the hunt.</p>
+        </label>
+        <input type="checkbox" id="chatEnabled" formControlName="chatEnabled" />
+      </div>
+
+      <label for="worldType">World type :</label>
+      <select id="worldType" formControlName="worldType" required>
+        <option value="CARTOGRAPHIC">Cartographic 🗺️</option>
+        <option value="REAL_WORLD">Real World 🌍</option>
+      </select>
+
+      <label for="excavationDelay">Excavation delay (seconds) :</label>
+      <input
+        type="number"
+        id="excavationDelay"
+        formControlName="excavationDelay"
+        placeholder="Time between excavations"
+        required
+      />
+
+      <label for="excavationCost">Excavation cost (Crowns) :</label>
+      <input
+        type="number"
+        id="excavationCost"
+        formControlName="excavationCost"
+        placeholder="Retry cost"
+        required
+      />
+
+      <div class="checkbox-group">
+        <label for="isPrivate">
+          Private Hunt?
+          <p>You will need to send invitations manually.</p>
+        </label>
+        <input type="checkbox" id="isPrivate" formControlName="isPrivate" />
+      </div>
+
+      <label for="maxParticipants">Max participants :</label>
+      <input
+        type="number"
+        id="maxParticipants"
+        formControlName="maxParticipants"
+        placeholder="Max number of players"
+        required
+      />
+
+      <label for="price">Price to join (Crowns) :</label>
+      <input
+        type="number"
+        id="price"
+        formControlName="price"
+        min="0"
+        required
+      />
+
+      <label for="startDate">Start date :</label>
+      <input
+        type="datetime-local"
+        id="startDate"
+        formControlName="startDate"
+        required
+      />
+
+      <label for="endDate">End date :</label>
+      <input
+        type="datetime-local"
+        id="endDate"
+        formControlName="endDate"
+        required
+      />
+
+      <div *ngIf="form.errors?.['startAfterEnd']" class="error">
+        Start date must be before end date.
+      </div>
+
+      <label>Invited Participants (Emails):</label>
+      <div formArrayName="invitedPlayers">
+        <div
+          *ngFor="let playerCtrl of invitedPlayers; let i = index"
+          class="player-email"
+        >
+          <input
+            [formControl]="playerCtrl"
+            type="email"
+            placeholder="Enter email"
+            required
+          />
+          <button
+            type="button"
+            (click)="removePlayer(i)"
+            *ngIf="invitedPlayers.length > 1"
+            class="icon-btn remove-btn"
+          >
+            &minus;
+          </button>
+          <button
+            type="button"
+            (click)="addPlayer()"
+            *ngIf="i === invitedPlayers.length - 1"
+            class="icon-btn add-btn"
+          >
+            +
+          </button>
+        </div>
+      </div>
+
+      <fieldset formGroupName="treasure" class="treasure-group">
+        <legend>Treasure details:</legend>
+
+        <label for="quantity">Quantity :</label>
+        <input
+          type="number"
+          id="quantity"
+          formControlName="quantity"
+          min="1"
+          required
+        />
+
+        <label for="type">Treasure Type :</label>
+        <select id="type" formControlName="type" required>
+          <option value="CROWN">Crown</option>
+        </select>
+      </fieldset>
+
+      <div class="btn-container">
+        <lootopia-btn [disabled]="form.invalid" (click)="update()"
+          >Update Hunt</lootopia-btn
+        >
+      </div>
+    </form>
+
+    <div class="btn-container">
+      <lootopia-btn [routerLinkPath]="RoutePaths.HUNT"> Cancel </lootopia-btn>
+    </div>
+  </div>
+</div>

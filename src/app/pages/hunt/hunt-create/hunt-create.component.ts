@@ -15,11 +15,12 @@ import { BtnComponent } from '../../../shared/components/btn/btn.component';
 import { HuntsService } from '../../../services/hunt.service';
 import { RoutePaths } from '../../../config/route-paths';
 import { HuntDto } from '../../../model/hunt.dto';
-import { TreasureDTO, TreasureType } from '../../../model/treasure.dto';
+import { TreasureDTO } from '../../../model/treasure.dto';
+import { LoaderComponent } from "../../../shared/loader/loader.component";
 
 @Component({
   selector: 'app-hunt-create',
-  imports: [CommonModule, BtnComponent, ReactiveFormsModule],
+  imports: [CommonModule, BtnComponent, ReactiveFormsModule, LoaderComponent],
   templateUrl: './hunt-create.component.html',
   styleUrl: './hunt-create.component.scss',
 })

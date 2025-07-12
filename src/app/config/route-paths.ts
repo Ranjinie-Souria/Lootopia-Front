@@ -12,4 +12,5 @@ export const RoutePaths = {
   CONTACT: 'contact',
   HUNT: 'hunt',
   HUNT_CREATE: 'hunt/create',
+  HUNT_UPDATE: 'hunt/update',
 };

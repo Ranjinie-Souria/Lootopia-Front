@@ -5,12 +5,13 @@ import { HuntInformationViewDTO } from '../../model/hunt-information-view.dto';
 import { HuntsService } from '../../services/hunt.service';
 import { CommonModule } from '@angular/common';
 import { PageDTO } from '../../model/page.dto';
+import { LoaderComponent } from "../../shared/loader/loader.component";
 
 @Component({
   selector: 'app-hunts-view',
   templateUrl: './hunts-view.component.html',
   styleUrls: ['./hunt.component.scss'],
-  imports: [CommonModule],
+  imports: [CommonModule, LoaderComponent],
 })
 export class HuntsViewComponent implements OnInit {
   hunts!: PageDTO<HuntInformationViewDTO>;
@@ -43,7 +44,7 @@ export class HuntsViewComponent implements OnInit {
   }
 
   editHunt(idHunt: string) {
-    return;
+    this.router.navigate([RoutePaths.HUNT_UPDATE, idHunt]);
   }
 
   toggleDetail(index: number) {
