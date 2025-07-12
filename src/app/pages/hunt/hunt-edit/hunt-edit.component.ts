@@ -17,7 +17,7 @@ import { RoutePaths } from '../../../config/route-paths';
 import { HuntsService } from '../../../services/hunt.service';
 import { HuntUpdateDTO } from '../../../model/hunt-update.dto';
 import { HuntInformationViewDTO } from '../../../model/hunt-information-view.dto';
-import { LoaderComponent } from "../../../shared/loader/loader.component";
+import { LoaderComponent } from '../../../shared/loader/loader.component';
 
 @Component({
   selector: 'app-hunt-edit',
@@ -79,18 +79,18 @@ export class HuntEditComponent implements OnInit {
         startDate: [hunt.startDate, [Validators.required]],
         endDate: [hunt.endDate, [Validators.required]],
         invitedPlayers: this.fb.array(
-          hunt.authorizedUsers.map((email) =>
+          (hunt.authorizedUsers ?? []).map((email) =>
             this.fb.control(email, [Validators.required, Validators.email]),
           ),
         ),
         treasure: this.fb.group({
           quantity: [
-            hunt.treasure.quantity,
+            hunt.treasure?.quantity ?? 1,
             [Validators.required, Validators.min(1)],
           ],
-          type: [hunt.treasure.type, Validators.required],
-          longitude: [hunt.treasure.longitude ?? 0],
-          latitude: [hunt.treasure.latitude ?? 0],
+          type: [hunt.treasure?.type ?? 'CROWN', Validators.required],
+          longitude: [hunt.treasure?.longitude ?? 0],
+          latitude: [hunt.treasure?.latitude ?? 0],
         }),
       },
       {
