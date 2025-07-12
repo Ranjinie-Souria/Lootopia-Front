@@ -28,7 +28,6 @@ export class HuntsViewComponent implements OnInit {
     this.huntsService.getMyHunts().subscribe({
       next: (data) => {
         this.hunts = data;
-        console.debug('Hunts loaded:', this.hunts);
         this.loading = false;
       },
       error: () => {
