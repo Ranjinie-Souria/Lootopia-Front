@@ -17,7 +17,7 @@ import { RoutePaths } from '../../../config/route-paths';
 import { HuntsService } from '../../../services/hunt.service';
 import { HuntUpdateDTO } from '../../../model/hunt-update.dto';
 import { HuntInformationViewDTO } from '../../../model/hunt-information-view.dto';
-import { LoaderComponent } from '../../../shared/loader/loader.component';
+import { LoaderComponent } from '../../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-hunt-edit',

@@ -13,7 +13,7 @@ import {
   RegisterRequest,
   RegisterService,
 } from '../../services/register.service';
-import { LoaderComponent } from "../../shared/loader/loader.component";
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-register',

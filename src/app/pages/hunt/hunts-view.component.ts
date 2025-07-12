@@ -5,7 +5,7 @@ import { HuntInformationViewDTO } from '../../model/hunt-information-view.dto';
 import { HuntsService } from '../../services/hunt.service';
 import { CommonModule } from '@angular/common';
 import { PageDTO } from '../../model/page.dto';
-import { LoaderComponent } from "../../shared/loader/loader.component";
+import { LoaderComponent } from '../../shared/components/loader/loader.component';
 
 @Component({
   selector: 'app-hunts-view',
