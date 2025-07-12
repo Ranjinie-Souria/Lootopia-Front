@@ -13,11 +13,11 @@ import { PageDTO } from '../../model/page.dto';
   imports: [CommonModule],
 })
 export class HuntsViewComponent implements OnInit {
-
   hunts!: PageDTO<HuntInformationViewDTO>;
   page = 0;
   loading = true;
   error = '';
+  showDetail: boolean[] = [];
 
   constructor(
     private readonly huntsService: HuntsService,
@@ -29,6 +29,7 @@ export class HuntsViewComponent implements OnInit {
       next: (data) => {
         this.hunts = data;
         this.loading = false;
+        this.showDetail = this.hunts.content.map(() => false);
       },
       error: () => {
         this.error = 'Unable to load your hunts.';
@@ -41,8 +42,11 @@ export class HuntsViewComponent implements OnInit {
     this.router.navigate([RoutePaths.HUNT_CREATE]);
   }
 
-  goToHuntDetails(idHunt: string) {
-    throw new Error('Method not implemented.');
+  editHunt(idHunt: string) {
+    return;
   }
 
+  toggleDetail(index: number) {
+    this.showDetail[index] = !this.showDetail[index];
+  }
 }

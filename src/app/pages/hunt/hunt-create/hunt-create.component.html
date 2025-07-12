@@ -180,7 +180,7 @@
       >
         <p>Please enter a valid price (0 or more).</p>
       </div>
-      
+
       <label for="startDate">Start date :</label>
       <p>When does the hunt start?</p>
       <input
@@ -236,35 +236,43 @@
       >
         Start date must be before end date.
       </div>
-      
-      <label>Invited Participants (Emails):</label>
+
+      <label for="invitedPlayers">Invited Participants (Emails):</label>
       <p>Add emails of players you want to invite.</p>
       <div formArrayName="invitedPlayers">
         <div
           *ngFor="let playerCtrl of invitedPlayers; let i = index"
-          [formGroupName]="i"
           class="player-email"
         >
           <input
-            type="email"
             [formControl]="playerCtrl"
+            type="email"
             placeholder="Enter participant email"
             required
           />
+
           <button
             type="button"
             (click)="removePlayer(i)"
             *ngIf="invitedPlayers.length > 1"
+            class="icon-btn remove-btn"
           >
-            Remove
+            &minus;
+          </button>
+
+          <button
+            type="button"
+            (click)="addPlayer()"
+            *ngIf="i === invitedPlayers.length - 1"
+            class="icon-btn add-btn"
+          >
+            +
           </button>
         </div>
-        <button type="button" (click)="addPlayer()">Add Participant</button>
       </div>
-      
+
       <fieldset formGroupName="treasure" class="treasure-group">
         <legend>Treasure details:</legend>
-
         <label for="quantity">Quantity :</label>
         <input
           type="number"
@@ -288,7 +296,7 @@
           <option value="CROWN">Crown</option>
         </select>
       </fieldset>
-      
+
       <div class="btn-container">
         <lootopia-btn [disabled]="form.invalid" (click)="submit()"
           >Create Hunt</lootopia-btn

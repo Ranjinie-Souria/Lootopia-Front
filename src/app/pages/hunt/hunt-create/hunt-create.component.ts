@@ -63,7 +63,10 @@ export class HuntCreateComponent {
       excavationCost: [0, [Validators.required, Validators.min(0)]],
       startDate: ['', [Validators.required, this.startDateValidator()]],
       endDate: ['', [Validators.required, this.endDateValidator()]],
-      invitedPlayers: this.fb.array([]),
+      invitedPlayers: this.fb.array([
+        this.fb.control('', [Validators.required, Validators.email]),
+      ]),
+
       treasure: this.fb.group({
         quantity: [1, [Validators.required, Validators.min(1)]],
         type: ['CROWN', Validators.required],
@@ -92,9 +95,7 @@ export class HuntCreateComponent {
   }
 
   removePlayer(index: number): void {
-    if (this.invitedPlayersArray.length > 1) {
-      this.invitedPlayersArray.removeAt(index);
-    }
+    this.invitedPlayersArray.removeAt(index);
   }
 
   protected submit(): void {
