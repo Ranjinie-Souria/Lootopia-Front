@@ -1,4 +1,4 @@
-export interface HuntMap {
+export interface Map {
   id: string;
   huntId: string;
   name: string;

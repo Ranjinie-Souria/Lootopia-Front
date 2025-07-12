@@ -13,7 +13,7 @@
     <p>{{ error }}</p>
   </div>
 
-  @if(hunts && hunts.content && hunts.content.length > 0) {
+  @if (hunts && hunts.content && hunts.content.length > 0) {
     <div class="card-container-hunt">
       <div *ngFor="let hunt of hunts.content" class="card-hunt">
         <h2>{{ hunt.title }}</h2>
@@ -22,8 +22,7 @@
       </div>
     </div>
   }
-  <div *ngIf="!loading && hunts.content.length === 0" class="card-container-hunt">
+  <div *ngIf="!loading && hunts.content.length === 0" class="card-container">
     <p>No hunts found. Create your first hunt above!</p>
   </div>
-
 </div>
