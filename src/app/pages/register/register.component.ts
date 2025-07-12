@@ -9,11 +9,15 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NgIf } from '@angular/common';
-import { RegisterRequest, RegisterService } from '../../services/register.service';
+import {
+  RegisterRequest,
+  RegisterService,
+} from '../../services/register.service';
+import { LoaderComponent } from "../../shared/loader/loader.component";
 
 @Component({
   selector: 'app-register',
-  imports: [BtnComponent, ReactiveFormsModule, NgIf],
+  imports: [BtnComponent, ReactiveFormsModule, NgIf, LoaderComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss',
 })
@@ -21,6 +25,7 @@ export class RegisterComponent {
   private fb = inject(FormBuilder);
   private registerService = inject(RegisterService);
   private router = inject(Router);
+  loading = false;
 
   protected readonly RoutePaths = RoutePaths;
   protected form = this.fb.group(
@@ -59,6 +64,8 @@ export class RegisterComponent {
       return;
     }
 
+    this.loading = true;
+
     const payload: RegisterRequest = {
       username: this.form.value.username ?? '',
       email: this.form.value.email ?? '',
@@ -72,6 +79,7 @@ export class RegisterComponent {
   }
 
   private handleRegistrationError(err: any): void {
+    this.loading = false;
     this.form.markAllAsTouched();
     this.form.markAsDirty();
     this.registrationError = 'This email address is already in use.';
@@ -88,6 +96,7 @@ export class RegisterComponent {
   }
 
   private handleRegistrationSuccess(): void {
+    this.loading = false;
     this.router.navigate([RoutePaths.REGISTER_SUCCESS], {
       state: { fromRegister: true },
     });

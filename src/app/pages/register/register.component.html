@@ -1,5 +1,6 @@
 <div class="starry-container">
-  <div class="card-container login-form">
+  <div *ngIf="loading"><loader></loader></div>
+  <div *ngIf="!loading" class="card-container login-form">
     <h1>Register</h1>
     <p>Welcome to Lootopia, just fill up this adventure form to join us !</p>
     <img
@@ -49,7 +50,7 @@
           *ngIf="form.errors?.['emailAlreadyExists'] && form.dirty"
           class="error"
         >
-        <p>This email is already registered.</p>
+          <p>This email is already registered.</p>
         </div>
       }
 
@@ -70,22 +71,35 @@
         required
       />
 
-      @if (form.get('password')?.invalid && form.get('password')?.dirty || form.get('confirmPassword')?.invalid && form.get('confirmPassword')?.dirty) {
+      @if (
+        (form.get('password')?.invalid && form.get('password')?.dirty) ||
+        (form.get('confirmPassword')?.invalid &&
+          form.get('confirmPassword')?.dirty)
+      ) {
         <div class="error">
-          @if (form.errors?.['passwordsMismatch'] || form.get('confirmPassword') !== form.get('password')) {
+          @if (
+            form.errors?.['passwordsMismatch'] ||
+            form.get('confirmPassword') !== form.get('password')
+          ) {
             <p>Please enter the same password in both fields.</p>
           }
-          @if (form.get('password')?.hasError('required') || form.get('confirmPassword')?.hasError('required')) { 
+          @if (
+            form.get('password')?.hasError('required') ||
+            form.get('confirmPassword')?.hasError('required')
+          ) {
             <p>Please enter a password.</p>
           }
-          @if (form.get('password')?.hasError('pattern') || form.get('confirmPassword')?.hasError('pattern')) {
+          @if (
+            form.get('password')?.hasError('pattern') ||
+            form.get('confirmPassword')?.hasError('pattern')
+          ) {
             <p>
               Your password must be 12+ chars with at least one uppercase,
               lowercase, number, and special character.
             </p>
           }
         </div>
-      }     
+      }
 
       <div class="btn-container">
         <lootopia-btn [disabled]="form.invalid" (click)="submit()"
