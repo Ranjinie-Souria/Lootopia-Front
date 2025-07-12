@@ -1,10 +1,8 @@
 <div class="starry-container">
-  <!-- Affiche "Loading..." si le formulaire n'est pas encore initialisé -->
   <div *ngIf="!form" class="loading-container">
     <p>Loading...</p>
   </div>
 
-  <!-- Affiche le message de succès si la chasse a été créée -->
   <div *ngIf="createdSuccess && form" class="card-container">
     <img class="crown" src="assets/images/crown.png" alt="Crowns popping out" />
     <h1>Hunt Created Successfully!</h1>
@@ -24,7 +22,6 @@
     />
   </div>
 
-  <!-- Affiche le formulaire quand il est chargé et la chasse n'a pas encore été créée -->
   <div *ngIf="form && !createdSuccess" class="card-container login-form">
     <lootopia-btn [routerLinkPath]="RoutePaths.HUNT"
       >Return to see your created hunts</lootopia-btn
@@ -36,10 +33,8 @@
     </h4>
 
     <form [formGroup]="form" (ngSubmit)="submit()">
-      <!-- Erreur globale -->
       <div *ngIf="error" class="error">{{ error }}</div>
 
-      <!-- Title -->
       <label for="title">Title :</label>
       <p>Title of your hunt.</p>
       <input
@@ -56,7 +51,6 @@
         <p>Please enter a title.</p>
       </div>
 
-      <!-- Description -->
       <label for="description">Description :</label>
       <p>The hunt's description.</p>
       <textarea
@@ -74,7 +68,6 @@
         <p>Please enter a description.</p>
       </div>
 
-      <!-- Chat Enabled -->
       <div class="checkbox-group">
         <label for="chatEnabled">
           Chat enabled for this hunt ?
@@ -88,7 +81,6 @@
         />
       </div>
 
-      <!-- World Type -->
       <label for="worldType">World type :</label>
       <p>Will the hunt take place on a cartographic map or in the AR world?</p>
       <select id="worldType" formControlName="worldType" required>
@@ -102,7 +94,6 @@
         <p>Please select a world type.</p>
       </div>
 
-      <!-- Excavation Delay -->
       <label for="excavationDelay">Excavation delay (in seconds) :</label>
       <p>The time between each excavation attempt.</p>
       <input
@@ -122,7 +113,6 @@
         <p>Please enter a valid excavation delay.</p>
       </div>
 
-      <!-- Excavation Cost -->
       <label for="excavationCost">Excavation cost (in Crowns) :</label>
       <p>The cost to retry excavating without waiting.</p>
       <input
@@ -142,7 +132,6 @@
         <p>Please enter a valid excavation cost.</p>
       </div>
 
-      <!-- Private Hunt -->
       <div class="checkbox-group">
         <label for="isPrivate">
           Is your hunt private ?
@@ -156,7 +145,6 @@
         />
       </div>
 
-      <!-- Max Participants -->
       <label for="maxParticipants">Max participants :</label>
       <p>The maximum number of participants allowed to join the hunt.</p>
       <input
@@ -176,7 +164,6 @@
         <p>Please enter a valid number of participants.</p>
       </div>
 
-      <!-- Price -->
       <label for="price">Price to join (in Crowns) :</label>
       <p>Minimum 0 Crowns to join the hunt.</p>
       <input
@@ -193,8 +180,7 @@
       >
         <p>Please enter a valid price (0 or more).</p>
       </div>
-
-      <!-- Start Date -->
+      
       <label for="startDate">Start date :</label>
       <p>When does the hunt start?</p>
       <input
@@ -220,7 +206,6 @@
         <p>The hunt must start at least 30 minutes from now.</p>
       </div>
 
-      <!-- End Date -->
       <label for="endDate">End date :</label>
       <p>When does the hunt end?</p>
       <input
@@ -249,10 +234,9 @@
         *ngIf="form.errors?.['startAfterEnd'] && (form.dirty || form.touched)"
         class="error"
       >
-        Start date must be inferior to end date.
+        Start date must be before end date.
       </div>
-
-      <!-- Invited Participants -->
+      
       <label>Invited Participants (Emails):</label>
       <p>Add emails of players you want to invite.</p>
       <div formArrayName="invitedPlayers">
@@ -277,8 +261,7 @@
         </div>
         <button type="button" (click)="addPlayer()">Add Participant</button>
       </div>
-
-      <!-- Treasure -->
+      
       <fieldset formGroupName="treasure" class="treasure-group">
         <legend>Treasure details:</legend>
 
@@ -305,8 +288,7 @@
           <option value="CROWN">Crown</option>
         </select>
       </fieldset>
-
-      <!-- Submit Button -->
+      
       <div class="btn-container">
         <lootopia-btn [disabled]="form.invalid" (click)="submit()"
           >Create Hunt</lootopia-btn
