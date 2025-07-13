@@ -48,7 +48,7 @@ export class AnimationOverlay {
   public isDigging: boolean = false;
   public hasDug: boolean = false;
   public showChest: boolean = false;
-  public chestOpenedState: boolean = false; // renamed to avoid conflict with @Output() chestOpened
+  public chestOpenedState: boolean = false;
   public showUnboxResults: boolean = false;
   public isBurying: boolean = false;
   public hasBuried: boolean = false;

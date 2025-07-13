@@ -1,11 +1,11 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { HuntDto } from '../../../model/hunt.dto';
+import { MapComponent } from '../../../shared/components/map/map.component';
 
 @Component({
   selector: 'app-link-map',
   standalone: true,
-  imports: [],
+  imports: [MapComponent],
   templateUrl: './link-map.component.html',
   styleUrl: './link-map.component.scss',
 })

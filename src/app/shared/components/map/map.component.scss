@@ -40,6 +40,7 @@
     background-position: 200% 50%;
   }
 }
+
 .map-container.isError {
   background-color: #f8d7da;
   border-color: #f5c6cb;
@@ -65,14 +66,40 @@
   background-color: #0056b3;
 }
 
+
 .digging-mode {
   cursor: url("/cursors/truelle-icon.png") 0 16, auto !important;
-}
-
-.digging-mode-stylised {
-  cursor: url("/cursors/shovel-icon.png") 0 0, auto !important;
 }
 
 .bury-mode {
   cursor: url("/cursors/chest-icon.png") 12 12, auto !important;
 }
+
+
+.map-controls {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.style-selector {
+  display: flex;
+  flex-direction: column;
+  margin-right: 20px;
+}
+
+.map-style-note {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+select {
+  max-width: 180px;
+  padding: 4px 8px;
+  font-size: 14px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+

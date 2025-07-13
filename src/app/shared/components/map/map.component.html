@@ -1,0 +1,66 @@
+<div class="map-component">
+  <app-animation-overlay
+    [needsAnimation]="needsAnimation"
+    [foundSomething]="animationFoundSomething"
+    [chestContent]="animationChestContent"
+    (digStarted)="onDigStarted()"
+    (digEnded)="onDigEnded()"
+    (closeAnimation)="onCloseAnimation()"
+  ></app-animation-overlay>
+
+  <div class="map-controls">
+    <div class="style-selector">
+      <label for="style-select">Select Map Style:</label>
+      <select
+        id="style-select"
+        [ngModel]="currentStyle"
+        (ngModelChange)="currentStyle = $event; onStyleChange()"
+        [disabled]="!hasMapLoaded || hasMapError"
+      >
+        <option *ngFor="let style of styles" [ngValue]="style">
+          {{ style.displayName }}
+        </option>
+      </select>
+    </div>
+
+    <button
+      type="button"
+      (click)="toggleDigMode()"
+      [disabled]="!hasMapLoaded || hasMapError"
+      [class.active]="digMode"
+    >
+      {{ digMode ? 'Disable Dig Mode' : 'Enable Dig Mode' }}
+    </button>
+
+    <button
+      type="button"
+      (click)="toggleBuryMode()"
+      [disabled]="!hasMapLoaded || hasMapError"
+      [class.active]="buryMode"
+    >
+      {{ buryMode ? 'Disable Burrow Mode' : 'Enable Burrow Mode' }}
+    </button>
+
+    <button
+      type="button"
+      (click)="activateDefineDigZoneMode()"
+      [disabled]="!hasMapLoaded || hasMapError"
+      [class.active]="defineDigZoneMode"
+    >
+      Définir une nouvelle zone de creusage
+    </button>
+  </div>
+
+  <div *ngIf="warningMessage" class="warning-message">
+    ⚠️ {{ warningMessage }}
+  </div>
+
+  <div
+    id="map"
+    class="map-container"
+    [class.digging-mode]="digMode"
+    [class.bury-mode]="buryMode"
+    [class.isLoadingGradient]="!hasMapLoaded"
+    [class.isError]="hasMapError"
+  ></div>
+</div>
