@@ -256,8 +256,7 @@ export class MapComponent implements OnInit {
     if (this.digMode) {
       const digZone = this.digZones[0];
       if (!digZone) {
-        this.warningMessage =
-          "Vous devez d'abord définir une zone de creusage.";
+        this.warningMessage = 'You must first define a digging zone';
         return;
       }
 
@@ -267,8 +266,7 @@ export class MapComponent implements OnInit {
         digZone.radius,
       );
       if (!isInsideDigZone) {
-        this.warningMessage = 'Creusage interdit en dehors de la zone définie.';
-        this.triggerDigAnimation(false); // Animation : rien trouvé
+        this.warningMessage = 'You cannot dig outside of the game zone';
         return;
       }
 
