@@ -1,8 +1,8 @@
 <div class="starry-container">
-    <h1>Choose the game zone and the treasure's location</h1>
-    <p>
-      Click on the map to get coordinates and check if they are within the
-      defined radius around the Eiffel Tower.
-    </p>
-<app-map></app-map>
+  <h1>Choose the game zone and the treasure's location</h1>
+  <p>
+    Choose the digging zone and the treasure's location. Set the digging zone
+    before the treasure. You can also change the map's style.
+  </p>
+  <app-map [canChangeMap]="true" [idHunt]="huntId"></app-map>
 </div>

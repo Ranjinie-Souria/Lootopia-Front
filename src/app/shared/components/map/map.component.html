@@ -7,60 +7,75 @@
     (digEnded)="onDigEnded()"
     (closeAnimation)="onCloseAnimation()"
   ></app-animation-overlay>
+  <div *ngIf="warningMessage" class="error warning-message">
+    <i class="fas fa-warning"></i> {{ warningMessage }}
+  </div>
+  <div class="map-interaction">
+    <div
+      id="map"
+      class="map-container"
+      [class.digging-mode]="digMode"
+      [class.bury-mode]="buryMode"
+      [class.isLoadingGradient]="!hasMapLoaded"
+      [class.isError]="hasMapError"
+    ></div>
+    <div class="map-controls">
+      <div class="style-selector" *ngIf="canChangeMap">
+        <label for="style-select">
+          <i class="fas fa-map"></i> Select Map Style:</label
+        >
+        <select
+          id="style-select"
+          [ngModel]="currentStyle"
+          (ngModelChange)="currentStyle = $event; onStyleChange()"
+          [disabled]="!hasMapLoaded || hasMapError"
+        >
+          <option *ngFor="let style of styles" [ngValue]="style">
+            {{ style.displayName }}
+          </option>
+        </select>
+      </div>
 
-  <div class="map-controls">
-    <div class="style-selector">
-      <label for="style-select">Select Map Style:</label>
-      <select
-        id="style-select"
-        [ngModel]="currentStyle"
-        (ngModelChange)="currentStyle = $event; onStyleChange()"
+      <button
+        *ngIf="!canChangeMap"
+        type="button"
+        (click)="toggleDigMode()"
+        [disabled]="!hasMapLoaded || hasMapError"
+        [class.active]="digMode"
+      >
+        <i class="fas fa-shovel icons"></i>
+        {{ digMode ? 'Disable Dig Mode' : 'Enable Dig Mode' }}
+      </button>
+
+      <button
+        *ngIf="canChangeMap"
+        type="button"
+        (click)="toggleBuryMode()"
+        [disabled]="!hasMapLoaded || hasMapError"
+        [class.active]="buryMode"
+      >
+        <i class="fas fa-circle-down icons"></i>
+        {{ buryMode ? 'Disable Burrow Mode' : 'Enable Burrow Mode' }}
+      </button>
+
+      <button
+        *ngIf="canChangeMap"
+        type="button"
+        (click)="activateDefineDigZoneMode()"
+        [disabled]="!hasMapLoaded || hasMapError"
+        [class.active]="defineDigZoneMode"
+      >
+        <i class="fas fa-crosshairs icons"></i>
+        {{ defineDigZoneMode ? 'Choosing game zone...' : 'Choose game zone' }}
+      </button>
+      <button
+        *ngIf="canChangeMap"
+        type="button"
+        (click)="submitMap()"
         [disabled]="!hasMapLoaded || hasMapError"
       >
-        <option *ngFor="let style of styles" [ngValue]="style">
-          {{ style.displayName }}
-        </option>
-      </select>
+        Create the map
+      </button>
     </div>
-
-    <button
-      type="button"
-      (click)="toggleDigMode()"
-      [disabled]="!hasMapLoaded || hasMapError"
-      [class.active]="digMode"
-    >
-      {{ digMode ? 'Disable Dig Mode' : 'Enable Dig Mode' }}
-    </button>
-
-    <button
-      type="button"
-      (click)="toggleBuryMode()"
-      [disabled]="!hasMapLoaded || hasMapError"
-      [class.active]="buryMode"
-    >
-      {{ buryMode ? 'Disable Burrow Mode' : 'Enable Burrow Mode' }}
-    </button>
-
-    <button
-      type="button"
-      (click)="activateDefineDigZoneMode()"
-      [disabled]="!hasMapLoaded || hasMapError"
-      [class.active]="defineDigZoneMode"
-    >
-      Define game digging zone
-    </button>
   </div>
-
-  <div *ngIf="warningMessage" class="warning-message">
-    ⚠️ {{ warningMessage }}
-  </div>
-
-  <div
-    id="map"
-    class="map-container"
-    [class.digging-mode]="digMode"
-    [class.bury-mode]="buryMode"
-    [class.isLoadingGradient]="!hasMapLoaded"
-    [class.isError]="hasMapError"
-  ></div>
 </div>

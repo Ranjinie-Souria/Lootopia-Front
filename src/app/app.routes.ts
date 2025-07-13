@@ -14,6 +14,7 @@ import { HuntsViewComponent } from './pages/hunt/hunts-view.component';
 import { HuntCreateComponent } from './pages/hunt/hunt-create/hunt-create.component';
 import { HuntEditComponent } from './pages/hunt/hunt-edit/hunt-edit.component';
 import { LinkMapComponent } from './pages/hunt/link-map/link-map.component';
+import { HuntSuccessComponent } from './pages/hunt/hunt-success/hunt-success.component';
 
 export const routes: Routes = [
   { path: RoutePaths.DEFAULT, component: HomeComponent },
@@ -38,6 +39,11 @@ export const routes: Routes = [
   {
     path: RoutePaths.HUNT_CREATE,
     component: HuntCreateComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.HUNT_SUCCESS,
+    component: HuntSuccessComponent,
     canActivate: [authGuard],
   },
   {

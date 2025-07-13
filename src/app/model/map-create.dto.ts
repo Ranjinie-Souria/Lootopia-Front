@@ -1,4 +1,5 @@
-export interface MapUpdateDTO {
+export interface MapCreateDTO {
+  huntId: string;
   name: string;
   skin: string;
   centralPointLatitude: number; // [-180, 180]

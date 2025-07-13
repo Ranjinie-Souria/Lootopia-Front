@@ -185,7 +185,6 @@
         id="startDate"
         formControlName="startDate"
         [min]="minStartDate"
-        required
       />
       <div
         *ngIf="form.get('startDate')?.invalid && form.get('startDate')?.dirty"
@@ -210,7 +209,6 @@
         id="endDate"
         formControlName="endDate"
         [min]="minEndDate"
-        required
       />
       <div
         *ngIf="form.get('endDate')?.invalid && form.get('endDate')?.dirty"

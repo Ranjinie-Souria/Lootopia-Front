@@ -7,6 +7,8 @@ import { HuntInformationViewDTO } from '../model/hunt-information-view.dto';
 import { HuntUpdateDTO } from '../model/hunt-update.dto';
 import { PageDTO } from '../model/page.dto';
 import { HuntDto } from '../model/hunt.dto';
+import { MapUpdateDTO } from '../model/map-update.dto';
+import { TreasureDTO } from '../model/treasure.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -54,5 +56,9 @@ export class HuntsService {
 
   getMyHunts(): Observable<PageDTO<HuntInformationViewDTO>> {
     return this.http.get<PageDTO<HuntInformationViewDTO>>(`${this.baseUrl}/me`);
+  }
+
+  updateHuntTreasure(huntId: string, payload: TreasureDTO): Observable<void> {
+    return this.http.patch<void>(`${this.baseUrl}/${huntId}/treasure`, payload);
   }
 }

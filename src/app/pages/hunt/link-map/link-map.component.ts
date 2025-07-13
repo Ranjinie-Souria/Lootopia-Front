@@ -10,11 +10,10 @@ import { MapComponent } from '../../../shared/components/map/map.component';
   styleUrl: './link-map.component.scss',
 })
 export class LinkMapComponent implements OnInit {
-  hunt: any;
+  huntId: any;
   private route = inject(ActivatedRoute);
 
   ngOnInit(): void {
-    const huntId = this.route.snapshot.paramMap.get('id') || '';
-    console.log('Hunt ID:', huntId);
+    this.huntId = this.route.snapshot.paramMap.get('id') || '';
   }
 }

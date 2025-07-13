@@ -78,7 +78,6 @@ export class AnimationOverlay {
   }
 
   public closeEverything() {
-    console.log('Closing animation overlay');
     this.isDigging = false;
     this.hasDug = false;
     this.showChest = false;

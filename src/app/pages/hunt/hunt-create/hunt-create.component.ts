@@ -64,10 +64,9 @@ export class HuntCreateComponent {
       price: [0, [Validators.required, Validators.min(0)]],
       excavationDelay: [1, [Validators.required, Validators.min(1)]],
       excavationCost: [0, [Validators.required, Validators.min(0)]],
-      startDate: ['', [Validators.required, this.startDateValidator()]],
-      endDate: ['', [Validators.required, this.endDateValidator()]],
+      startDate: ['', [this.startDateValidator()]],
+      endDate: ['', [this.endDateValidator()]],
       invitedPlayers: this.fb.array([]),
-
       treasure: this.fb.group({
         quantity: [1, [Validators.required, Validators.min(1)]],
         type: ['CROWN', Validators.required],

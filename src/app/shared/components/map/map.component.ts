@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import mapboxgl from 'mapbox-gl';
@@ -6,7 +6,11 @@ import { CommonModule, NgIf } from '@angular/common';
 import { AnimationOverlay } from './animation-overlay/animation-overlay.component';
 import { RoutePaths } from '../../../config/route-paths';
 import { environment } from '../../../environment/environment';
-import { LoaderComponent } from '../loader/loader.component';
+import { MapCreateDTO } from '../../../model/map-create.dto';
+import { MapService } from '../../../services/map.service';
+import { HuntsService } from '../../../services/hunt.service';
+import { HuntUpdateDTO } from '../../../model/hunt-update.dto';
+import { TreasureDTO } from '../../../model/treasure.dto';
 
 interface Style {
   name: string;
@@ -16,19 +20,22 @@ interface Style {
 
 @Component({
   selector: 'app-map',
-  imports: [FormsModule, NgIf, AnimationOverlay, LoaderComponent, CommonModule],
+  imports: [FormsModule, NgIf, AnimationOverlay, CommonModule],
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent implements OnInit {
   protected readonly RoutePaths = RoutePaths;
+  private readonly mapService = inject(MapService);
+  private readonly huntService = inject(HuntsService);
   public MAPBOX_ACCESS_TOKEN =
     environment.mapboxAccessToken ||
     'pk.eyJ1IjoibW1vcmdhdHNkdiIsImEiOiJjbWI3bjVtZ3cwYXNuMmxzNnY0bWpiMHU5In0.vnwcBCFV0_FxercRsaVqUg';
 
   public hasMapLoaded = false;
   public hasMapError = false;
-
+  @Input() canChangeMap: boolean = false;
+  @Input() idHunt: string = '';
   public userLattitude: number | null = null;
   public userLongitude: number | null = null;
 
@@ -326,7 +333,7 @@ export class MapComponent implements OnInit {
       this.currentPopup = new mapboxgl.Popup({ closeOnClick: true })
         .setLngLat([lng, lat])
         .setHTML(
-          '<img src="/assets/bury-popup.png" alt="Trésor enterré" style="width:100px; height:auto;" /><p>Trésor enterré !</p>',
+          '<img src="/assets/images/crown.png" style="width:20px" alt="Treasure hidden" style="width:100px; height:auto;" /><p>Treasure hidden successfully</p>',
         )
         .addTo(this.map!);
 
@@ -476,5 +483,53 @@ export class MapComponent implements OnInit {
         }
       });
     }
+  }
+
+  submitMap(): void {
+    if (!this.canChangeMap) return;
+
+    const digZone = this.digZones[0];
+    const treasure = this.buriedTreasures[0];
+
+    if (!digZone || !treasure) {
+      this.warningMessage = 'Please define a dig zone and hide a treasure.';
+      return;
+    }
+
+    const payload: MapCreateDTO = {
+      huntId: this.idHunt,
+      name: `map_for_hunt_${this.idHunt}`,
+      skin: this.currentStyle.name,
+      centralPointLatitude: digZone.center[1],
+      centralPointLongitude: digZone.center[0],
+      cmRadius: digZone.radius * 100,
+      digMap: true,
+      initialMap: true,
+    };
+
+    this.mapService.createMap(payload).subscribe({
+      next: (res) => {
+        this.updateTreasureCoordinates();
+      }
+    });
+  }
+
+  updateTreasureCoordinates() {
+    const treasure = this.buriedTreasures[0];
+    this.huntService.getHuntById(this.idHunt).subscribe({
+      next: (hunt) => {
+        const payload: TreasureDTO = {
+          latitude: treasure.center[1],
+          longitude: treasure.center[0],
+        };
+        this.huntService.updateHuntTreasure(hunt.id, payload).subscribe({
+          next: (val) => {
+            this.router.navigate(['/hunt/create/success'], {
+              state: { fromMapCreation: true },
+            });
+          }
+        });
+      }
+    });
   }
 }

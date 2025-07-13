@@ -15,4 +15,5 @@ export const RoutePaths = {
   HUNT_CREATE: 'hunt/create',
   HUNT_UPDATE: 'hunt/update',
   LINK_MAP: 'hunt/create/add-map',
+  HUNT_SUCCESS: 'hunt/create/success',
 };
