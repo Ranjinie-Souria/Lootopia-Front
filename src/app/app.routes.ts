@@ -13,6 +13,7 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
 import { HuntsViewComponent } from './pages/hunt/hunts-view.component';
 import { HuntCreateComponent } from './pages/hunt/hunt-create/hunt-create.component';
 import { HuntEditComponent } from './pages/hunt/hunt-edit/hunt-edit.component';
+import { LinkMapComponent } from './pages/hunt/link-map/link-map.component';
 
 export const routes: Routes = [
   { path: RoutePaths.DEFAULT, component: HomeComponent },
@@ -42,6 +43,11 @@ export const routes: Routes = [
   {
     path: RoutePaths.HUNT_UPDATE + '/:id',
     component: HuntEditComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.LINK_MAP + '/:id',
+    component: LinkMapComponent,
     canActivate: [authGuard],
   },
 ];
