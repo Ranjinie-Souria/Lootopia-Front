@@ -19,6 +19,18 @@ export class HuntsService {
     return this.http.get<PageDTO<HuntInformationViewDTO[]>>(this.baseUrl);
   }
 
+  getSearchHunts(
+    page: string,
+    size: string,
+  ): Observable<PageDTO<HuntInformationViewDTO>> {
+    return this.http.get<PageDTO<HuntInformationViewDTO>>(`${this.baseUrl}`, {
+      params: {
+        page,
+        size,
+      },
+    });
+  }
+
   getHuntById(huntId: string): Observable<HuntInformationViewDTO> {
     return this.http.get<HuntInformationViewDTO>(`${this.baseUrl}/${huntId}`);
   }

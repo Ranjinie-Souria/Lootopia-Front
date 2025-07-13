@@ -1,0 +1,84 @@
+<div class="hunt-search">
+  <h2>Search for a hunt</h2>
+  <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
+    <input
+      formControlName="query"
+      type="text"
+      placeholder="Enter search term"
+      class="search-input"
+    />
+    <button type="submit" class="search-button">Search</button>
+  </form>
+  <div class="all-results">
+    <h3>Search Results :</h3>
+    <div class="results-list">
+      <div *ngIf="loading" class="card-container-hunt">
+        <loader></loader>
+      </div>
+      @if (hunts && hunts.content && hunts.content.length > 0) {
+        <div class="container-card">
+          <div
+            class="card-hunt"
+            *ngFor="let hunt of hunts.content; let i = index"
+          >
+            <h3>Title : {{ hunt.title }}</h3>
+            <div class="card-hunt-content">
+              <div class="description">
+                <h4>Description :</h4>
+                {{ hunt.description }}
+              </div>
+
+              <div class="card-hunt-info">
+                @if (hunt.creatorEmail) {
+                  <span>
+                    <strong>Created by :</strong> {{ hunt.creatorLogin }} ({{
+                      hunt.creatorEmail
+                    }})
+                  </span>
+                }
+                <span> <strong>Price :</strong> {{ hunt.price }} Crowns</span>
+                <span>
+                  <strong>Excavate :</strong>
+                  {{ hunt.excavationCost }} Crowns
+                </span>
+                <span>
+                  <strong>Max Participants:</strong>
+                  {{ hunt.maxParticipants }}
+                </span>
+                <!-- </div>
+              <div class="card-hunt-dates"> -->
+                <span>
+                  <strong>Start Date:</strong>
+                  {{ hunt.startDate | date: 'medium' }}
+                </span>
+                <span *ngIf="hunt.endDate">
+                  <strong>End Date:</strong>
+                  {{ hunt.endDate | date: 'medium' }}
+                </span>
+              </div>
+
+              <button class="btn-w-icon" (click)="goToHunt(hunt.id)">
+                <i class="fas fa-search"></i> Open Hunt
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="pagination">
+          <button
+            (click)="goToPage(currentPage - 1)"
+            [disabled]="currentPage === 0"
+          >
+            Previous
+          </button>
+          <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+          <button
+            (click)="goToPage(currentPage + 1)"
+            [disabled]="currentPage >= totalPages - 1"
+          >
+            Next
+          </button>
+        </div>
+      }
+    </div>
+  </div>
+</div>
