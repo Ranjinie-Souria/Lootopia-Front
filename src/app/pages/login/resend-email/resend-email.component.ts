@@ -83,7 +83,6 @@ export class ResendEmailComponent {
   }
 
   private handleError(err: any): void {
-    console.error(err);
     this.form.markAllAsTouched();
     this.form.markAsDirty();
     this.error = 'Error, the email you entered was not found. It is possible that you have not registered yet or that your account is already verified.';

@@ -1,5 +1,6 @@
 <div class="starry-container">
-  <div class="card-container login-form">
+  <div *ngIf="loading"><loader></loader></div>
+  <div *ngIf="!loading" class="card-container login-form">
     <h1>Register</h1>
     <p>Welcome to Lootopia, just fill up this adventure form to join us !</p>
     <img

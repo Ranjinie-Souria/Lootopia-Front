@@ -1,0 +1,86 @@
+<div class="container-hunt">
+  <h1>My Hunts</h1>
+
+  <div class="btn-container-hunt">
+    <button (click)="goToCreateHunt()">Create a Hunt</button>
+  </div>
+
+  <div *ngIf="loading" class="card-container-hunt">
+    <loader></loader>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+
+  @if (hunts && hunts.content && hunts.content.length > 0) {
+    <div class="container-card">
+      <div class="card-hunt" *ngFor="let hunt of hunts.content; let i = index">
+        <h2>Title : {{ hunt.title }}</h2>
+        <div class="card">
+          <div class="description">
+            <h3>Description :</h3>
+            {{ hunt.description }}
+          </div>
+
+          <button (click)="toggleDetail(i)">
+            <i
+              class="fas"
+              [ngClass]="showDetail[i] ? 'fa-minus' : 'fa-plus'"
+            ></i>
+          </button>
+
+          <div class="buttons">
+            <button (click)="editHunt(hunt.id)">
+              <i class="fas fa-edit"></i>
+            </button>
+          </div>
+
+          <div *ngIf="showDetail[i]" class="hunt-details">
+            <h4>
+              <strong>Creator:</strong> {{ hunt.creatorLogin }} ({{
+                hunt.creatorEmail
+              }})
+            </h4>
+            <h4>
+              <strong>Chat Enabled:</strong>
+              {{ hunt.chatEnabled ? 'Yes' : 'No' }}
+            </h4>
+            <h4><strong>World Type:</strong> {{ hunt.worldType }}</h4>
+            <h4>
+              <strong>Max Participants:</strong> {{ hunt.maxParticipants }}
+            </h4>
+            <h4><strong>Price:</strong> {{ hunt.price }} Crowns</h4>
+            <h4>
+              <strong>Excavation Delay:</strong>
+              {{ hunt.excavationDelay }} seconds
+            </h4>
+            <h4>
+              <strong>Excavation Cost:</strong> {{ hunt.excavationCost }} Crowns
+            </h4>
+            <h4>
+              <strong>Start Date:</strong> {{ hunt.startDate | date: 'medium' }}
+            </h4>
+            <h4>
+              <strong>End Date:</strong> {{ hunt.endDate | date: 'medium' }}
+            </h4>
+            <h4>
+              <strong>Private:</strong> {{ hunt.isPrivate ? 'Yes' : 'No' }}
+            </h4>
+
+            <h4>Treasure:</h4>
+            <h4>Type: {{ hunt.treasure.type }}</h4>
+            <h4>Quantity: {{ hunt.treasure.quantity }}</h4>
+            <h4>
+              Coordinates: {{ hunt.treasure.latitude }},
+              {{ hunt.treasure.longitude }}
+            </h4>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+  <div *ngIf="!loading && hunts.content.length === 0" class="card-container">
+    <p>No hunts found. Create your first hunt above!</p>
+  </div>
+</div>

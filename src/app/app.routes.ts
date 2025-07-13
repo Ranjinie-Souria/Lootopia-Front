@@ -9,15 +9,16 @@ import { PasswordResetComponent } from './pages/login/password-reset/password-re
 import { ResendEmailComponent } from './pages/login/resend-email/resend-email.component';
 import { ContactComponent } from './pages/contact/contact.component';
 import { MapComponent } from './pages/map/map.component';
-
-/**
- * , canActivate: [authGuard]
- */
+import { authGuard } from './guards/auth.guard';
+import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { HuntsViewComponent } from './pages/hunt/hunts-view.component';
+import { HuntCreateComponent } from './pages/hunt/hunt-create/hunt-create.component';
+import { HuntEditComponent } from './pages/hunt/hunt-edit/hunt-edit.component';
+import { LinkMapComponent } from './pages/hunt/link-map/link-map.component';
 
 export const routes: Routes = [
   { path: RoutePaths.DEFAULT, component: HomeComponent },
-  { path: RoutePaths.HOME, component: HomeComponent },
-  { path: RoutePaths.MAP, component: MapComponent },
+  { path: RoutePaths.HOME, component: HomeComponent, canActivate: [authGuard] },
   { path: RoutePaths.LOGIN, component: LoginComponent },
   { path: RoutePaths.RESEND_EMAIL, component: ResendEmailComponent },
   { path: RoutePaths.FORGOT_PASS, component: PasswordResetComponent },
@@ -25,4 +26,30 @@ export const routes: Routes = [
   { path: RoutePaths.REGISTER_SUCCESS, component: RegisterSuccessComponent },
   { path: RoutePaths.VALIDATE_EMAIL, component: ValidateEmailComponent },
   { path: RoutePaths.CONTACT, component: ContactComponent },
+  {
+    path: RoutePaths.PROFILE,
+    component: UserProfileComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.HUNT,
+    component: HuntsViewComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.HUNT_CREATE,
+    component: HuntCreateComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.HUNT_UPDATE + '/:id',
+    component: HuntEditComponent,
+    canActivate: [authGuard],
+  },
+  { path: RoutePaths.MAP, component: MapComponent },
+  {
+    path: RoutePaths.LINK_MAP + '/:id',
+    component: LinkMapComponent,
+    canActivate: [authGuard],
+  },
 ];

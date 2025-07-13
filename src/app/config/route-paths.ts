@@ -11,4 +11,8 @@ export const RoutePaths = {
   PROFILE: 'profile',
   ABOUT: 'about',
   CONTACT: 'contact',
+  HUNT: 'hunt',
+  HUNT_CREATE: 'hunt/create',
+  HUNT_UPDATE: 'hunt/update',
+  LINK_MAP: 'hunt/create/add-map',
 };

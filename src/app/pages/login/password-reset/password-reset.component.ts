@@ -47,7 +47,6 @@ export class PasswordResetComponent {
   }
 
   private handlePassError(err: any): void {
-    console.error(err);
     this.form.markAllAsTouched();
     this.form.markAsDirty();
     this.resetPassError = 'Error, the email you entered is incorrect.';

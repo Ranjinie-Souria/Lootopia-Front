@@ -52,7 +52,6 @@ export class LoginComponent {
   }
 
   private handleLoginError(err: any): void {
-    console.error(err);
     this.form.markAllAsTouched();
     this.form.markAsDirty();
     this.loginError = 'Error, the email or password you entered are incorrect.';

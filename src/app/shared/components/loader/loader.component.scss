@@ -1,0 +1,26 @@
+.loading-container {
+    padding: 2px;
+    font-size: 1rem;
+    color: var(--default-text-color);
+    margin-bottom: 15px;
+    display: block;
+    width: 50%;
+    height: 100%;
+    background: none;
+    margin: 0 auto;
+    display: flex;
+    font-weight: 900;
+    font-size: larger;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    animation: float 3s ease-in-out infinite;
+}
+
+.lootie {
+  width: 20%;
+  position: relative;
+  rotate: 10deg;
+  z-index: 1;
+  animation: float 3s ease-in-out infinite;
+}
