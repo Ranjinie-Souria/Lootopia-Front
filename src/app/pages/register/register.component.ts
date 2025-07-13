@@ -25,6 +25,7 @@ export class RegisterComponent {
   private fb = inject(FormBuilder);
   private registerService = inject(RegisterService);
   private router = inject(Router);
+  protected showPassword: boolean = false;
   loading = false;
 
   protected readonly RoutePaths = RoutePaths;
@@ -93,6 +94,10 @@ export class RegisterComponent {
       this.registrationError = 'Internal server error. Please try again later.';
     }
     return;
+  }
+
+  protected togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   private handleRegistrationSuccess(): void {

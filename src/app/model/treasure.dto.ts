@@ -5,8 +5,8 @@ export enum TreasureType {
 export interface TreasureDTO {
   id?: string;
   huntId?: string;
-  quantity: number;
-  type: TreasureType;
+  quantity?: number;
+  type?: TreasureType;
   longitude: number;
   latitude: number;
 }

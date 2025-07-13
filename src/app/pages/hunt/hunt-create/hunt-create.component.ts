@@ -17,6 +17,7 @@ import { RoutePaths } from '../../../config/route-paths';
 import { HuntDto } from '../../../model/hunt.dto';
 import { TreasureDTO } from '../../../model/treasure.dto';
 import { LoaderComponent } from '../../../shared/components/loader/loader.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-hunt-create',
@@ -27,6 +28,7 @@ import { LoaderComponent } from '../../../shared/components/loader/loader.compon
 export class HuntCreateComponent {
   private fb = inject(FormBuilder);
   private huntService = inject(HuntsService);
+  private router = inject(Router);
   protected readonly RoutePaths = RoutePaths;
   protected showPlayers: boolean = false;
   minStartDate: string = '';
@@ -62,10 +64,9 @@ export class HuntCreateComponent {
       price: [0, [Validators.required, Validators.min(0)]],
       excavationDelay: [1, [Validators.required, Validators.min(1)]],
       excavationCost: [0, [Validators.required, Validators.min(0)]],
-      startDate: ['', [Validators.required, this.startDateValidator()]],
-      endDate: ['', [Validators.required, this.endDateValidator()]],
+      startDate: ['', [this.startDateValidator()]],
+      endDate: ['', [this.endDateValidator()]],
       invitedPlayers: this.fb.array([]),
-
       treasure: this.fb.group({
         quantity: [1, [Validators.required, Validators.min(1)]],
         type: ['CROWN', Validators.required],
@@ -142,7 +143,13 @@ export class HuntCreateComponent {
     };
 
     this.huntService.createHunt(payload).subscribe({
-      next: () => (this.createdSuccess = true),
+      next: (createdHunt) => {
+        this.createdSuccess = true;
+        const newHuntId = createdHunt.id;
+        setTimeout(() => {
+          this.router.navigate([this.RoutePaths.LINK_MAP, newHuntId]);
+        }, 3000);
+      },
       error: (err) => this.handleError(err),
     });
   }

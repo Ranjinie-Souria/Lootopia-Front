@@ -1,11 +1,11 @@
-export interface Map {
+export interface MapDTO {
   id: string;
   huntId: string;
   name: string;
   skin: string;
-  zone: string;
-  scaleMin: number;
-  scaleMax: number;
+  centralPointLatitude: number; // [-180, 180]
+  centralPointLongitude: number; // [-90, 90]
+  cmRadius: number; // ≥ 0
   digMap: boolean;
-  private: boolean;
+  initialMap: boolean;
 }
