@@ -8,6 +8,7 @@ import { ValidateEmailComponent } from './pages/register/validate-email/validate
 import { PasswordResetComponent } from './pages/login/password-reset/password-reset.component';
 import { ResendEmailComponent } from './pages/login/resend-email/resend-email.component';
 import { ContactComponent } from './pages/contact/contact.component';
+import { MapComponent } from './pages/map/map.component';
 import { authGuard } from './guards/auth.guard';
 import { UserProfileComponent } from './pages/user-profile/user-profile.component';
 import { HuntsViewComponent } from './pages/hunt/hunts-view.component';
@@ -45,6 +46,7 @@ export const routes: Routes = [
     component: HuntEditComponent,
     canActivate: [authGuard],
   },
+  { path: RoutePaths.MAP, component: MapComponent },
   {
     path: RoutePaths.LINK_MAP + '/:id',
     component: LinkMapComponent,

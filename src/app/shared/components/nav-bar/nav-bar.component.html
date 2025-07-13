@@ -6,6 +6,9 @@
 
 <div class="nav">
   @if (!isLoggedIn) {
+    <lootopia-btn [routerLinkPath]="RoutePaths.MAP" class="nav-btn">
+      Map
+    </lootopia-btn>
     <lootopia-btn [routerLinkPath]="RoutePaths.LOGIN" class="nav-btn">
       Log In
     </lootopia-btn>
