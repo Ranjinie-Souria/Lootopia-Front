@@ -28,7 +28,7 @@ export class HuntCreateComponent {
   private fb = inject(FormBuilder);
   private huntService = inject(HuntsService);
   protected readonly RoutePaths = RoutePaths;
-
+  protected showPlayers: boolean = false;
   minStartDate: string = '';
   minEndDate: string = '';
   createdSuccess: boolean = false;
@@ -64,9 +64,7 @@ export class HuntCreateComponent {
       excavationCost: [0, [Validators.required, Validators.min(0)]],
       startDate: ['', [Validators.required, this.startDateValidator()]],
       endDate: ['', [Validators.required, this.endDateValidator()]],
-      invitedPlayers: this.fb.array([
-        this.fb.control('', [Validators.required, Validators.email]),
-      ]),
+      invitedPlayers: this.fb.array([]),
 
       treasure: this.fb.group({
         quantity: [1, [Validators.required, Validators.min(1)]],
@@ -89,6 +87,13 @@ export class HuntCreateComponent {
       .controls as FormControl[];
   }
 
+  toggleOrAddPlayer(): void {
+    if (!this.showPlayers) {
+      this.showPlayers = true;
+      this.addPlayer();
+    }
+  }
+
   addPlayer(): void {
     this.invitedPlayersArray.push(
       this.fb.control('', [Validators.required, Validators.email]),
@@ -97,6 +102,9 @@ export class HuntCreateComponent {
 
   removePlayer(index: number): void {
     this.invitedPlayersArray.removeAt(index);
+    if (this.invitedPlayersArray.length === 0) {
+      this.showPlayers = false;
+    }
   }
 
   protected submit(): void {

@@ -240,34 +240,45 @@
       <label for="invitedPlayers">Invited Participants (Emails):</label>
       <p>Add emails of players you want to invite.</p>
       <div formArrayName="invitedPlayers">
-        <div
-          *ngFor="let playerCtrl of invitedPlayers; let i = index"
-          class="player-email"
-        >
-          <input
-            [formControl]="playerCtrl"
-            type="email"
-            placeholder="Enter participant email"
-            required
-          />
-
+        <div *ngIf="!showPlayers" class="player-email">
           <button
             type="button"
-            (click)="removePlayer(i)"
-            *ngIf="invitedPlayers.length > 1"
-            class="icon-btn remove-btn"
-          >
-            &minus;
-          </button>
-
-          <button
-            type="button"
-            (click)="addPlayer()"
-            *ngIf="i === invitedPlayers.length - 1"
+            (click)="toggleOrAddPlayer()"
             class="icon-btn add-btn"
           >
             +
           </button>
+        </div>
+
+        <div
+          *ngFor="let playerCtrl of invitedPlayers; let i = index"
+          class="player-email"
+        >
+          <ng-container *ngIf="showPlayers">
+            <input
+              [formControl]="playerCtrl"
+              type="email"
+              placeholder="Enter participant email"
+              required
+            />
+
+            <button
+              type="button"
+              (click)="removePlayer(i)"
+              class="icon-btn remove-btn"
+            >
+              &minus;
+            </button>
+
+            <button
+              type="button"
+              (click)="addPlayer()"
+              *ngIf="i === invitedPlayers.length - 1"
+              class="icon-btn add-btn"
+            >
+              +
+            </button>
+          </ng-container>
         </div>
       </div>
 
