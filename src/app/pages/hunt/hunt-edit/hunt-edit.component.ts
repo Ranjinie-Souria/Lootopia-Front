@@ -32,7 +32,7 @@ export class HuntEditComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
   protected readonly RoutePaths = RoutePaths;
-
+  protected showPlayers: boolean = false;
   protected form!: FormGroup;
   protected huntId: string = '';
   protected loading = true;
@@ -78,11 +78,7 @@ export class HuntEditComponent implements OnInit {
         ],
         startDate: [hunt.startDate, [Validators.required]],
         endDate: [hunt.endDate, [Validators.required]],
-        invitedPlayers: this.fb.array(
-          (hunt.authorizedUsers ?? []).map((email) =>
-            this.fb.control(email, [Validators.required, Validators.email]),
-          ),
-        ),
+        invitedPlayers: this.fb.array([]),
         treasure: this.fb.group({
           quantity: [
             hunt.treasure?.quantity ?? 1,
@@ -109,6 +105,13 @@ export class HuntEditComponent implements OnInit {
     return this.invitedPlayersArray.controls as FormControl[];
   }
 
+  toggleOrAddPlayer(): void {
+    if (!this.showPlayers) {
+      this.showPlayers = true;
+      this.addPlayer();
+    }
+  }
+
   addPlayer(): void {
     this.invitedPlayersArray.push(
       this.fb.control('', [Validators.required, Validators.email]),
@@ -117,6 +120,9 @@ export class HuntEditComponent implements OnInit {
 
   removePlayer(index: number): void {
     this.invitedPlayersArray.removeAt(index);
+    if (this.invitedPlayersArray.length === 0) {
+      this.showPlayers = false;
+    }
   }
 
   update(): void {
