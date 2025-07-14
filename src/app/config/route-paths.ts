@@ -20,4 +20,6 @@ export const RoutePaths = {
   HUNT_SUCCESS: 'hunt/create/success',
   HUNT_INVITES: 'hunt/invites',
   HUNT_PARTICIPATING: 'hunt/participating',
+  GAME: 'game',
+  GAME_SUCCESS: 'game/success',
 };
