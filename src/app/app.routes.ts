@@ -18,6 +18,10 @@ import { HuntSuccessComponent } from './pages/hunt/hunt-success/hunt-success.com
 import { SearchComponent } from './pages/search/search.component';
 import { HuntInvitesComponent } from './pages/hunt/hunt-invites/hunt-invites.component';
 import { HuntParticipatingComponent } from './pages/hunt/hunt-participating/hunt-participating.component';
+import { BasketComponent } from './pages/basket/basket.component';
+import { PacksComponent } from './pages/packs/packs.component';
+import { SuccessPaymentComponent } from './pages/payment/success/success-payment.component';
+import { ErrorPaymentComponent } from './pages/payment/error/error-payment.component';
 import { GameComponent } from './pages/hunt/game/game.component';
 import { GameSuccessComponent } from './pages/hunt/game/game-success/game-success.component';
 import { HuntDetailsComponent } from './pages/hunt/detail/detail.component';
@@ -83,6 +87,23 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: RoutePaths.BASKET,
+    component: BasketComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.PACKS,
+    component: PacksComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.SUCCESS_PAYMENT,
+    component: SuccessPaymentComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.ERROR_PAYMENT,
+    component: ErrorPaymentComponent,
     path: RoutePaths.GAME,
     component: GameComponent,
     canActivate: [authGuard],

@@ -12,4 +12,6 @@ export const UrlMapping = {
   HUNT: '/hunt',
   HUNT_BY_ID: '/hunt/:id',
   MAP: '/map',
+  PACKS: '/store/crown-pack',
+  STRIPE: '/payment',
 };
