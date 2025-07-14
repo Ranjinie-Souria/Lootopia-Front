@@ -39,12 +39,6 @@
                 "output": "/"
               }
             ],
-            "fileReplacements": [
-              {
-                "replace": "src/app/environment/environment.ts",
-                "with": "src/app/environment/environment.prod.ts"
-              }
-            ],
             "styles": [
               "src/assets/styles/styles.scss",
               "src/assets/styles/variables.css",
