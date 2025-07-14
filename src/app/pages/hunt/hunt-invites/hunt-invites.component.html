@@ -2,7 +2,6 @@
 
 <div class="container-hunt">
   <h1>My Invites</h1>
-  <h4>You can see all your received invitations here.</h4>
 
   <div *ngIf="loading" class="card-container-hunt">
     <loader></loader>
@@ -18,18 +17,19 @@
     invitedHunts.content &&
     invitedHunts.content.length > 0
   ) {
+    <h4>You can see all your received invitations here.</h4>
     <div class="container-card">
       <div
         class="card-hunt"
         *ngFor="let invite of invitedHunts.content; let i = index"
       >
-        <h2>{{ huntDetails[i].title || 'Unknown Hunt' }}</h2>
+        <h2>{{ huntDetails[i]?.title || 'Unknown Hunt' }}</h2>
 
         <div class="card">
           <div class="description">
             <h3>Description</h3>
             <p>
-              {{ huntDetails[i].description || 'No description available.' }}
+              {{ huntDetails[i]?.description || 'No description available.' }}
             </p>
           </div>
 
@@ -52,7 +52,7 @@
             </p>
           </div>
 
-          <div class="buttons">
+          <div *ngIf="invite.response !== 'ACCEPT'" class="buttons">
             <button
               class="accept"
               (click)="acceptInvite(true, huntDetails[i].id)"
@@ -70,36 +70,43 @@
       </div>
     </div>
   } @else if (inviteToAccept && huntId && !loading) {
-    <div class="highlighted-hunt card-hunt">
-      <h2>Targeted Hunt: {{ huntToAccept?.title }}</h2>
+    <h4>You received an invitation !</h4>
+    @if (alreadyAccepted) {
+      <p>Invitation has expired or you already answered.</p>
+    } @else {
+      <div class="highlighted-hunt card-hunt">
+        <h2>Targeted Hunt: {{ huntToAccept?.title }}</h2>
 
-      <div class="card">
-        <div class="description">
-          <h3>Description</h3>
-          <p>{{ huntToAccept?.description || 'No description available.' }}</p>
-        </div>
+        <div class="card">
+          <div class="description">
+            <h3>Description</h3>
+            <p>
+              {{ huntToAccept?.description || 'No description available.' }}
+            </p>
+          </div>
 
-        <div class="metadata">
-          <p><strong>World Type:</strong> {{ huntToAccept?.worldType }}</p>
-          <p>
-            <strong>Start:</strong>
-            {{ huntToAccept?.startDate | date: 'short' }}
-          </p>
-          <p>
-            <strong>End:</strong> {{ huntToAccept?.endDate | date: 'short' }}
-          </p>
-        </div>
+          <div class="metadata">
+            <p><strong>World Type:</strong> {{ huntToAccept?.worldType }}</p>
+            <p>
+              <strong>Start:</strong>
+              {{ huntToAccept?.startDate | date: 'short' }}
+            </p>
+            <p>
+              <strong>End:</strong> {{ huntToAccept?.endDate | date: 'short' }}
+            </p>
+          </div>
 
-        <div class="buttons">
-          <button class="accept" (click)="acceptInvite(true, huntId)">
-            <i class="fas fa-check"></i>
-          </button>
-          <button class="decline" (click)="acceptInvite(false, huntId)">
-            <i class="fas fa-xmark"></i>
-          </button>
+          <div class="buttons">
+            <button class="accept" (click)="acceptInvite(true, huntId)">
+              <i class="fas fa-check"></i>
+            </button>
+            <button class="decline" (click)="acceptInvite(false, huntId)">
+              <i class="fas fa-xmark"></i>
+            </button>
+          </div>
         </div>
       </div>
-    </div>
+    }
   } @else if (inviteToAccept && huntId && !huntToAccept && !loading) {
     <p class="error">No invitation found for hunt ID: {{ huntId }}</p>
   } @else {

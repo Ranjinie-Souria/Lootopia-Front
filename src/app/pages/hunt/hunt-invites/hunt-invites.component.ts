@@ -29,6 +29,7 @@ export class HuntInvitesComponent implements OnInit {
   huntId: string = '';
   inviteToAccept = false;
   huntToAccept: HuntInformationViewDTO | null = null;
+  alreadyAccepted = false;
 
   private huntService = inject(HuntsService);
   private route = inject(ActivatedRoute);
@@ -59,17 +60,21 @@ export class HuntInvitesComponent implements OnInit {
         forkJoin(detailCalls).subscribe({
           next: (details) => {
             this.huntDetails = details;
-
             if (this.inviteToAccept && this.huntId) {
-              console.log('HuntId from URL:', this.huntId);
-              console.log(
-                'Available hunt ids:',
-                details.map((h) => h.id),
-              );
-
               this.huntToAccept =
                 details.find((hunt) => hunt.id?.toString() === this.huntId) ||
                 null;
+
+              const invite = page.content.find(
+                (inv) => inv.huntId === this.huntId,
+              );
+              if (
+                invite &&
+                invite.response &&
+                invite.response !== 'NO_RESPONSE'
+              ) {
+                this.alreadyAccepted = true;
+              }
             }
 
             this.loading = false;
@@ -93,13 +98,15 @@ export class HuntInvitesComponent implements OnInit {
   acceptInvite(accepted: boolean, huntId: string): void {
     const invite = this.invitedHunts?.content.find((i) => i.huntId === huntId);
     if (!invite) {
-      console.error('Invitation introuvable pour cette chasse :', huntId);
       return;
     }
-
-    console.log(
-      `${accepted ? 'Accepted' : 'Refused'} invitation to hunt "${huntId}"`,
-      invite,
-    );
+    this.huntService.answerInvite(huntId, accepted).subscribe({
+      next: () => {
+        invite.response = accepted ? 'ACCEPT' : 'REFUSE';
+      },
+      error: (err) => {
+        console.error(err);
+      },
+    });
   }
 }

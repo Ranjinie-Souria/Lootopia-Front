@@ -84,4 +84,16 @@ export class HuntsService {
       `${environment.apiUrl}/whitelist`,
     );
   }
+
+  answerInvite(huntId: string, isAccepted: boolean) {
+    const response = isAccepted ? 'ACCEPT' : 'REFUSE';
+
+    return this.http.put<void>(
+      `${this.baseUrl}/${huntId}/participant`,
+      null, // aucun body
+      {
+        params: { response },
+      },
+    );
+  }
 }
