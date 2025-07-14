@@ -104,6 +104,8 @@ export const routes: Routes = [
   {
     path: RoutePaths.ERROR_PAYMENT,
     component: ErrorPaymentComponent,
+  },
+  {
     path: RoutePaths.GAME,
     component: GameComponent,
     canActivate: [authGuard],
