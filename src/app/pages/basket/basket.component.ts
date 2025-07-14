@@ -4,6 +4,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { PackDto } from '../../model/pack.dto';
 import { PageDTO } from '../../model/page.dto';
+import { PackService } from '../../services/pack.service';
+import { StripeService } from '../../services/stripe.service';
 
 @Component({
   selector: 'app-basket',
@@ -13,7 +15,10 @@ import { PageDTO } from '../../model/page.dto';
 })
 export class BasketComponent implements OnInit {
   private readonly router = inject(Router);
+  private readonly packService = inject(PackService);
+  private readonly stripeService = inject(StripeService);
   packs!: PageDTO<PackDto>;
+  totalPrice: number = 0;
 
   ngOnInit() {
     const cartCookie = document.cookie
@@ -29,11 +34,36 @@ export class BasketComponent implements OnInit {
       pageSize: cart.length,
       total: cart.length,
     };
+    this.calculateTotalPrice();
+  }
+
+  calculateTotalPrice() {
+    this.totalPrice = this.packs.content.reduce((sum, pack) => {
+      return sum + (pack.price || 0);
+    }, 0);
+    console.log('Total Price:', this.totalPrice);
   }
 
   checkout() {
-    // Implement checkout logic here
     console.log('Proceeding to checkout with packs:', this.packs.content);
-    // Redirect to stripe checkout page or perform any other action
+    const productName = 'CROWN';
+    const amount = this.totalPrice;
+    const detailedInformation = '';
+    const quantity = this.packs.content.length;
+
+    this.packService
+      .goToStripeCheckout(productName, amount, detailedInformation, quantity)
+      .subscribe(
+        (response) => {
+          if (response.sessionId) {
+            this.stripeService.redirectToCheckout(response.sessionId);
+          } else {
+            console.error('Failed to create Stripe session:', response);
+          }
+        },
+        (error) => {
+          console.error('Error during checkout:', error);
+        },
+      );
   }
 }

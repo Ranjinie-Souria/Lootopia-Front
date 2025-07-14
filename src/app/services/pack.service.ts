@@ -12,6 +12,7 @@ import { PackDto } from '../model/pack.dto';
 export class PackService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = environment.apiUrl + UrlMapping.PACKS;
+  private readonly stripeUrl = environment.apiUrl + UrlMapping.STRIPE;
 
   getPacks(page: string, size: string): Observable<PageDTO<PackDto>> {
     const url = `${this.apiUrl}`;
@@ -21,5 +22,21 @@ export class PackService {
         size,
       },
     });
+  }
+
+  goToStripeCheckout(
+    productName: string,
+    amount: number,
+    detailedInformation: string,
+    quantity: number,
+  ): Observable<any> {
+    const url = `${this.stripeUrl}`;
+    const payload = {
+      productName,
+      amount,
+      detailedInformation,
+      quantity,
+    };
+    return this.http.post<any>(url, payload);
   }
 }

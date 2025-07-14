@@ -20,6 +20,8 @@ import { HuntInvitesComponent } from './pages/hunt/hunt-invites/hunt-invites.com
 import { HuntParticipatingComponent } from './pages/hunt/hunt-participating/hunt-participating.component';
 import { BasketComponent } from './pages/basket/basket.component';
 import { PacksComponent } from './pages/packs/packs.component';
+import { SuccessPaymentComponent } from './pages/payment/success/success-payment.component';
+import { ErrorPaymentComponent } from './pages/payment/error/error-payment.component';
 
 export const routes: Routes = [
   { path: RoutePaths.DEFAULT, component: HomeComponent },
@@ -89,6 +91,16 @@ export const routes: Routes = [
   {
     path: RoutePaths.PACKS,
     component: PacksComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.SUCCESS_PAYMENT,
+    component: SuccessPaymentComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.ERROR_PAYMENT,
+    component: ErrorPaymentComponent,
     canActivate: [authGuard],
   },
 ];

@@ -21,4 +21,6 @@ export const RoutePaths = {
   HUNT_PARTICIPATING: 'hunt/participating',
   BASKET: 'basket',
   PACKS: 'packs',
+  SUCCESS_PAYMENT: 'success-payment',
+  ERROR_PAYMENT: 'error-payment',
 };
