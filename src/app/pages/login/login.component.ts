@@ -18,6 +18,7 @@ export class LoginComponent {
   private authService = inject(AuthService);
   protected readonly RoutePaths = RoutePaths;
   protected loginError: string = '';
+  protected showPassword: boolean = false;
 
   protected form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -44,6 +45,10 @@ export class LoginComponent {
         this.handleLoginError(err);
       },
     });
+  }
+
+  protected togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
   }
 
   private handleLoginError(err: any): void {

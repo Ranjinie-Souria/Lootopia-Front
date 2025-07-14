@@ -1,0 +1,292 @@
+.animation-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+
+  /* &:hover {
+    background-color: red;
+  } */
+}
+
+.animation-container-background {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 50%;
+  height: 50%;
+  background-color: #ffdbc1;
+  outline: 4px solid #c39879;
+  border-radius: 24px;
+  z-index: 11;
+  pointer-events: none;
+}
+
+.text-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 260px;
+  max-width: 90%;
+  background: rgba(40, 32, 32, 0.92);
+  border-radius: 16px;
+  padding: 32px 24px;
+  color: white;
+  font-size: 1.5rem;
+  text-align: center;
+  gap: 12px;
+  z-index: 13;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.chest-content {
+  color: gold;
+  font-weight: bold;
+}
+.chest-empty {
+  color: lightgray;
+  font-style: italic;
+}
+
+/* Light rays */
+.light-rays {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 255, 200, 0.1) 0,
+    rgba(255, 255, 200, 0.3) 10px,
+    transparent 20px
+  );
+  animation: raysMove 5s linear infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+/* Chest */
+.chest {
+  position: absolute;
+  bottom: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15%;
+  z-index: 12;
+}
+
+/* Dirt and shovel */
+.dirt {
+  position: absolute;
+  bottom: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 20%;
+  z-index: 12;
+}
+
+.shovel {
+  position: absolute;
+  bottom: 40%;
+  left: 50%;
+  width: 15%;
+  transform-origin: bottom center;
+  z-index: 11;
+}
+
+.shovel.digging {
+  animation: dig 1s infinite ease-in-out;
+}
+
+/* Particles */
+.particle {
+  position: absolute;
+  width: 2%;
+  height: 2%;
+  background: #4b2e19;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 14;
+}
+
+.particle1 {
+  left: 45%;
+  bottom: 40%;
+}
+.particle2 {
+  left: 50%;
+  bottom: 45%;
+}
+.particle3 {
+  left: 55%;
+  bottom: 40%;
+}
+
+.particle1.flying {
+  animation: fly1 1s infinite ease-in-out;
+  opacity: 1;
+}
+.particle2.flying {
+  animation: fly2 1s infinite ease-in-out;
+  opacity: 1;
+}
+.particle3.flying {
+  animation: fly3 1s infinite ease-in-out;
+  opacity: 1;
+}
+
+/* Buttons */
+.action-btn {
+  /* position: absolute; */
+  bottom: 20px;
+  /* left: 50%;
+  transform: translateX(-50%); */
+  padding: 10px 16px;
+  background: gold;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 15;
+}
+
+/* Keyframes */
+@keyframes dig {
+  0% {
+    transform: rotate(0deg) translateY(0);
+  }
+  25% {
+    transform: rotate(-15deg) translateY(10px);
+  }
+  50% {
+    transform: rotate(0deg) translateY(0);
+  }
+  75% {
+    transform: rotate(15deg) translateY(10px);
+  }
+  100% {
+    transform: rotate(0deg) translateY(0);
+  }
+}
+
+@keyframes fly1 {
+  10% {
+    transform: translate(-10px, -30px);
+    opacity: 1;
+  }
+  40% {
+    transform: translate(-20px, -50px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fly2 {
+  20% {
+    transform: translate(0px, -20px);
+    opacity: 1;
+  }
+  50% {
+    transform: translate(-10px, -40px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fly3 {
+  15% {
+    transform: translate(10px, -25px);
+    opacity: 1;
+  }
+  45% {
+    transform: translate(20px, -45px);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes raysMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 200px 0;
+  }
+}
+
+.light-beams {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 11;
+}
+
+.beam {
+  position: absolute;
+  bottom: 45%;
+  width: 5%;
+  height: 20%;
+  background: linear-gradient(
+    to top,
+    rgba(255, 204, 0, 0.7),
+    rgba(255, 150, 0, 0.2),
+    transparent
+  );
+  filter: blur(2px);
+  opacity: 0;
+  animation:
+    beamPulse 1.5s ease-in-out infinite,
+    beamRise 1.5s ease-in-out infinite;
+}
+
+.beam1 {
+  left: 43.5%;
+  animation-delay: 0s;
+}
+.beam2 {
+  left: 47%;
+  animation-delay: 0.3s;
+  transform: translateX(-50%);
+}
+.beam3 {
+  left: 51.5%;
+  animation-delay: 0.6s;
+}
+
+@keyframes beamPulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes beamRise {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}

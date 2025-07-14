@@ -13,6 +13,8 @@ import { UserProfileComponent } from './pages/user-profile/user-profile.componen
 import { HuntsViewComponent } from './pages/hunt/hunts-view.component';
 import { HuntCreateComponent } from './pages/hunt/hunt-create/hunt-create.component';
 import { HuntEditComponent } from './pages/hunt/hunt-edit/hunt-edit.component';
+import { LinkMapComponent } from './pages/hunt/link-map/link-map.component';
+import { HuntSuccessComponent } from './pages/hunt/hunt-success/hunt-success.component';
 import { SearchComponent } from './pages/search/search.component';
 
 export const routes: Routes = [
@@ -46,8 +48,18 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: RoutePaths.HUNT_SUCCESS,
+    component: HuntSuccessComponent,
+    canActivate: [authGuard],
+  },
+  {
     path: RoutePaths.HUNT_UPDATE + '/:id',
     component: HuntEditComponent,
     canActivate: [authGuard],
-  }
+  },
+  {
+    path: RoutePaths.LINK_MAP + '/:id',
+    component: LinkMapComponent,
+    canActivate: [authGuard],
+  },
 ];

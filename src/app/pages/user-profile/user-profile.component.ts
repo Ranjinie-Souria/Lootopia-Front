@@ -36,10 +36,7 @@ export class UserProfileComponent implements OnInit {
           next: () => {
             this.isEditing = false;
             this.router.navigate(['/profile']);
-          },
-          error: (err) => {
-            console.error('Error updating user:', err);
-          },
+          }
         });
     }
   }
@@ -58,10 +55,8 @@ export class UserProfileComponent implements OnInit {
     });
   }
   selectImage(event: any) {
-    console.log('selectImage called');
     let fileInput = document.getElementById('fileInput') as HTMLInputElement;
     if (fileInput) {
-      console.log('File input found, triggering click');
       fileInput.value = '';
       fileInput.click();
     }

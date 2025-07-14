@@ -7,6 +7,7 @@ export const RoutePaths = {
   RESEND_EMAIL: 'resend-email',
   REGISTER_SUCCESS: 'register-success',
   VALIDATE_EMAIL: 'validate-email',
+  MAP: 'map',
   SEARCH: 'search',
   PROFILE: 'profile',
   ABOUT: 'about',
@@ -14,4 +15,6 @@ export const RoutePaths = {
   HUNT: 'hunt',
   HUNT_CREATE: 'hunt/create',
   HUNT_UPDATE: 'hunt/update',
+  LINK_MAP: 'hunt/create/add-map',
+  HUNT_SUCCESS: 'hunt/create/success',
 };

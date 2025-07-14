@@ -10,11 +10,8 @@
       Your hunt has been created successfully. You can now view it in on your
       hunts list! Feel free to invite participants to join your hunt.
     </span>
-    <div class="btn-container">
-      <lootopia-btn [routerLinkPath]="RoutePaths.HUNT"
-        >View Your Hunts</lootopia-btn
-      >
-    </div>
+    <span>You will now choose the treasure and map's locations...</span>
+    <loader></loader>
     <img
       class="lootie"
       src="assets/images/lootie.png"
@@ -188,7 +185,6 @@
         id="startDate"
         formControlName="startDate"
         [min]="minStartDate"
-        required
       />
       <div
         *ngIf="form.get('startDate')?.invalid && form.get('startDate')?.dirty"
@@ -213,7 +209,6 @@
         id="endDate"
         formControlName="endDate"
         [min]="minEndDate"
-        required
       />
       <div
         *ngIf="form.get('endDate')?.invalid && form.get('endDate')?.dirty"

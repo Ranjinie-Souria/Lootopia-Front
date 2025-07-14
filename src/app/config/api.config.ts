@@ -11,4 +11,5 @@ export const UrlMapping = {
   CONTACT: '/contact',
   HUNT: '/hunt',
   HUNT_BY_ID: '/hunt/:id',
+  MAP: '/map',
 };
