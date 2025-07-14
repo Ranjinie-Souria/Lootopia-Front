@@ -8,6 +8,7 @@ export const RoutePaths = {
   REGISTER_SUCCESS: 'register-success',
   VALIDATE_EMAIL: 'validate-email',
   MAP: 'map',
+  SEARCH: 'search',
   PROFILE: 'profile',
   ABOUT: 'about',
   CONTACT: 'contact',

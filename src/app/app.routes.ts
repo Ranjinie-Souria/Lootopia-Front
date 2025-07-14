@@ -15,6 +15,7 @@ import { HuntCreateComponent } from './pages/hunt/hunt-create/hunt-create.compon
 import { HuntEditComponent } from './pages/hunt/hunt-edit/hunt-edit.component';
 import { LinkMapComponent } from './pages/hunt/link-map/link-map.component';
 import { HuntSuccessComponent } from './pages/hunt/hunt-success/hunt-success.component';
+import { SearchComponent } from './pages/search/search.component';
 
 export const routes: Routes = [
   { path: RoutePaths.DEFAULT, component: HomeComponent },
@@ -26,6 +27,11 @@ export const routes: Routes = [
   { path: RoutePaths.REGISTER_SUCCESS, component: RegisterSuccessComponent },
   { path: RoutePaths.VALIDATE_EMAIL, component: ValidateEmailComponent },
   { path: RoutePaths.CONTACT, component: ContactComponent },
+  {
+    path: RoutePaths.SEARCH,
+    component: SearchComponent,
+    canActivate: [authGuard],
+  },
   {
     path: RoutePaths.PROFILE,
     component: UserProfileComponent,

@@ -1,0 +1,66 @@
+.hunt-search {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.container-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card-hunt {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border-radius: 15px;
+  border: 4px var(--secondary-color) solid;
+  background-color: var(--background-color);
+  padding: 10px;
+  margin: 3px;
+  gap: 4px;
+
+  button {
+    font-size: 12px;
+    padding: 5px 10px;
+    width: fit-content;
+  }
+
+  h2,
+  h3,
+  h4 {
+    margin: 0;
+  }
+}
+
+.card-hunt-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-hunt-info {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.card-hunt-dates {
+  display: flex;
+  gap: 6px;
+}
+
+.btn-w-icon {
+  display: flex;
+  gap: 6px;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
