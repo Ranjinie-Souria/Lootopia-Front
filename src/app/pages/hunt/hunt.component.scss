@@ -2,6 +2,49 @@
       width: 100%;
     }
 
+  .invite-info {
+  background-color: var(--background-color);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  h4 {
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+    color: var(--primary-color);
+  }
+
+  .label {
+    font-weight: 600;
+    margin-right: 5px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  &.pending .badge {
+    background-color: #fffae6;
+    color: #b8860b;
+  }
+
+  &.accepted .badge {
+    background-color: #e6ffed;
+    color: #2e7d32;
+  }
+
+  &.rejected .badge {
+    background-color: #ffe6e6;
+    color: #c62828;
+  }
+}
+
     .menu-buttons {
       display: flex;
       flex-direction: column;

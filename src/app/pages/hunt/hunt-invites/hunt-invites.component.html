@@ -1,1 +1,108 @@
 <app-hunt-menu></app-hunt-menu>
+
+<div class="container-hunt">
+  <h1>My Invites</h1>
+  <h4>You can see all your received invitations here.</h4>
+
+  <div *ngIf="loading" class="card-container-hunt">
+    <loader></loader>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+
+  @if (
+    !inviteToAccept &&
+    invitedHunts &&
+    invitedHunts.content &&
+    invitedHunts.content.length > 0
+  ) {
+    <div class="container-card">
+      <div
+        class="card-hunt"
+        *ngFor="let invite of invitedHunts.content; let i = index"
+      >
+        <h2>{{ huntDetails[i].title || 'Unknown Hunt' }}</h2>
+
+        <div class="card">
+          <div class="description">
+            <h3>Description</h3>
+            <p>
+              {{ huntDetails[i].description || 'No description available.' }}
+            </p>
+          </div>
+
+          <div
+            class="invite-info"
+            [ngClass]="invite.inviteStatus.toLowerCase()"
+          >
+            <h4>Invitation</h4>
+            <p>
+              <span class="label">Status:</span>
+              <span class="badge">{{ invite.inviteStatus }}</span>
+            </p>
+            <p>
+              <span class="label">Response:</span>
+              <span class="badge">{{ invite.response | inviteResponse }}</span>
+            </p>
+            <p>
+              <span class="label">Invited on:</span>
+              {{ invite.creationDate | date: 'mediumDate' }}
+            </p>
+          </div>
+
+          <div class="buttons">
+            <button
+              class="accept"
+              (click)="acceptInvite(true, huntDetails[i].id)"
+            >
+              <i class="fas fa-check"></i>
+            </button>
+            <button
+              class="decline"
+              (click)="acceptInvite(false, huntDetails[i].id)"
+            >
+              <i class="fas fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  } @else if (inviteToAccept && huntId && !loading) {
+    <div class="highlighted-hunt card-hunt">
+      <h2>Targeted Hunt: {{ huntToAccept?.title }}</h2>
+
+      <div class="card">
+        <div class="description">
+          <h3>Description</h3>
+          <p>{{ huntToAccept?.description || 'No description available.' }}</p>
+        </div>
+
+        <div class="metadata">
+          <p><strong>World Type:</strong> {{ huntToAccept?.worldType }}</p>
+          <p>
+            <strong>Start:</strong>
+            {{ huntToAccept?.startDate | date: 'short' }}
+          </p>
+          <p>
+            <strong>End:</strong> {{ huntToAccept?.endDate | date: 'short' }}
+          </p>
+        </div>
+
+        <div class="buttons">
+          <button class="accept" (click)="acceptInvite(true, huntId)">
+            <i class="fas fa-check"></i>
+          </button>
+          <button class="decline" (click)="acceptInvite(false, huntId)">
+            <i class="fas fa-xmark"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  } @else if (inviteToAccept && huntId && !huntToAccept && !loading) {
+    <p class="error">No invitation found for hunt ID: {{ huntId }}</p>
+  } @else {
+    <p class="no-hunt">You don't have any hunt invitations yet.</p>
+  }
+</div>
