@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="card-container no-border">
+    <h2>Basket</h2>
+    <div class="packs-list">
+      <div *ngFor="let pack of packs.content" class="pack-item">
+        <div class="pack-details">
+          <h3 class="pack-price">{{ pack.price | currency }}</h3>
+          <p class="pack-quantity">Quantity: {{ pack.quantity }}</p>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" (click)="checkout()">Checkout</button>
+  </div>
+</div>

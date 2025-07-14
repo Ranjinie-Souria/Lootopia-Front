@@ -18,6 +18,7 @@ export class NavBarComponent implements OnInit {
   protected readonly RoutePaths = RoutePaths;
   protected isLoggedIn = false;
   protected currentuser: any;
+  public basketCount: number = 0;
   private readonly authService = inject(AuthService);
   private readonly userService = inject(UserService);
   private readonly router = inject(Router);
@@ -32,6 +33,14 @@ export class NavBarComponent implements OnInit {
     this.userService.user$.subscribe((user) => {
       this.currentuser = user;
     });
+
+    const cartCookie = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('cart='));
+    const cart: any[] = cartCookie
+      ? JSON.parse(decodeURIComponent(cartCookie.split('=')[1]))
+      : [];
+    this.basketCount = cart.length;
   }
 
   protected logout(): void {

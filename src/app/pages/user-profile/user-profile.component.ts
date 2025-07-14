@@ -36,7 +36,7 @@ export class UserProfileComponent implements OnInit {
           next: () => {
             this.isEditing = false;
             this.router.navigate(['/profile']);
-          }
+          },
         });
     }
   }
@@ -65,13 +65,20 @@ export class UserProfileComponent implements OnInit {
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
+      const formData = new FormData();
+      formData.append('profilePicture', file);
+
+      this.editForm.patchValue({ profilePicture: file });
+      this.editForm.get('profilePicture')?.updateValueAndValidity();
+
       const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.editForm.patchValue({ profilePicture: e.target.result });
-        this.editForm.get('profilePicture')?.updateValueAndValidity();
-        this.tempImage = e.target.result;
+      reader.onload = () => {
+        this.tempImage = reader.result as string;
       };
       reader.readAsDataURL(file);
+
+      console.log('File selected:', file);
+      console.log('Form data:', formData);
     }
   }
 

@@ -19,4 +19,6 @@ export const RoutePaths = {
   HUNT_SUCCESS: 'hunt/create/success',
   HUNT_INVITES: 'hunt/invites',
   HUNT_PARTICIPATING: 'hunt/participating',
+  BASKET: 'basket',
+  PACKS: 'packs',
 };
