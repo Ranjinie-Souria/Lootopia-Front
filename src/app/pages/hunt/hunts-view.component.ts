@@ -6,12 +6,13 @@ import { HuntsService } from '../../services/hunt.service';
 import { CommonModule } from '@angular/common';
 import { PageDTO } from '../../model/page.dto';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { HuntMenuComponent } from "./hunt-menu/hunt-menu.component";
 
 @Component({
   selector: 'app-hunts-view',
   templateUrl: './hunts-view.component.html',
   styleUrls: ['./hunt.component.scss'],
-  imports: [CommonModule, LoaderComponent],
+  imports: [CommonModule, LoaderComponent, HuntMenuComponent],
 })
 export class HuntsViewComponent implements OnInit {
   hunts!: PageDTO<HuntInformationViewDTO>;

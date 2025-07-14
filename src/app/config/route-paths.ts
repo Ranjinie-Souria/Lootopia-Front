@@ -17,4 +17,6 @@ export const RoutePaths = {
   HUNT_UPDATE: 'hunt/update',
   LINK_MAP: 'hunt/create/add-map',
   HUNT_SUCCESS: 'hunt/create/success',
+  HUNT_INVITES: 'hunt/invites',
+  HUNT_PARTICIPATING: 'hunt/participating',
 };

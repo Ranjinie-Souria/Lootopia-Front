@@ -16,6 +16,8 @@ import { HuntEditComponent } from './pages/hunt/hunt-edit/hunt-edit.component';
 import { LinkMapComponent } from './pages/hunt/link-map/link-map.component';
 import { HuntSuccessComponent } from './pages/hunt/hunt-success/hunt-success.component';
 import { SearchComponent } from './pages/search/search.component';
+import { HuntInvitesComponent } from './pages/hunt/hunt-invites/hunt-invites.component';
+import { HuntParticipatingComponent } from './pages/hunt/hunt-participating/hunt-participating.component';
 
 export const routes: Routes = [
   { path: RoutePaths.DEFAULT, component: HomeComponent },
@@ -60,6 +62,16 @@ export const routes: Routes = [
   {
     path: RoutePaths.LINK_MAP + '/:id',
     component: LinkMapComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.HUNT_INVITES,
+    component: HuntInvitesComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.HUNT_PARTICIPATING,
+    component: HuntParticipatingComponent,
     canActivate: [authGuard],
   },
 ];

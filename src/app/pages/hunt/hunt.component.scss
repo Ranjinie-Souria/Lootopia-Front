@@ -1,3 +1,104 @@
+    app-hunt-menu {
+      width: 100%;
+    }
+
+    .menu-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .menu-button {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      padding: 16px;
+      background-color: var(--secondary-color);
+      border: 1px solid var(--primary-color);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+    }
+
+    .menu-button:hover {
+      border: 2px solid var(--accent-color);
+      background-color: var(--primary-color);
+      transform: translateY(-1px);
+      
+      .button-title {
+        color: var(--secondary-color);
+      }
+
+      .button-subtitle {
+        color: var(--accent-color);
+      }
+    }
+
+    .menu-button:active {
+      transform: translateY(0);
+    }
+
+    .button-icon {
+      font-size: 24px;
+      margin-right: 16px;
+      flex-shrink: 0;
+    }
+
+    .button-content {
+      flex: 1;
+    }
+
+    .button-title {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--primary-color);
+      margin-bottom: 4px;
+    }
+
+    .button-subtitle {
+      font-size: 14px;
+      color: var(--tertiary-color);
+      font-weight: 100;
+      font-style: italic;
+    }
+
+    @media (max-width: 480px) {
+      .hunt-menu-container {
+        padding: 16px;
+      }
+      
+      .menu-card {
+        padding: 20px;
+      }
+      
+      .button-icon {
+        font-size: 20px;
+        margin-right: 12px;
+      }
+      
+      .button-title {
+        font-size: 15px;
+      }
+      
+      .button-subtitle {
+        font-size: 13px;
+      }
+    }
+
+
+.menu{
+    display: flex;
+    width: 100%;
+    gap: 0px;
+    align-items: center;
+    flex-direction: row;
+    align-content: center;
+    justify-content: center;
+    background-color: var(--quaternary-color);
+    border: 1px solid var(--primary-color);
+}
+
 .container-hunt {
   width: 100%;
   display: flex;
