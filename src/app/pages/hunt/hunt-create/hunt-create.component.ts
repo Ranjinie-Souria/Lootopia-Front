@@ -126,8 +126,6 @@ export class HuntCreateComponent {
 
     const array: string[] = this.invitedPlayersArray.value ?? [];
 
-    console.debug(array);
-
     const payload: HuntDto = {
       creatorId: localStorage.getItem('userId') ?? '',
       title: this.form.get('title')?.value ?? '',

@@ -80,16 +80,11 @@ export class HuntInvitesComponent implements OnInit {
             this.loading = false;
           },
           error: (err) => {
-            console.error(
-              'Erreur lors du chargement des détails de chasse',
-              err,
-            );
             this.loading = false;
           },
         });
       },
       error: (err) => {
-        console.error('Erreur lors du chargement des invitations', err);
         this.loading = false;
       },
     });
@@ -103,10 +98,7 @@ export class HuntInvitesComponent implements OnInit {
     this.huntService.answerInvite(huntId, accepted).subscribe({
       next: () => {
         invite.response = accepted ? 'ACCEPT' : 'REFUSE';
-      },
-      error: (err) => {
-        console.error(err);
-      },
+      }
     });
   }
 }

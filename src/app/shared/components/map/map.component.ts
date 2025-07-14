@@ -1,4 +1,12 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  Input,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import mapboxgl from 'mapbox-gl';
@@ -9,8 +17,9 @@ import { environment } from '../../../environment/environment';
 import { MapCreateDTO } from '../../../model/map-create.dto';
 import { MapService } from '../../../services/map.service';
 import { HuntsService } from '../../../services/hunt.service';
-import { HuntUpdateDTO } from '../../../model/hunt-update.dto';
 import { TreasureDTO } from '../../../model/treasure.dto';
+import { HuntDto } from '../../../model/hunt.dto';
+import { HuntInformationViewDTO } from '../../../model/hunt-information-view.dto';
 
 interface Style {
   name: string;
@@ -35,7 +44,11 @@ export class MapComponent implements OnInit {
   public hasMapLoaded = false;
   public hasMapError = false;
   @Input() canChangeMap: boolean = false;
-  @Input() idHunt: string = '';
+  @Input() idHunt: string | undefined = '';
+  @Input() huntData?: any;
+  @Output() digSuccess = new EventEmitter<boolean>();
+  @Output() treasure = new EventEmitter<TreasureDTO>();
+
   public userLattitude: number | null = null;
   public userLongitude: number | null = null;
 
@@ -123,6 +136,13 @@ export class MapComponent implements OnInit {
       Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLng / 2) ** 2;
     const d = 2 * R * Math.asin(Math.sqrt(a));
     return d <= radius;
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['huntData'] && this.huntData) {
+      this.initializeZonesFromHunt();
+      this.drawZones();
+    }
   }
 
   getUserCoordinates(): Promise<[number, number]> {
@@ -286,6 +306,11 @@ export class MapComponent implements OnInit {
       const content = found ? 'treasure' : undefined;
 
       this.triggerDigAnimation(found, content);
+
+      if (found) {
+        this.setTreasure();
+        this.digSuccess.emit(true);
+      }
     } else if (this.buryMode) {
       const digZone = this.digZones[0];
       if (!digZone) {
@@ -354,6 +379,9 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     mapboxgl.accessToken = this.MAPBOX_ACCESS_TOKEN;
+
+    this.initializeZonesFromHunt();
+
     this.getUserCoordinates()
       .then(([lng, lat]) => {
         this.userLattitude = lat;
@@ -361,59 +389,101 @@ export class MapComponent implements OnInit {
       })
       .catch(() => {});
 
-    (async () => {
-      const center = this.digZones.length
-        ? this.digZones[0].center
-        : this.eiffelTowerCenter;
-      try {
-        this.map = new mapboxgl.Map({
-          container: 'map',
-          style: this.currentStyle.url,
-          center,
-          zoom: 12,
+    this.initializeMap();
+  }
+
+  private initializeZonesFromHunt() {
+    if (
+      this.huntData?.treasureLatitude !== undefined &&
+      this.huntData?.treasureLongitude !== undefined
+    ) {
+      const lat = this.huntData.treasureLatitude;
+      const lng = this.huntData.treasureLongitude;
+      const digRadius = 100;
+      const treasureRadius = 10;
+
+      this.digZones = [{ center: [lng, lat], radius: digRadius }];
+
+      this.buriedTreasures = [{ center: [lng, lat], radius: treasureRadius }];
+    }
+  }
+
+  private initializeMap() {
+    const center = this.digZones.length
+      ? this.digZones[0].center
+      : this.eiffelTowerCenter;
+
+    try {
+      this.map = new mapboxgl.Map({
+        container: 'map',
+        style: this.currentStyle.url,
+        center,
+        zoom: 12,
+      });
+
+      this.map.on('load', () => {
+        this.map?.resize();
+        this.hasMapLoaded = true;
+        this.map?.addControl(new mapboxgl.NavigationControl());
+
+        this.addUserLocationMarker(this.map!);
+        this.drawZones();
+
+        this.map?.on('click', this.handleMapClick);
+      });
+    } catch {
+      this.hasMapLoaded = false;
+      this.hasMapError = true;
+    }
+  }
+
+  private drawZones() {
+    if (!this.map) return;
+
+    // Dig Zones
+    this.digZones.forEach((zone) => {
+      const circle = this.createGeoJSONCircle(zone.center, zone.radius);
+      const sourceId = `dig-zone-${zone.center[0]}-${zone.center[1]}`;
+      const layerId = `dig-zone-layer-${zone.center[0]}-${zone.center[1]}`;
+
+      if (this.map?.getLayer(layerId)) this.map.removeLayer(layerId);
+      if (this.map?.getSource(sourceId)) this.map.removeSource(sourceId);
+
+      this.map?.addSource(sourceId, { type: 'geojson', data: circle });
+      this.map?.addLayer({
+        id: layerId,
+        type: 'fill',
+        source: sourceId,
+        paint: { 'fill-color': '#ff9844', 'fill-opacity': 0.4 },
+      });
+    });
+
+    this.buriedTreasures.forEach((treasure) => {
+      const circle = this.createGeoJSONCircle(treasure.center, treasure.radius);
+      const sourceId = `treasure-${treasure.center[0]}-${treasure.center[1]}`;
+      const layerId = `treasure-layer-${treasure.center[0]}-${treasure.center[1]}`;
+
+      if (this.map?.getLayer(layerId)) this.map.removeLayer(layerId);
+      if (this.map?.getSource(sourceId)) this.map.removeSource(sourceId);
+
+      this.map?.addSource(sourceId, { type: 'geojson', data: circle });
+
+      if (this.canChangeMap) {
+        this.map?.addLayer({
+          id: layerId,
+          type: 'fill',
+          source: sourceId,
+          paint: { 'fill-color': '#ffc46c', 'fill-opacity': 0.5 },
         });
-
-        this.map.on('load', () => {
-          this.map?.resize();
-          this.hasMapLoaded = true;
-          this.map?.addControl(new mapboxgl.NavigationControl());
-          if (this.map) {
-            this.addUserLocationMarker(this.map);
-          }
-
-          if (this.digZones.length) {
-            const zone = this.digZones[0];
-            const circle = this.createGeoJSONCircle(zone.center, zone.radius);
-            this.map?.addSource('dig-zone', { type: 'geojson', data: circle });
-            this.map?.addLayer({
-              id: 'dig-zone-layer',
-              type: 'fill',
-              source: 'dig-zone',
-              paint: { 'fill-color': '#ff9844', 'fill-opacity': 0.4 },
-            });
-          }
-          if (this.buriedTreasures.length) {
-            const treasure = this.buriedTreasures[0];
-            const circle = this.createGeoJSONCircle(
-              treasure.center,
-              treasure.radius,
-            );
-            this.map?.addSource('treasure', { type: 'geojson', data: circle });
-            this.map?.addLayer({
-              id: 'treasure-layer',
-              type: 'fill',
-              source: 'treasure',
-              paint: { 'fill-color': '#ffc46cff', 'fill-opacity': 0.5 },
-            });
-          }
-
-          this.map?.on('click', this.handleMapClick);
+      } else {
+        this.map?.addLayer({
+          id: layerId,
+          type: 'fill',
+          source: sourceId,
+          paint: { 'fill-color': '#ffc46c', 'fill-opacity': 0 },
         });
-      } catch {
-        this.hasMapLoaded = false;
-        this.hasMapError = true;
       }
-    })();
+    });
   }
 
   activateDefineDigZoneMode(): void {
@@ -497,7 +567,7 @@ export class MapComponent implements OnInit {
     }
 
     const payload: MapCreateDTO = {
-      huntId: this.idHunt,
+      huntId: this.idHunt!,
       name: `map_for_hunt_${this.idHunt}`,
       skin: this.currentStyle.name,
       centralPointLatitude: digZone.center[1],
@@ -510,13 +580,13 @@ export class MapComponent implements OnInit {
     this.mapService.createMap(payload).subscribe({
       next: (res) => {
         this.updateTreasureCoordinates();
-      }
+      },
     });
   }
 
   updateTreasureCoordinates() {
     const treasure = this.buriedTreasures[0];
-    this.huntService.getHuntById(this.idHunt).subscribe({
+    this.huntService.getHuntById(this.idHunt!).subscribe({
       next: (hunt) => {
         const payload: TreasureDTO = {
           latitude: treasure.center[1],
@@ -527,9 +597,17 @@ export class MapComponent implements OnInit {
             this.router.navigate(['/hunt/create/success'], {
               state: { fromMapCreation: true },
             });
-          }
+          },
         });
-      }
+      },
+    });
+  }
+
+  setTreasure() {
+    this.huntService.getTreasureByHuntId(this.huntData.id).subscribe({
+      next: (val) => {
+        this.treasure.emit(val);
+      },
     });
   }
 }

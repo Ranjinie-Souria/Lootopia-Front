@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - develop
+      - cicd
 
 jobs:
   build:
@@ -31,7 +32,7 @@ jobs:
           npm run build:prod
 
       - name: Build Staging frontend
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/cicd'
         run: |
           echo "Building frontend..."
           npm run build:staging
@@ -109,7 +110,7 @@ jobs:
             echo "---------------------"
 
       - name: Deploy to Staging Server
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/cicd'
         uses: easingthemes/ssh-deploy@main
         with:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

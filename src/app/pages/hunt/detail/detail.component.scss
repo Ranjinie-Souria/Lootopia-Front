@@ -1,0 +1,103 @@
+.hunt-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.hunt-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.hunt-header h2 {
+  margin: 0;
+  flex-grow: 1;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.hunt-section {
+  background-color: var(--background-color);
+  border: 2px solid var(--secondary-color);
+  border-radius: 12px;
+  padding: 15px;
+}
+
+.hunt-section h3 {
+  margin-top: 0;
+}
+
+.hunt-section-content p {
+  margin: 4px 0;
+}
+
+.hunt-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.hunt-columns .hunt-section {
+  flex: 1 1 45%;
+}
+
+.map-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.map-table th,
+.map-table td {
+  padding: 8px;
+  border: 1px solid #ccc;
+}
+
+.badge {
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 0.85em;
+}
+
+.badge.success {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.badge.secondary {
+  background-color: #ccc;
+  color: black;
+}
+
+.badge.warning {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.btn-danger:hover,
+.btn-secondary:hover {
+  opacity: 0.9;
+}

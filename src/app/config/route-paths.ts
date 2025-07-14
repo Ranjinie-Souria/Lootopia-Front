@@ -13,6 +13,7 @@ export const RoutePaths = {
   ABOUT: 'about',
   CONTACT: 'contact',
   HUNT: 'hunt',
+  HUNT_DETAILS: 'hunt/details',
   HUNT_CREATE: 'hunt/create',
   HUNT_UPDATE: 'hunt/update',
   LINK_MAP: 'hunt/create/add-map',
@@ -23,4 +24,6 @@ export const RoutePaths = {
   PACKS: 'packs',
   SUCCESS_PAYMENT: 'success-payment',
   ERROR_PAYMENT: 'error-payment',
+  GAME: 'game',
+  GAME_SUCCESS: 'game/success',
 };

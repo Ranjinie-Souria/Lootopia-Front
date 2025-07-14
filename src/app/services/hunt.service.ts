@@ -7,7 +7,6 @@ import { HuntInformationViewDTO } from '../model/hunt-information-view.dto';
 import { HuntUpdateDTO } from '../model/hunt-update.dto';
 import { PageDTO } from '../model/page.dto';
 import { HuntDto } from '../model/hunt.dto';
-import { MapUpdateDTO } from '../model/map-update.dto';
 import { TreasureDTO } from '../model/treasure.dto';
 import { HuntWhitelistDto } from '../model/hunt-whitelist.dto';
 
@@ -75,6 +74,17 @@ export class HuntsService {
     return this.http.patch<void>(`${this.baseUrl}/${huntId}/treasure`, payload);
   }
 
+  stopHunt(huntId: string): Observable<void> {
+    return this.http.patch<void>(`${this.baseUrl}/${huntId}/stop`, null);
+  }
+
+  participate(huntId: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.baseUrl}/${huntId}/participant/participate`,
+      null,
+    );
+  }
+
   getMyParticipatingHunts() {
     return this.http.get<PageDTO<HuntDto>>(`${this.baseUrl}/participant`);
   }
@@ -88,12 +98,12 @@ export class HuntsService {
   answerInvite(huntId: string, isAccepted: boolean) {
     const response = isAccepted ? 'ACCEPT' : 'REFUSE';
 
-    return this.http.put<void>(
-      `${this.baseUrl}/${huntId}/participant`,
-      null, // aucun body
-      {
-        params: { response },
-      },
-    );
+    return this.http.put<void>(`${this.baseUrl}/${huntId}/participant`, null, {
+      params: { response },
+    });
+  }
+
+  getTreasureByHuntId(huntId: string): Observable<TreasureDTO> {
+    return this.http.get<TreasureDTO>(`${this.baseUrl}/${huntId}/treasure`);
   }
 }
