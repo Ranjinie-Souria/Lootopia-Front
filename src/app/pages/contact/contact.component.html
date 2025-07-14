@@ -1,0 +1,67 @@
+<div class="starry-container">
+  <div class="card-container contact-form">
+    <h1>Contact</h1>
+    <p>Any questions? Feel free to contact us through this form.</p>
+
+    <div *ngIf="submitError" class="error">
+      {{ submitError }}
+    </div>
+    <div *ngIf="submitSuccess" class="success">
+      Your message has been sent successfully !
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="sendContact()">
+      <label for="email">Email :</label>
+      <input
+        type="email"
+        id="email"
+        formControlName="email"
+        autocomplete="email"
+        placeholder="Enter your email"
+        required
+      />
+
+      <label for="name">Name :</label>
+      <input
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Enter your name"
+        required
+      />
+
+      <label for="subject">Subject :</label>
+      <input
+        type="text"
+        id="subject"
+        formControlName="subject"
+        placeholder="Subject of your message"
+        required
+      />
+
+      <label for="text">Message :</label>
+      <textarea
+        id="text"
+        formControlName="text"
+        placeholder="Write your message here"
+        rows="4"
+        required
+      ></textarea>
+
+      <label for="type">Type :</label>
+      <select id="type" formControlName="type" required>
+        <option value="SPONSOR_ACCOUNT">Sponsor Account</option>
+      </select>
+
+      <div class="btn-container">
+        <lootopia-btn
+          type="submit"
+          [disabled]="form.invalid"
+          (click)="sendContact()"
+          >Send</lootopia-btn
+        >
+      </div>
+    </form>
+    <img class="crown" src="assets/images/crown.png" alt="Crowns" />
+  </div>
+</div>

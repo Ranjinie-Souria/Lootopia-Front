@@ -27,6 +27,7 @@ export class PasswordResetComponent {
   protected resetPass() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.form.markAsDirty();
       return;
     }
 
@@ -46,8 +47,8 @@ export class PasswordResetComponent {
   }
 
   private handlePassError(err: any): void {
-    console.error(err);
     this.form.markAllAsTouched();
+    this.form.markAsDirty();
     this.resetPassError = 'Error, the email you entered is incorrect.';
     if (err.status === 409) {
       this.resetPassError =

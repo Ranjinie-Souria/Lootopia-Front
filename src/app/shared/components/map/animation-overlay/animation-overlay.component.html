@@ -1,0 +1,72 @@
+@if (needsAnimation) {
+  <div class="animation-container">
+    <!-- Background with 50% of the whole container in height -->
+    <div class="animation-container-background"></div>
+    <!-- Show message if no chest is found after digging -->
+    @if (hasDug && !foundSomething) {
+      <div class="text-container chest-empty">
+        You found nothing.
+        <button class="action-btn" (click)="closeEverything()">Close</button>
+      </div>
+    }
+
+    <!-- Chest (appears after digging if there is content) -->
+    @if (showChest && foundSomething) {
+      <img
+        src="/chest.png"
+        alt="Chest"
+        class="chest"
+        (click)="!chestOpenedState && openChest()"
+        (keydown)="!chestOpenedState && $event.key === 'Enter' && openChest()"
+        style="cursor: pointer"
+      />
+    }
+
+    <!-- Light beams and content (after chest opened) -->
+    @if (chestOpenedState && foundSomething) {
+      <div class="light-beams">
+        <div class="beam beam1"></div>
+        <div class="beam beam2"></div>
+        <div class="beam beam3"></div>
+      </div>
+    }
+
+    @if (chestOpenedState && foundSomething && showUnboxResults) {
+      <div class="text-container">
+        <p class="chest-content">
+          You found: {{ chestContent || 'a mysterious treasure!' }}
+        </p>
+        <button class="action-btn" (click)="closeEverything()">Close</button>
+      </div>
+    }
+
+    <!-- Dirt and shovel (disappear after digging) -->
+    @if (!showChest) {
+      <img
+        src="/dirt.png"
+        alt="Dirt"
+        class="dirt"
+        (click)="!isDigging && startDigging()"
+        (keydown)="!isDigging && $event.key === 'Enter' && startDigging()"
+        style="cursor: pointer"
+      />
+    }
+    @if (!showChest) {
+      <img
+        src="/shovel.png"
+        alt="Shovel"
+        class="shovel"
+        [class]="{ digging: isDigging }"
+        (click)="!isDigging && startDigging()"
+        (keydown)="!isDigging && $event.key === 'Enter' && startDigging()"
+        style="cursor: pointer"
+      />
+    }
+
+    <!-- Particles (triggered during digging) -->
+    <div
+      *ngFor="let i of [1, 2, 3]; let index = index"
+      [class]="['particle', 'particle' + i, { flying: isDigging }]"
+    ></div>
+  </div>
+}

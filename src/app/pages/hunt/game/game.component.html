@@ -1,0 +1,14 @@
+<app-hunt-menu></app-hunt-menu>
+<div class="container-hunt">
+  <h1></h1>
+  <h4>Find the treasure !</h4>
+
+  {{ message }}
+  <app-map
+    [canChangeMap]="false"
+    [idHunt]="hunt?.id"
+    [huntData]="hunt"
+    (digSuccess)="onDigSuccess()"
+    (treasure)="treasure"
+  ></app-map>
+</div>

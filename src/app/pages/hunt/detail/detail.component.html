@@ -1,0 +1,137 @@
+<div *ngIf="hunt; else loading" class="hunt-details-container">
+    <div class="hunt-header">
+        <button class="btn-secondary" (click)="onCancel()">← Back</button>
+        <h2>🏆 Hunt Details</h2>
+        <div class="d-flex gap-2 align-items-center">
+            <ng-container *ngIf="hunt.creatorId === currentUserId">
+                <button *ngIf="shouldShowStopButton()" class="btn btn-warning" (click)="stopHunt()">Stop Hunt</button>
+            </ng-container>
+
+            <ng-container *ngIf="hunt.creatorId !== currentUserId">
+                <button class="btn btn-success" (click)="participate()">Participate</button>
+            </ng-container>
+        </div>
+    </div>
+
+    <div class="hunt-section">
+        <h3>General</h3>
+        <div class="hunt-section-content">
+            <p><strong>Title:</strong> {{ hunt.title }}</p>
+            <p><strong>Description:</strong> {{ hunt.description }}</p>
+            <p><strong>World Type:</strong> {{ hunt.worldType }}</p>
+            <p>
+                <strong>Private:</strong>
+                <span class="badge" [class.success]="hunt.isPrivate" [class.secondary]="!hunt.isPrivate">
+                    {{ hunt.isPrivate ? 'Yes' : 'No' }}
+                </span>
+            </p>
+            <p><strong>Chat Enabled:</strong> {{ hunt.chatEnabled ? 'Yes' : 'No' }}</p>
+        </div>
+    </div>
+
+    <div class="hunt-section">
+        <h3>Creator</h3>
+        <div class="hunt-section-content">
+            <p><strong>Email:</strong> {{ hunt.creatorEmail }}</p>
+            <p *ngIf="hunt.creatorUsername"><strong>Username:</strong> {{ hunt.creatorUsername }}</p>
+            <p><strong>User ID:</strong> {{ hunt.creatorId }}</p>
+        </div>
+    </div>
+
+    <div class="hunt-columns">
+        <div class="hunt-section">
+            <h3>Participation</h3>
+            <div class="hunt-section-content">
+                <p><strong>Max Participants:</strong> {{ hunt.maxParticipants }}</p>
+                <p><strong>Price:</strong> {{ hunt.price }} crown{{ hunt.price > 1 ? 's' : '' }}</p>
+                <p><strong>Authorized Users:</strong></p>
+                <ul>
+                    <li *ngFor="let user of hunt.authorizedUsers">{{ user }}</li>
+                    <li *ngIf="hunt.authorizedUsers.length === 0"><em>None</em></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="hunt-section">
+            <h3>Treasure</h3>
+            <div class="hunt-section-content">
+                <p><strong>Type:</strong> <span class="badge warning">{{ hunt.type }}</span></p>
+                <p><strong>Quantity:</strong> {{ hunt.treasureQuantity }}</p>
+                <p><strong>Location:</strong> {{ hunt.treasureLatitude || 0 }}, {{ hunt.treasureLongitude || 0 }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="hunt-section">
+        <h3>Excavation</h3>
+        <div class="hunt-section-content">
+            <p><strong>Delay:</strong> {{ hunt.excavationDelay }}s</p>
+            <p><strong>Cost:</strong> {{ hunt.excavationCost }} crown{{ hunt.excavationCost >= 2 ? 's' : '' }}</p>
+        </div>
+    </div>
+
+    <div class="hunt-section">
+        <h3>Dates</h3>
+        <div class="hunt-section-content">
+            <p *ngIf="hunt.startDate"><strong>Start:</strong> {{ hunt.startDate | date: 'short' }}</p>
+            <p *ngIf="hunt.endDate"><strong>End:</strong> {{ hunt.endDate | date: 'short' }}</p>
+            <p><strong>Created:</strong> {{ hunt.creationDate | date: 'short' }}</p>
+            <p><strong>Status:</strong>
+                <span [class.text-danger]="hunt.deletedDate" [class.text-success]="!hunt.deletedDate">
+                    {{ hunt.deletedDate ? ('Deleted at ' + (hunt.deletedDate | date:'short')) : 'Active' }}
+                </span>
+            </p>
+        </div>
+    </div>
+
+    <div class="hunt-section">
+        <h3>Maps</h3>
+        <div class="hunt-section-content">
+            <div *ngIf="hunt.maps.length > 0; else noMaps">
+                <table class="map-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Skin</th>
+                            <th>Lat</th>
+                            <th>Lng</th>
+                            <th>Radius (cm)</th>
+                            <th>Dig</th>
+                            <th>Initial</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let map of hunt.maps">
+                            <td>{{ map.name }}</td>
+                            <td>{{ map.skin }}</td>
+                            <td>{{ map.centralPointLatitude }}</td>
+                            <td>{{ map.centralPointLongitude }}</td>
+                            <td>{{ map.cmRadius }}</td>
+                            <td>
+                                <span class="badge" [class.success]="map.digMap" [class.secondary]="!map.digMap">
+                                    {{ map.digMap ? 'Yes' : 'No' }}
+                                </span>
+                            </td>
+                            <td>
+                                <span class="badge" [class.success]="map.initialMap"
+                                    [class.secondary]="!map.initialMap">
+                                    {{ map.initialMap ? 'Yes' : 'No' }}
+                                </span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ng-template #noMaps>
+                <p>No maps available.</p>
+            </ng-template>
+        </div>
+    </div>
+</div>
+
+<ng-template #loading>
+    <div class="text-center mt-5">
+        <div class="spinner-border text-primary" role="status"></div>
+        <p class="mt-3">Loading hunt details...</p>
+    </div>
+</ng-template>

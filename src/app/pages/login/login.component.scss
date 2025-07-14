@@ -23,9 +23,37 @@ input.ng-invalid.ng-touched {
   background-color: #ffe6e6;
   margin: 10px;
 }
+input.ng-invalid.ng-dirty {
+  border: 2px solid #f44336;
+  background-color: #ffe6e6;
+  margin: 10px;
+}
 
 .error {
+  max-width: 60%;
   color: #f44336;
   font-size: 0.9em;
   margin: 15px;
+}
+
+.password-field {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5%;
+
+  input {
+    flex: 1;
+    margin-bottom: 0;
+  }
+
+  .eye {
+    margin-left: 0.5rem;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0;
+    color: var(--button-color);
+    font-size: 32px;
+  }
 }

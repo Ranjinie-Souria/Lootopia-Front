@@ -8,4 +8,10 @@ export const UrlMapping = {
   USERS: '/users',
   PASSWORD: '/password',
   PASSWORD_EMAIL: '/password-email',
+  CONTACT: '/contact',
+  HUNT: '/hunt',
+  HUNT_BY_ID: '/hunt/:id',
+  MAP: '/map',
+  PACKS: '/store/crown-pack',
+  STRIPE: '/payment',
 };

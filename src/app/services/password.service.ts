@@ -19,8 +19,11 @@ export class PasswordService {
   }
   
   
-  public editPassword(email: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}`, email);
+  public editPassword(password: string, token: string): Observable<any> {
+    const body = { password, token };
+    return this.http.patch(`${this.apiUrl}`, body, {
+      headers: { 'Content-Type': 'application/json' }
+    });
   }
 
 }

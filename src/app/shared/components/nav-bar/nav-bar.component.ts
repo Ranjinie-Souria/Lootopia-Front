@@ -4,10 +4,13 @@ import { BtnComponent } from '../../../shared/components/btn/btn.component';
 import { AuthService, DecodedToken } from '../../../services/auth.service';
 import { Router } from '@angular/router';
 import { UserService } from '../../../services/user.service';
+import { Observable } from 'rxjs';
+import { User } from '../../../model/user';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'nav-bar',
-  imports: [BtnComponent],
+  imports: [BtnComponent, CommonModule],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss',
 })
@@ -15,18 +18,29 @@ export class NavBarComponent implements OnInit {
   protected readonly RoutePaths = RoutePaths;
   protected isLoggedIn = false;
   protected currentuser: any;
+  public basketCount: number = 0;
   private readonly authService = inject(AuthService);
   private readonly userService = inject(UserService);
   private readonly router = inject(Router);
   @Input() user: DecodedToken | null = null;
+  user$!: Observable<User | null>;
 
   ngOnInit() {
+    this.user$ = this.userService.loadCurrentUserFromToken();
     this.authService.isLoggedIn$.subscribe((status) => {
       this.isLoggedIn = status;
     });
     this.userService.user$.subscribe((user) => {
       this.currentuser = user;
     });
+
+    const cartCookie = document.cookie
+      .split('; ')
+      .find((row) => row.startsWith('cart='));
+    const cart: any[] = cartCookie
+      ? JSON.parse(decodeURIComponent(cartCookie.split('=')[1]))
+      : [];
+    this.basketCount = cart.length;
   }
 
   protected logout(): void {

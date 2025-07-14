@@ -18,6 +18,7 @@ export class LoginComponent {
   private authService = inject(AuthService);
   protected readonly RoutePaths = RoutePaths;
   protected loginError: string = '';
+  protected showPassword: boolean = false;
 
   protected form = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
@@ -27,6 +28,7 @@ export class LoginComponent {
   protected login() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
+      this.form.markAsDirty();
       return;
     }
 
@@ -45,9 +47,13 @@ export class LoginComponent {
     });
   }
 
+  protected togglePasswordVisibility(): void {
+    this.showPassword = !this.showPassword;
+  }
+
   private handleLoginError(err: any): void {
-    console.error(err);
     this.form.markAllAsTouched();
+    this.form.markAsDirty();
     this.loginError = 'Error, the email or password you entered are incorrect.';
     if (err.status === 409) {
       this.loginError =

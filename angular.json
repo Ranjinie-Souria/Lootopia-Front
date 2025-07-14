@@ -20,9 +20,7 @@
             "outputPath": "dist/lootopia_front",
             "index": "src/index.html",
             "browser": "src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
+            "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
@@ -34,11 +32,11 @@
                 "glob": "**/*",
                 "input": "src/assets",
                 "output": "assets"
-              }
-            ],"fileReplacements": [
+              },
               {
-                "replace": "src/app/environment/environment.ts",
-                "with": "src/app/environment/environment.prod.ts"
+                "glob": ".htaccess",
+                "input": "src/apache",
+                "output": "/"
               }
             ],
             "styles": [
@@ -46,15 +44,22 @@
               "src/assets/styles/variables.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
-            "scripts": []
+            "scripts": [],
+            "allowedCommonJsDependencies": ["mapbox-gl"]
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/app/environment/environment.ts",
+                  "with": "src/app/environment/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
+                  "maximumWarning": "3MB",
+                  "maximumError": "4MB"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -68,6 +73,27 @@
               "optimization": false,
               "extractLicenses": false,
               "sourceMap": true
+            },
+            "staging": {
+              "fileReplacements": [
+              {
+                "replace": "src/app/environment/environment.ts",
+                "with": "src/app/environment/environment.staging.ts"
+              }
+            ],
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "3MB",
+                  "maximumError": "4MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "outputHashing": "all"
             }
           },
           "defaultConfiguration": "production"
@@ -80,6 +106,9 @@
             },
             "development": {
               "buildTarget": "lootopia_front:build:development"
+            },
+            "staging": {
+              "buildTarget": "lootopia_front:build:staging"
             }
           },
           "defaultConfiguration": "development"
@@ -90,10 +119,7 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [

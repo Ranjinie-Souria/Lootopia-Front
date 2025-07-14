@@ -1,0 +1,34 @@
+<div class="container">
+  <div class="card-container no-border">
+    <h2>Crown packs</h2>
+    <div *ngIf="loading" class="card-container-hunt">
+      <loader></loader>
+    </div>
+    <div class="packs-list">
+      <div *ngFor="let pack of packs.content" class="pack-item">
+        <div class="pack-details">
+          <h3 class="pack-price">{{ pack.price | currency }}</h3>
+          <p class="pack-quantity">Quantity: {{ pack.quantity }}</p>
+        </div>
+        <button (click)="addToCart(pack)" class="btn btn-primary">
+          Add to cart
+        </button>
+      </div>
+    </div>
+    <!-- <div class="pagination">
+      <button
+        (click)="goToPage(currentPage - 1)"
+        [disabled]="currentPage === 0"
+      >
+        Previous
+      </button>
+      <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+      <button
+        (click)="goToPage(currentPage + 1)"
+        [disabled]="currentPage >= totalPages - 1"
+      >
+        Next
+      </button>
+    </div> -->
+  </div>
+</div>

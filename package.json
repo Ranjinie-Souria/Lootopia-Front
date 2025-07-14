@@ -6,13 +6,23 @@
     "start": "ng serve",
     "host": "ng serve --host",
     "build": "ng build",
+    "build:prod": "ng build --configuration=production",
+    "build:staging": "ng build --configuration=staging",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "start:prod": "ng serve --configuration=production",
     "format": "prettier --write \"src/**/*.{ts,html,scss}\"",
-    "build:prod": "ng build --configuration=production",
     "serve:prod": "http-server dist/lootopia_front/browser -p 9090",
-    "preview:prod": "npm run build:prod && npm run serve:prod"
+    "preview:prod": "npm run build:prod && npm run serve:prod",
+    "cap:sync": "npx cap sync",
+    "cap:sync:android": "npx cap sync android",
+    "cap:sync:ios": "npx cap sync ios",
+    "cap:open:android": "npx cap open android",
+    "cap:open:ios": "npx cap open ios",
+    "cap:build:android": "npx cap build android",
+    "cap:build:ios": "npx cap build ios",
+    "cap:run:android": "npx cap run android",
+    "cap:run:ios": "npx cap run ios"
   },
   "private": true,
   "dependencies": {
@@ -23,10 +33,15 @@
     "@angular/platform-browser": "^19.2.0",
     "@angular/platform-browser-dynamic": "^19.2.0",
     "@angular/router": "^19.2.0",
+    "@capacitor/android": "^7.4.0",
+    "@capacitor/core": "^7.4.0",
+    "@capacitor/ios": "^7.4.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
     "@ngx-translate/core": "^16.0.4",
     "@ngx-translate/http-loader": "^16.0.1",
+    "@stripe/stripe-js": "^7.4.0",
     "jwt-decode": "^4.0.0",
+    "mapbox-gl": "^3.13.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
@@ -35,7 +50,9 @@
     "@angular-devkit/build-angular": "^19.2.0",
     "@angular/cli": "^19.2.3",
     "@angular/compiler-cli": "^19.2.0",
+    "@capacitor/cli": "^7.4.0",
     "@types/jasmine": "~5.1.0",
+    "@types/stripe-v3": "^3.1.33",
     "jasmine-core": "~5.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
@@ -44,5 +61,8 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "prettier": "^3.5.3",
     "typescript": "~5.7.2"
+  },
+  "engines": {
+    "node": ">=22.0.0"
   }
 }
