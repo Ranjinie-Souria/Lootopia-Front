@@ -3,7 +3,7 @@ name: Project Deployment
 on:
   push:
     branches:
-      - master
+      - main
       - develop
       - cicd
 
