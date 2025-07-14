@@ -1,1 +1,44 @@
 <app-hunt-menu></app-hunt-menu>
+
+<div class="container-hunt">
+  <h1>My participations</h1>
+  <h4>You can see the hunts you are currently participating in.</h4>
+
+  <div *ngIf="loading" class="card-container-hunt">
+    <loader></loader>
+  </div>
+
+  <div *ngIf="error" class="error">
+    <p>{{ error }}</p>
+  </div>
+
+  @if (
+    participatingHunts &&
+    participatingHunts.content &&
+    participatingHunts.content.length > 0
+  ) {
+    <div class="container-card">
+      <div
+        class="card-hunt"
+        *ngFor="let hunt of participatingHunts.content; let i = index"
+      >
+        <h2>Title : {{ hunt.title }}</h2>
+        <div class="card">
+          <div class="description">
+            <h3>Description :</h3>
+            {{ hunt.description }}
+          </div>
+          <button (click)="play(i)">
+            <i class="fas fa-play"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+  <div
+    *ngIf="!loading && participatingHunts?.content?.length === 0"
+    class="card-container"
+  >
+    <p>You are not participating to any hunt right now.</p>
+  </div>
+</div>

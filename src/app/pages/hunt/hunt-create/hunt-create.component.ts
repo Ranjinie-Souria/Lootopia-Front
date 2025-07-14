@@ -124,6 +124,10 @@ export class HuntCreateComponent {
       latitude: treasureValue.latitude ?? 0,
     };
 
+    const array: string[] = this.invitedPlayersArray.value ?? [];
+
+    console.debug(array);
+
     const payload: HuntDto = {
       creatorId: localStorage.getItem('userId') ?? '',
       title: this.form.get('title')?.value ?? '',
@@ -138,7 +142,7 @@ export class HuntCreateComponent {
       startDate: this.form.get('startDate')?.value ?? '',
       endDate: this.form.get('endDate')?.value ?? '',
       creationDate: new Date().toISOString(),
-      invitedPlayers: this.invitedPlayersArray.value,
+      invitedPlayers: array,
       treasure: treasure,
     };
 

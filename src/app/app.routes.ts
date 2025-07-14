@@ -71,6 +71,11 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
+    path: RoutePaths.HUNT + '/:id' + '/invite',
+    component: HuntInvitesComponent,
+    canActivate: [authGuard],
+  },
+  {
     path: RoutePaths.HUNT_PARTICIPATING,
     component: HuntParticipatingComponent,
     canActivate: [authGuard],

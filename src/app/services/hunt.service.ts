@@ -7,8 +7,8 @@ import { HuntInformationViewDTO } from '../model/hunt-information-view.dto';
 import { HuntUpdateDTO } from '../model/hunt-update.dto';
 import { PageDTO } from '../model/page.dto';
 import { HuntDto } from '../model/hunt.dto';
-import { MapUpdateDTO } from '../model/map-update.dto';
 import { TreasureDTO } from '../model/treasure.dto';
+import { HuntWhitelistDto } from '../model/hunt-whitelist.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -82,6 +82,28 @@ export class HuntsService {
     return this.http.post<void>(
       `${this.baseUrl}/${huntId}/participant/participate`,
       null,
+    );
+  }
+
+  getMyParticipatingHunts() {
+    return this.http.get<PageDTO<HuntDto>>(`${this.baseUrl}/participant`);
+  }
+
+  getMyInvites() {
+    return this.http.get<PageDTO<HuntWhitelistDto>>(
+      `${environment.apiUrl}/whitelist`,
+    );
+  }
+
+  answerInvite(huntId: string, isAccepted: boolean) {
+    const response = isAccepted ? 'ACCEPT' : 'REFUSE';
+
+    return this.http.put<void>(
+      `${this.baseUrl}/${huntId}/participant`,
+      null, // aucun body
+      {
+        params: { response },
+      },
     );
   }
 }

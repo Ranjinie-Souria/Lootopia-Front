@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { RoutePaths } from '../../config/route-paths';
 import { HuntInformationViewDTO } from '../../model/hunt-information-view.dto';
@@ -20,11 +20,9 @@ export class HuntsViewComponent implements OnInit {
   loading = true;
   error = '';
   showDetail: boolean[] = [];
+  private huntsService = inject(HuntsService);
 
-  constructor(
-    private readonly huntsService: HuntsService,
-    private readonly router: Router,
-  ) {}
+  constructor(private readonly router: Router) {}
 
   ngOnInit(): void {
     this.huntsService.getMyHunts().subscribe({
