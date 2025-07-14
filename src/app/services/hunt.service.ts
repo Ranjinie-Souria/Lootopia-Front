@@ -73,4 +73,15 @@ export class HuntsService {
   updateHuntTreasure(huntId: string, payload: TreasureDTO): Observable<void> {
     return this.http.patch<void>(`${this.baseUrl}/${huntId}/treasure`, payload);
   }
+
+  stopHunt(huntId: string): Observable<void> {
+    return this.http.patch<void>(`${this.baseUrl}/${huntId}/stop`, null);
+  }
+
+  participate(huntId: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.baseUrl}/${huntId}/participant/participate`,
+      null,
+    );
+  }
 }

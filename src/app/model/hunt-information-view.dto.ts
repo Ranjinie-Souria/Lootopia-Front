@@ -4,7 +4,7 @@ import { TreasureDTO } from './treasure.dto';
 export interface HuntInformationViewDTO {
   id: string;
   creatorId: string;
-  creatorLogin: string;
+  creatorUsername: string;
   creatorEmail: string;
   authorizedUsers: string[];
   title: string;
@@ -21,5 +21,8 @@ export interface HuntInformationViewDTO {
   creationDate: string;
   isPrivate: boolean;
   maps: MapDTO[];
-  treasure: TreasureDTO;
+  treasureQuantity: number;
+  treasureLatitude: number;
+  treasureLongitude: number;
+  type: string;
 }

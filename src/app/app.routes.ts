@@ -18,6 +18,7 @@ import { HuntSuccessComponent } from './pages/hunt/hunt-success/hunt-success.com
 import { SearchComponent } from './pages/search/search.component';
 import { HuntInvitesComponent } from './pages/hunt/hunt-invites/hunt-invites.component';
 import { HuntParticipatingComponent } from './pages/hunt/hunt-participating/hunt-participating.component';
+import { HuntDetailsComponent } from './pages/hunt/detail/detail.component';
 
 export const routes: Routes = [
   { path: RoutePaths.DEFAULT, component: HomeComponent },
@@ -72,6 +73,11 @@ export const routes: Routes = [
   {
     path: RoutePaths.HUNT_PARTICIPATING,
     component: HuntParticipatingComponent,
+    canActivate: [authGuard],
+  },
+  {
+    path: RoutePaths.HUNT_DETAILS + '/:id',
+    component: HuntDetailsComponent,
     canActivate: [authGuard],
   },
 ];

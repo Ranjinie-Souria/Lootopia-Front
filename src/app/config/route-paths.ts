@@ -13,6 +13,7 @@ export const RoutePaths = {
   ABOUT: 'about',
   CONTACT: 'contact',
   HUNT: 'hunt',
+  HUNT_DETAILS: 'hunt/details',
   HUNT_CREATE: 'hunt/create',
   HUNT_UPDATE: 'hunt/update',
   LINK_MAP: 'hunt/create/add-map',

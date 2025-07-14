@@ -6,6 +6,7 @@ import { HuntsService } from '../../services/hunt.service';
 import { HuntInformationViewDTO } from '../../model/hunt-information-view.dto';
 import { PageDTO } from '../../model/page.dto';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
+import { RoutePaths } from '../../config/route-paths';
 
 @Component({
   selector: 'app-search',
@@ -62,8 +63,7 @@ export class SearchComponent implements OnInit {
   }
 
   goToHunt(huntId: string) {
-    console.log('Navigating to hunt details for ID:', huntId);
-    // this.router.navigate(['/hunt/view/', huntId]);
+    this.router.navigate(['/' + RoutePaths.HUNT_DETAILS, huntId]);
   }
 
   goToPage(page: number) {

@@ -81,12 +81,12 @@ export class HuntEditComponent implements OnInit {
         invitedPlayers: this.fb.array([]),
         treasure: this.fb.group({
           quantity: [
-            hunt.treasure?.quantity ?? 1,
+            hunt.treasureQuantity ?? 1,
             [Validators.required, Validators.min(1)],
           ],
-          type: [hunt.treasure?.type ?? 'CROWN', Validators.required],
-          longitude: [hunt.treasure?.longitude ?? 0],
-          latitude: [hunt.treasure?.latitude ?? 0],
+          type: [hunt.type ?? 'CROWN', Validators.required],
+          longitude: [hunt.treasureLongitude ?? 0],
+          latitude: [hunt.treasureLatitude ?? 0],
         }),
       },
       {

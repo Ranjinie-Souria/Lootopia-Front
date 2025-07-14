@@ -6,7 +6,7 @@ import { HuntsService } from '../../services/hunt.service';
 import { CommonModule } from '@angular/common';
 import { PageDTO } from '../../model/page.dto';
 import { LoaderComponent } from '../../shared/components/loader/loader.component';
-import { HuntMenuComponent } from "./hunt-menu/hunt-menu.component";
+import { HuntMenuComponent } from './hunt-menu/hunt-menu.component';
 
 @Component({
   selector: 'app-hunts-view',
@@ -50,5 +50,9 @@ export class HuntsViewComponent implements OnInit {
 
   toggleDetail(index: number) {
     this.showDetail[index] = !this.showDetail[index];
+  }
+
+  goToDetail(huntId: string) {
+    this.router.navigate(['/' + RoutePaths.HUNT_DETAILS, huntId]);
   }
 }
