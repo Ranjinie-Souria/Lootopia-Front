@@ -9,6 +9,7 @@ import { PageDTO } from '../model/page.dto';
 import { HuntDto } from '../model/hunt.dto';
 import { MapUpdateDTO } from '../model/map-update.dto';
 import { TreasureDTO } from '../model/treasure.dto';
+import { HuntWhitelistDto } from '../model/hunt-whitelist.dto';
 
 @Injectable({
   providedIn: 'root',
@@ -72,5 +73,27 @@ export class HuntsService {
 
   updateHuntTreasure(huntId: string, payload: TreasureDTO): Observable<void> {
     return this.http.patch<void>(`${this.baseUrl}/${huntId}/treasure`, payload);
+  }
+
+  getMyParticipatingHunts() {
+    return this.http.get<PageDTO<HuntDto>>(`${this.baseUrl}/participant`);
+  }
+
+  getMyInvites() {
+    return this.http.get<PageDTO<HuntWhitelistDto>>(
+      `${environment.apiUrl}/whitelist`,
+    );
+  }
+
+  answerInvite(huntId: string, isAccepted: boolean) {
+    const response = isAccepted ? 'ACCEPT' : 'REFUSE';
+
+    return this.http.put<void>(
+      `${this.baseUrl}/${huntId}/participant`,
+      null, // aucun body
+      {
+        params: { response },
+      },
+    );
   }
 }
