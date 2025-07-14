@@ -88,12 +88,12 @@ export class HuntsService {
   answerInvite(huntId: string, isAccepted: boolean) {
     const response = isAccepted ? 'ACCEPT' : 'REFUSE';
 
-    return this.http.put<void>(
-      `${this.baseUrl}/${huntId}/participant`,
-      null, // aucun body
-      {
-        params: { response },
-      },
-    );
+    return this.http.put<void>(`${this.baseUrl}/${huntId}/participant`, null, {
+      params: { response },
+    });
+  }
+
+  getTreasureByHuntId(huntId: string): Observable<TreasureDTO> {
+    return this.http.get<TreasureDTO>(`${this.baseUrl}/${huntId}/treasure`);
   }
 }

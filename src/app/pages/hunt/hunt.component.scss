@@ -1,6 +1,14 @@
   app-hunt-menu {
     width: 100%;
   }
+.lootie {
+  width: 10%;
+  position: relative;
+  rotate: 10deg;
+  z-index: 1;
+  animation: float 3s ease-in-out infinite;
+}
+
 
   .highlighted-hunt {
     margin: 10px;
