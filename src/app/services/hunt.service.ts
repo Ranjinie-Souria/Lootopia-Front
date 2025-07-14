@@ -7,7 +7,6 @@ import { HuntInformationViewDTO } from '../model/hunt-information-view.dto';
 import { HuntUpdateDTO } from '../model/hunt-update.dto';
 import { PageDTO } from '../model/page.dto';
 import { HuntDto } from '../model/hunt.dto';
-import { MapUpdateDTO } from '../model/map-update.dto';
 import { TreasureDTO } from '../model/treasure.dto';
 import { HuntWhitelistDto } from '../model/hunt-whitelist.dto';
 
@@ -73,6 +72,17 @@ export class HuntsService {
 
   updateHuntTreasure(huntId: string, payload: TreasureDTO): Observable<void> {
     return this.http.patch<void>(`${this.baseUrl}/${huntId}/treasure`, payload);
+  }
+
+  stopHunt(huntId: string): Observable<void> {
+    return this.http.patch<void>(`${this.baseUrl}/${huntId}/stop`, null);
+  }
+
+  participate(huntId: string): Observable<void> {
+    return this.http.post<void>(
+      `${this.baseUrl}/${huntId}/participant/participate`,
+      null,
+    );
   }
 
   getMyParticipatingHunts() {

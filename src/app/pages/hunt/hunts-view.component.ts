@@ -49,4 +49,8 @@ export class HuntsViewComponent implements OnInit {
   toggleDetail(index: number) {
     this.showDetail[index] = !this.showDetail[index];
   }
+
+  goToDetail(huntId: string) {
+    this.router.navigate(['/' + RoutePaths.HUNT_DETAILS, huntId]);
+  }
 }
